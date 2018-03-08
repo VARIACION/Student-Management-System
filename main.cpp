@@ -1,9 +1,10 @@
-#include "Screen.h"
+#include "LoginScreen.h"
 
 int main()
 {
-    setFullScreen();
-    setScreen();
-    cout << "FULL SCREEN";
+	setFullScreen();
+	setScreenAttribute();
+	drawLoginMenu();
+	system("pause");
     return EXIT_SUCCESS;
 }
