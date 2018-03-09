@@ -60,8 +60,37 @@ void drawLabel(const int & x, const int & y, const int &height, const int &width
 	}
 
 	int alignTextToCenter = (width - textInButton.length()) / 2;
-    gotoXY(x - 2 + alignTextToCenter, y);
+    gotoXY(x + alignTextToCenter, y);
 	cout << textInButton;
+}
+
+void eraseLabel(const int & x, const int & y, const int & height, const int & width)
+{
+	gotoXY(x - height, y - height);
+	cout << " ";
+
+	for (int i = 0; i < width; ++i)
+		cout << " ";
+	cout << " ";
+
+	for (int i = -height + 1; i <= height - 1; ++i)
+	{
+		gotoXY(x - height, y + i);
+		cout << " ";
+	}
+
+	gotoXY(x - height, y + height);
+	cout << " ";
+
+	for (int i = 0; i < width; ++i)
+		cout << " ";
+	cout << " ";
+
+	for (int i = -height + 1; i <= height - 1; ++i)
+	{
+		gotoXY(x + width + 1 - height, y + i);
+		cout << " ";
+	}
 }
 
 void changeFontSize(const int & fontSize)
