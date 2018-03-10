@@ -19,5 +19,6 @@ void getCursorPosition(int &x, int &y);
 void drawLabel(const int &x, const int &y, const int &height, const int &width, const string &textInButton);
 void eraseLabel(const int &x, const int &y, const int &height, const int &width);
 void changeFontSize(const int &fontSize);
+void ShowConsoleCursor(const bool &showFlag);
 
 #endif //STUDENT_MANAGEMENT_SYSTEM_SCREEN_H

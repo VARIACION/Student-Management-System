@@ -1,12 +1,12 @@
 #include "LoginScreen.h"
+#include "AcademicStaff.h"
 
 int main()
 {
 	setFullScreen();
 	setScreenAttribute();
-	gotoXY(65, 35);
-	cout << "Pre-released Alpha version 1.0";
 	loginMenu();
+	//academicStaffMenu();
 	gotoXY(0, 0);
 	system("pause");
     return EXIT_SUCCESS;
