@@ -2,7 +2,8 @@
 
 ## About project
 * This is our final project for course Programming Techniques at University.
-* Version: pre-released alpha 1.1
+* Version: pre-released alpha 1.2.
+* Some features in this version may not work correctly.
 * Evey information about bugs please contact me at huaanhminh0412@gmail.com
 
 ## About my team
