@@ -7,16 +7,20 @@
 #include "Screen.h"
 #include "MD5Generate.h"
 #include <fstream>
+#include "User.h"
+#include "AcademicStaff.h"
 using namespace std;
 
 void drawFrameInput();
 void drawLoginMenu();
 int controlLoginMenu();
-void checkPasswordInput(string &password);
+void checkPasswordInput(const int &x, const int &y, string &password);
 void checkUsernameInput(string &username);
-void loginMenu();
+User loginMenu();
 void encryptDataInput(const string &username, const string &password, string & usernameToMD5, string & passwordToMD5);
-int checkRoleLogin(const string &username, const string & password);
+char * reformatInputData(string &dataInput);
+User checkLogin(const string &username, const string & password, bool &checkValidLogin);
 void prompExit();
+void aboutProject();
 
 #endif // !STUDENT_MANAGEMENT_SYSTEM_LOGIN_SCREEN_H

@@ -20,6 +20,7 @@ void setScreenAttribute()
 	/* Change background and foreground color */
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0 | BACKGROUND_BLUE |
 		BACKGROUND_GREEN | BACKGROUND_RED);
+	changeFontSize(20);
 }
 
 void getCursorPosition(int &x, int &y)
