@@ -28,7 +28,7 @@ int controlAcademicStaffMenu()
 		{"                 Attendance lists."},
 		{"                 Scoreboard lists."},
 		{"                       Quit."},
-		{"             Log out to log in screen."},
+		{"             Log out to log in screen."}
 	};
 	Point academicStaffMenuPoint[8] = { {25, 16}, {65, 16}, {105, 16}, {25, 24}, {65, 24}, {105, 24}, { 65, 32 }, {105, 32} };
 	int chooseControlAcademicStaffMenu = 0;
@@ -47,7 +47,7 @@ int controlAcademicStaffMenu()
 			{
 			case 13:
 				return chooseControlAcademicStaffMenu;
-			case 77: //->
+			case 77: case 9: //->
 				if (chooseControlAcademicStaffMenu < 7) ++chooseControlAcademicStaffMenu;
 				else chooseControlAcademicStaffMenu = 0;
 				break;
@@ -81,42 +81,10 @@ int controlAcademicStaffMenu()
 	}
 }
 
-void accessInfo(User & staff)
-{
-	system("cls");
-	gotoXY(67, 6);
-	cout << "PROFILE";
-	gotoXY(40, 10);		cout << "Username ";
-	drawLabel(55, 10, 1, 40, staff.getUsername());
-	gotoXY(40, 13);		cout << "Fullname";
-	drawLabel(55, 13, 1, 40, staff.getFullname());
-	gotoXY(40, 16);		cout << "Email";
-	drawLabel(55, 16, 1, 40, staff.getEmail());
-	gotoXY(40, 19);		cout << "Mobile Phone";
-	drawLabel(55, 19, 1, 40, staff.getMobilePhone());
-	gotoXY(40, 22);		cout << "Role";
-	string role;
-	if (staff.getType() == 0)
-		role = "Student";
-	else if (staff.getType() == 1)
-		role = "Academic Staff";
-	else
-		role = "Lecturer";
-	drawLabel(55, 22, 1, 40, role);
-	gotoXY(40, 25);		cout << "Class";
-	drawLabel(55, 25, 1, 40, "Not available for this role");
-	drawLabel(50, 30, 1, 20, "Change password");
-	drawLabel(80, 30, 1, 20, "Go back");
-	int choose = chooseMenuInInfoMenu();
-	if (choose == 1)
-		return;
-	else
-		changePassword(staff);
-}
-
 void academicStaffMenu(User &staff)
 {
 	int chooseFeature = -1;
+	Faculty faculty;
 	while (true)
 	{
 		ShowConsoleCursor(false);
@@ -128,113 +96,7 @@ void academicStaffMenu(User &staff)
 			prompExit();
 		else if (chooseFeature == 0)
 			accessInfo(staff);
-	}
-}
-
-int chooseMenuInInfoMenu()
-{
-	ShowConsoleCursor(false);
-	drawLabel(50, 30, 2, 22, "");
-	int getButton = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
-			char getSwitchKey = _getch();
-			switch (getSwitchKey)
-			{
-			case 13:
-				return getButton;
-			case 75: case 77:
-				if (getButton == 0)
-				{
-					getButton = 1;
-					eraseLabel(50, 30, 2, 22);
-					drawLabel(80, 30, 2, 22, "");
-				}
-				else
-				{
-					getButton = 0;
-					eraseLabel(80, 30, 2, 22);
-					drawLabel(50, 30, 2, 22, "");
-				}
-				break;
-			}
-		}
-	}
-}
-
-void changePassword(User & staff)
-{
-	while (true)
-	{
-		system("cls");
-		ShowConsoleCursor(true);
-		gotoXY(67, 8);
-		cout << "CHANGE PASSWORD";
-		drawLabel(30, 20, 6, 100, "");
-		gotoXY(45, 16);
-		cout << "Old password";				drawLabel(65, 16, 1, 45, "");
-		gotoXY(45, 20);
-		cout << "New password";				drawLabel(65, 20, 1, 45, "");
-		gotoXY(36, 24);
-		cout << "Re-enter new password";	drawLabel(65, 24, 1, 45, "");
-		drawLabel(50, 30, 1, 20, "Change password");
-		drawLabel(80, 30, 1, 20, "Cancel");
-		string oldPassword = "", newPassword = "", renewPassword = "";
-		checkPasswordInput(65, 16, oldPassword);
-		checkPasswordInput(65, 20, newPassword);
-		checkPasswordInput(65, 24, renewPassword);
-
-		drawLabel(50, 30, 2, 22, "");
-		int getButton = chooseMenuInInfoMenu();
-		if (getButton == 1) return;
-		else saveNewPassword(staff, oldPassword, newPassword, renewPassword);
-	}
-}
-
-char * fromStrCppToStrC(const string & stringCpp)
-{
-	char *stringC = new (nothrow) char[stringCpp.length() + 1];
-	if (!stringC)
-	{
-		gotoXY(45, 14);
-		cout << "Failed. Make sure you have enough memory in RAM.";
-		exit(EXIT_FAILURE);
-	}
-	for (size_t i = 0; i < stringCpp.length(); ++i)
-		stringC[i] = stringCpp[i];
-	stringC[stringCpp.length()] = '\0';
-	return stringC;
-}
-
-void saveNewPassword(User & staff, string & oldPassword, string & newPassword, string & renewPassword)
-{
-	MD5 md5Generate;
-	char *oldPasswordC = fromStrCppToStrC(oldPassword);
-	char *newPasswordC = fromStrCppToStrC(newPassword);
-	char *renewPasswordC = fromStrCppToStrC(renewPassword);
-
-	oldPassword = md5Generate.digestString(oldPasswordC);
-	newPassword = md5Generate.digestString(newPasswordC);
-	renewPassword = md5Generate.digestString(renewPasswordC);
-
-	delete[] oldPasswordC;
-	delete[] newPasswordC;
-	delete[] renewPasswordC;
-
-	if (oldPassword != staff.getPassword())
-	{
-		gotoXY(20, 12);
-		cout << "Your old password that you have typed does not match with your current password. Please try again in 5 seconds.";
-		Sleep(5000);
-		return;
-	}
-	else if (newPassword != renewPassword)
-	{
-		gotoXY(25, 12);
-		cout << "Your new password and the re-enter new password must be the same. Please try again in 5 seconds.";
-		Sleep(5000);
-		return;
+		else if (chooseFeature == 1)
+			studentMenu(faculty);
 	}
 }

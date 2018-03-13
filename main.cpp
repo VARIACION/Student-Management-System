@@ -1,5 +1,6 @@
 #include "LoginScreen.h"
 #include "AcademicStaff.h"
+#include "StudentMenu.h"
 
 int main()
 {

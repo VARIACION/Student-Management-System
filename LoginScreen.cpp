@@ -7,6 +7,13 @@ void drawFrameInput()
 
 void drawLoginMenu()
 {
+	if (!checkInputDatabase())
+	{
+		gotoXY(30, 12);
+		cout << "Failed to start program. Error: format of database is invalid. Press any key to close.";
+		_getch();
+		exit(EXIT_FAILURE);
+	}
 	system("cls");
 	gotoXY(67, 12);
 	cout << "STUDENT MANAGEMENT SYSTEM";
@@ -38,7 +45,7 @@ int controlLoginMenu()
 			{
 			case 13:
 				return chooseButtonLoginMenu;
-			case 77:
+			case 77: case 9:
 				if (chooseButtonLoginMenu < 2) ++chooseButtonLoginMenu;
 				else chooseButtonLoginMenu = 0;
 				break;
@@ -63,7 +70,7 @@ void checkPasswordInput(const int &x, const int &y, string & password)
 	while (!_kbhit())
 	{
 		char getPassword = _getch();
-		if (getPassword == 13)
+		if (getPassword == 13 || getPassword == 9)
 			return;
 		else if (getPassword > 32 && getPassword < 127)
 		{
@@ -98,13 +105,12 @@ void checkUsernameInput(string &username)
 {
 	username = "";
 	while (_kbhit()) _getch();
-	ShowCursor(true);
 	bool checkValidCharacters = true;
 		gotoXY(65, 18);
-	while (!kbhit())
+	while (!_kbhit())
 	{
 		char getUsername = _getch();
-		if (getUsername == 13)
+		if (getUsername == 13 || getUsername == 9)
 			return;
 		else if ((getUsername >= '0' && getUsername <= '9') || (getUsername >= 'A' && getUsername <= 'Z')
 			|| (getUsername >= 'a' && getUsername <= 'z'))
@@ -224,6 +230,7 @@ User checkLogin(const string &username, const string & password, bool &checkVali
 	while (!fileInput.eof())
 	{
 		getline(fileInput, getEachRow);
+		if (getEachRow == "") continue;
 		char *splitColumnInRow = reformatInputData(getEachRow);
 		char *token = strtok(splitColumnInRow, ",");
 		usernameFromFile = token;
@@ -243,8 +250,27 @@ User checkLogin(const string &username, const string & password, bool &checkVali
 		{
 			delete[] splitColumnInRow;
 			checkValidLogin = true;
-			userLogin.setPassword(passwordToMD5);
-			return userLogin;
+			if (userLogin.checkInputPassword(password))
+			{
+				userLogin.setPassword(passwordToMD5);
+				fileInput.close();
+				return userLogin;
+			}
+			else
+			{
+				fileInput.close();
+				userLogin.setPassword(passwordToMD5);
+				gotoXY(40, 14);
+				cout << "You will be switch to CHANGE PASSWORD menu in 3 seconds due to security reason.";
+				Sleep(3000);
+				while (!changePassword(userLogin))
+				{
+					gotoXY(50, 12);
+					cout << "You must change your password due to security reason.";
+					Sleep(3000);
+				}
+				return userLogin;
+			}
 		}
 	}
 	fileInput.close();
@@ -308,4 +334,21 @@ void aboutProject()
 	gotoXY(20, 25);	cout << "RAM: at least 20MB free of RAM.";
 	gotoXY(20, 26);	cout << "Package: Microsoft Visual C++ 2015 or higher.";
 	_getch();
+}
+
+bool checkInputDatabase()
+{
+	ifstream fileInput("Resources/UsersMD5.csv");
+	if (fileInput.fail())
+		return false;
+
+	int countComma = 0;
+	string buffer((istreambuf_iterator<char>(fileInput)), (istreambuf_iterator<char>()));
+	for (auto i : buffer)
+		if (i == ',')
+			++countComma;
+	fileInput.close();
+	if (countComma % 6 == 0)
+		return true;
+	return false;
 }

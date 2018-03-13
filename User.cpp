@@ -48,10 +48,10 @@ void User::setMobilePhone(const string & mobilePhone)
 
 string User::getPassword() { return this->password; }
 
-bool User::setPassword(const string & passwordInput)
+bool User::checkInputPassword(const string & passwordInput)
 {
-	//check if the password is strong enough to make change
-	/*bool hasLowCase = false;
+	// check if the password is strong enough to make change
+	bool hasLowCase = false;
 	bool hasUpCase = false;
 	bool hasNumber = false;
 	bool hasSpecicalCharacter = false;
@@ -65,12 +65,14 @@ bool User::setPassword(const string & passwordInput)
 			hasNumber = true;
 		else if (((i > 32 && i < 48) || (i > 57 && i < 65) || (i > 90 && i < 97) || (i > 122 && i < 127)) && !hasSpecicalCharacter)
 			hasSpecicalCharacter = true;
-
 	if (!hasLowCase || !hasUpCase || !hasNumber || !hasSpecicalCharacter)
-		return false;*/
-
-	this->password = passwordInput;
+		return false;
 	return true;
+}
+
+void User::setPassword(const string & passwordInput)
+{
+	this->password = passwordInput;
 }
 
 string User::getClass() { return this->className; }

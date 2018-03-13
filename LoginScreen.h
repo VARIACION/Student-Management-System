@@ -9,6 +9,8 @@
 #include <fstream>
 #include "User.h"
 #include "AcademicStaff.h"
+#include "UserInformation.h"
+#include <iterator>
 using namespace std;
 
 void drawFrameInput();
@@ -22,5 +24,6 @@ char * reformatInputData(string &dataInput);
 User checkLogin(const string &username, const string & password, bool &checkValidLogin);
 void prompExit();
 void aboutProject();
+bool checkInputDatabase();
 
 #endif // !STUDENT_MANAGEMENT_SYSTEM_LOGIN_SCREEN_H

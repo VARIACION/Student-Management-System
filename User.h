@@ -25,7 +25,8 @@ public:
 	string getMobilePhone();
 	void setMobilePhone(const string &mobilePhone);
 	string getPassword();
-	bool setPassword(const string &passwordInput);
+	bool checkInputPassword(const string &passwordInput);
+	void setPassword(const string &passwordInput);
 	string getClass();
 	void setClass(const string &classInput);
 	uint32_t getType();

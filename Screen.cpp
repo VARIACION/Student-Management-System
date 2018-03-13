@@ -117,3 +117,18 @@ void ShowConsoleCursor(const bool &showFlag)
 	cursorInfo.bVisible = showFlag; // set the cursor visibility
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
+
+char * fromStrCppToStrC(const string & stringCpp)
+{
+	char *stringC = new (nothrow) char[stringCpp.length() + 1];
+	if (!stringC)
+	{
+		gotoXY(45, 14);
+		cout << "Failed. Make sure you have enough memory in RAM.";
+		exit(EXIT_FAILURE);
+	}
+	for (size_t i = 0; i < stringCpp.length(); ++i)
+		stringC[i] = stringCpp[i];
+	stringC[stringCpp.length()] = '\0';
+	return stringC;
+}

@@ -20,5 +20,6 @@ void drawLabel(const int &x, const int &y, const int &height, const int &width, 
 void eraseLabel(const int &x, const int &y, const int &height, const int &width);
 void changeFontSize(const int &fontSize);
 void ShowConsoleCursor(const bool &showFlag);
+char * fromStrCppToStrC(const string &stringCpp);
 
 #endif //STUDENT_MANAGEMENT_SYSTEM_SCREEN_H
