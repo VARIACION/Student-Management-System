@@ -3,7 +3,7 @@
 ## About project
 * This is our final project for course Programming Techniques at University.
 * Version: pre-released alpha 1.5.
-* Some features in this version may not work correctly. I won't advise running this program until the beta version.
+* Some features in this version may not work correctly. I won't advise running this program until the beta version is released.
 * Every information about bugs please contact me at huaanhminh0412@gmail.com
 
 ## About my team
