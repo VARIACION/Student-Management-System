@@ -18,7 +18,7 @@ string getFileName(const int &x, const int &y);
 Student *allocateNewStudent(string &input);
 
 void importExportStudentFromFile(Faculty &faculty);
-void importStudentFromFile(Faculty &faculty, string &path);
-void exportStudentToFile(Faculty &faculty, string &path);
+void importStudentFromFile(Faculty &faculty, const string &path);
+void exportStudentToFile(Faculty &faculty, const string &path, const string &mode);
 
 #endif // !IMPORT_EXPORT_CLASS_H

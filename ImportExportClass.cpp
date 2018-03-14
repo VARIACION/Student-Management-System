@@ -3,13 +3,16 @@
 void drawFieldInputFileName()
 {
 	system("cls");
-	gotoXY(60, 10);
+	gotoXY(60, 6);
 	cout << "IMPORT / EXPORT LIST STUDENTS FROM CLASS";
-	drawLabel(50, 20, 5, 70, "");
+	drawLabel(50, 18, 6, 70, "");
 	gotoXY(47, 18);
-	cout << "File to import";
-	gotoXY(47, 22);
 	cout << "File to export";
+	gotoXY(47, 22);
+	cout << "Class to export";
+	gotoXY(47, 14);
+	cout << "File to import";
+	drawLabel(65, 14, 1, 45, "");
 	drawLabel(65, 18, 1, 45, "");
 	drawLabel(65, 22, 1, 45, "");
 	drawLabel(53, 28, 1, 15, "Import");
@@ -65,7 +68,7 @@ string getFileName(const int &x, const int &y)
 		{
 			if (importFile.length() < 45)
 			{
-				gotoXY(x + importFile.length(), 18);
+				gotoXY(x + importFile.length(), y);
 				importFile.push_back(getimportFile);
 				cout << getimportFile;
 			}
@@ -83,9 +86,9 @@ string getFileName(const int &x, const int &y)
 				cout << "                                                                              ";
 			}
 			importFile.pop_back();
-			gotoXY(x + importFile.length(), 18);
+			gotoXY(x + importFile.length(), y);
 			cout << " ";
-			gotoXY(x + importFile.length(), 18);
+			gotoXY(x + importFile.length(), y);
 		}
 		while (_kbhit()) _getch();
 	}
@@ -118,24 +121,40 @@ void importExportStudentFromFile(Faculty &faculty)
 	while (true)
 	{
 		drawFieldInputFileName();
-		string fileImport = getFileName(65, 18);
-		string fileExport = getFileName(65, 22);
+		gotoXY(40, 10);	cout << "                                                                         ";
+		gotoXY(57, 10);	cout << "Enter the path to the file you want to import data";
+		string fileImport = getFileName(65, 14);
+		gotoXY(40, 10);	cout << "                                                                         ";
+		gotoXY(57, 10);	cout << "Enter the path to the file you want to export data";
+		string fileExport = getFileName(65, 18);
+		gotoXY(45, 10);	cout << "                                                                         ";
+		gotoXY(45, 10);	cout << "Enter the name of the class you want to export or type all to export all";
+		string classExport = getFileName(65, 22);
 		int getChoose = controlFileImportExport();
 		if (getChoose == 0)
 			importStudentFromFile(faculty, fileImport);
+		else if (getChoose == 1)
+			exportStudentToFile(faculty, fileExport, classExport);
 		else if (getChoose == 2)
 			return;
 	}
 }
 
-void importStudentFromFile(Faculty & faculty, string & path)
+void importStudentFromFile(Faculty & faculty, const string & path)
 {
 	string getLine;
 	ifstream fileInput(path);
-	if (fileInput.fail()) return;
+	if (fileInput.fail())
+	{
+		gotoXY(30, 10);
+		cout << "Failed to open database file. Please check your file's name and path to file and try again in 3 seconds.";
+		Sleep(3000);
+		return;
+	}
 	getline(fileInput, getLine);
 	Class newClass;
 	Student *currentStudent = nullptr;
+	getLine.pop_back();
 	newClass.name = getLine.substr(6, getLine.length() - 6);
 	getline(fileInput, getLine);
 	while (!fileInput.eof())
@@ -155,7 +174,47 @@ void importStudentFromFile(Faculty & faculty, string & path)
 	faculty.classMember.push_back(newClass);
 }
 
-void exportStudentToFile(Faculty & faculty, string & path)
+void exportStudentToFile(Faculty & faculty, const string & path, const string &mode)
 {
-
+	ofstream fileOutput(path);
+	if (fileOutput.fail())
+	{
+		gotoXY(33, 10);
+		cout << "Failed to save data to file. Please check again if you have permission or broken hard drive";
+		Sleep(3000);
+	}
+	if (mode == "all")
+	{
+		if (faculty.classMember.size() == 0)
+		{
+			gotoXY(40, 10);
+			cout << "          Failed to save data to file. There is no exist data to save.          ";
+			Sleep(3000);
+			return;
+		}
+		for (auto i : faculty.classMember)
+		{
+			fileOutput << "Class," << i.name << "," << endl;
+			fileOutput << "No,Student ID,Student name" << endl;
+			for (Student *j = i.student; j; j = j->nextStudent)
+				fileOutput << j->getNo() << "," << j->getId() << "," << j->getName() << endl;
+		}
+	}
+	else
+	{
+		for (auto i : faculty.classMember)
+			if (i.name == mode)
+			{
+				fileOutput << "Class," << i.name << "," << endl;
+				fileOutput << "No,Student ID,Student name" << endl;
+				for (Student *j = i.student; j; j = j->nextStudent)
+					fileOutput << j->getNo() << "," << j->getId() << "," << j->getName() << endl;
+				fileOutput.close();
+				return;
+			}
+		gotoXY(40, 10);
+		cout << "          Failed to save data to file. Found no class has name: " << mode << "         ";
+		Sleep(3000);
+	}
+	fileOutput.close();
 }
