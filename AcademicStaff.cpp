@@ -21,14 +21,14 @@ int controlAcademicStaffMenu()
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[8] =
 	{
-		{"View/Change your information like password, email, etc."},
-		{"   Classes's informtion and students's information."},
-		{"                Courses's information."},
-		{"          Courses's schedules's information."},
-		{"                 Attendance lists."},
-		{"                 Scoreboard lists."},
-		{"                       Quit."},
-		{"             Log out to log in screen."}
+		{"View/Change your information like password, email, etc"},
+		{"   Classes's informtion and students's information"},
+		{"                Courses's information"},
+		{"          Courses's schedules's information"},
+		{"                 Attendance lists"},
+		{"                 Scoreboard lists"},
+		{"                       Quit"},
+		{"             Log out to log in screen"}
 	};
 	Point academicStaffMenuPoint[8] = { {25, 16}, {65, 16}, {105, 16}, {25, 24}, {65, 24}, {105, 24}, { 65, 32 }, {105, 32} };
 	int chooseControlAcademicStaffMenu = 0;

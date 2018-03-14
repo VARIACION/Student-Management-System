@@ -12,6 +12,7 @@
 #include <vector>
 #include "Class.h"
 #include "ImportExportClass.h"
+#include "AddStudent.h"
 using namespace std;
 
 void drawStudentMenu();

@@ -74,7 +74,7 @@ string getFileName(const int &x, const int &y)
 			}
 			else //show warning about too long importFile
 			{
-				gotoXY(45, 14);
+				gotoXY(45, 10);
 				cout << "The number of characters in file's name must be shorter than 45 characters.";
 			}
 		}
@@ -82,7 +82,7 @@ string getFileName(const int &x, const int &y)
 		{
 			if (importFile.length() >= 45) //delete warning about too long importFile or invalid chracters in importFile
 			{
-				gotoXY(45, 14);
+				gotoXY(45, 10);
 				cout << "                                                                              ";
 			}
 			importFile.pop_back();
@@ -121,15 +121,16 @@ void importExportStudentFromFile(Faculty &faculty)
 	while (true)
 	{
 		drawFieldInputFileName();
-		gotoXY(40, 10);	cout << "                                                                         ";
+		gotoXY(40, 10);	cout << "                                                                           ";
 		gotoXY(57, 10);	cout << "Enter the path to the file you want to import data";
 		string fileImport = getFileName(65, 14);
-		gotoXY(40, 10);	cout << "                                                                         ";
+		gotoXY(40, 10);	cout << "                                                                           ";
 		gotoXY(57, 10);	cout << "Enter the path to the file you want to export data";
 		string fileExport = getFileName(65, 18);
-		gotoXY(45, 10);	cout << "                                                                         ";
+		gotoXY(45, 10);	cout << "                                                                           ";
 		gotoXY(45, 10);	cout << "Enter the name of the class you want to export or type all to export all";
 		string classExport = getFileName(65, 22);
+		gotoXY(45, 10);	cout << "                                                                           ";
 		int getChoose = controlFileImportExport();
 		if (getChoose == 0)
 			importStudentFromFile(faculty, fileImport);

@@ -22,15 +22,15 @@ int controlStudentMenu()
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[9] =
 	{
-		{ "      Import students of a class from a csv file." },
-		{ "             Add a new student to a class." },
-		{ "               Edit an existing student." },
-		{ "                   Remove a student." },
-		{ "        Change students from class A to class B." },
-		{ "                 Add a new empty class." },
-		{ "                  View list of classes." },
-		{ "           View list of students in a class." },
-		{ "               Back to ACADEMIC STAFF menu" }
+		{ "      Import students of a class from a csv file" },
+		{ "             Add a new student to a class" },
+		{ "               Edit an existing student" },
+		{ "                   Remove a student" },
+		{ "        Change students from class A to class B" },
+		{ "                 Add a new empty class" },
+		{ "              Back to ACADEMIC STAFF menu" },
+		{ "           View list of students in a class" },
+		{ "                 View list of classes" }
 	};
 	Point academicStaffMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 },{ 25, 24 },{ 65, 24 },{ 105, 24 }, { 25, 32 }, { 65, 32 }, { 105, 32 } };
 	int chooseControlStudentMenu = 0;
@@ -91,5 +91,7 @@ void studentMenu(Faculty &faculty)
 			return;
 		else if (getChoose == 0)
 			importExportStudentFromFile(faculty);
+		else if (getChoose == 1)
+			addStudentMenu(faculty);
 	}
 }
