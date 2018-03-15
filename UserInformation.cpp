@@ -23,9 +23,9 @@ void accessInfo(User & staff)
 		role = "Lecturer";
 	drawLabel(55, 22, 1, 40, role);
 	gotoXY(40, 25);		cout << "Class";
-	drawLabel(55, 25, 1, 40, "Not available for this role");
-	drawLabel(50, 30, 1, 20, "Change password");
-	drawLabel(80, 30, 1, 20, "Go back");
+	drawLabel(55, 25, 1, 40, staff.getClass());
+	drawLabel(50, 34, 1, 20, "Change password");
+	drawLabel(80, 34, 1, 20, "Go back");
 	int choose = chooseMenuInInfoMenu();
 	if (choose == 1)
 		return;
@@ -36,7 +36,7 @@ void accessInfo(User & staff)
 int chooseMenuInInfoMenu()
 {
 	ShowConsoleCursor(false);
-	drawLabel(50, 30, 2, 22, "");
+	drawLabel(50, 34, 2, 22, "");
 	int getButton = 0;
 	while (true)
 	{
@@ -51,14 +51,14 @@ int chooseMenuInInfoMenu()
 				if (getButton == 0)
 				{
 					getButton = 1;
-					eraseLabel(50, 30, 2, 22);
-					drawLabel(80, 30, 2, 22, "");
+					eraseLabel(50, 34, 2, 22);
+					drawLabel(80, 34, 2, 22, "");
 				}
 				else
 				{
 					getButton = 0;
-					eraseLabel(80, 30, 2, 22);
-					drawLabel(50, 30, 2, 22, "");
+					eraseLabel(80, 34, 2, 22);
+					drawLabel(50, 34, 2, 22, "");
 				}
 				break;
 			}
@@ -72,23 +72,23 @@ bool changePassword(User & staff)
 	{
 		system("cls");
 		ShowConsoleCursor(true);
-		gotoXY(67, 8);
+		gotoXY(67, 12);
 		cout << "CHANGE PASSWORD";
-		drawLabel(30, 20, 6, 100, "");
-		gotoXY(45, 16);
-		cout << "Old password";				drawLabel(65, 16, 1, 45, "");
+		drawLabel(40, 23, 8, 80, "");
 		gotoXY(45, 20);
-		cout << "New password";				drawLabel(65, 20, 1, 45, "");
-		gotoXY(36, 24);
-		cout << "Re-enter new password";	drawLabel(65, 24, 1, 45, "");
-		drawLabel(50, 30, 1, 20, "Change password");
-		drawLabel(80, 30, 1, 20, "Cancel");
+		cout << "Old password";				drawLabel(65, 20, 1, 45, "");
+		gotoXY(45, 24);
+		cout << "New password";				drawLabel(65, 24, 1, 45, "");
+		gotoXY(36, 28);
+		cout << "Re-enter new password";	drawLabel(65, 28, 1, 45, "");
+		drawLabel(50, 34, 1, 20, "Change password");
+		drawLabel(80, 34, 1, 20, "Cancel");
 		string oldPassword = "", newPassword = "", renewPassword = "";
-		checkPasswordInput(65, 16, oldPassword);
-		checkPasswordInput(65, 20, newPassword);
-		checkPasswordInput(65, 24, renewPassword);
+		checkPasswordInput(65, 20, oldPassword);
+		checkPasswordInput(65, 24, newPassword);
+		checkPasswordInput(65, 28, renewPassword);
 
-		drawLabel(50, 30, 2, 22, "");
+		drawLabel(50, 34, 2, 22, "");
 		int getButton = chooseMenuInInfoMenu();
 		if (getButton == 1) return false;
 		else if (checkNewPassword(staff, oldPassword, newPassword, renewPassword))

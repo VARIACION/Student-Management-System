@@ -20,8 +20,8 @@ public:
 	void setNo(const string &noInput);
 
 	uint32_t getId();
-	void setId(const uint32_t &idInput);
-	void setId(const string &idInput);
+	bool setId(const uint32_t &idInput);
+	bool setId(const string &idInput);
 
 	string getName();
 	void setName(const string &nameInput);

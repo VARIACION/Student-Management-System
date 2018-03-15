@@ -64,7 +64,7 @@ string getFileName(const int &x, const int &y)
 		char getimportFile = _getch();
 		if (getimportFile == 13 || getimportFile == 9)
 			return importFile;
-		else if (getimportFile > 32 && getimportFile < 127)
+		else if (getimportFile >= 32 && getimportFile < 127)
 		{
 			if (importFile.length() < 45)
 			{
@@ -133,25 +133,59 @@ void importExportStudentFromFile(Faculty &faculty)
 		gotoXY(45, 10);	cout << "                                                                           ";
 		int getChoose = controlFileImportExport();
 		if (getChoose == 0)
-			importStudentFromFile(faculty, fileImport);
+		{
+			if (!importStudentFromFile(faculty, fileImport))
+			{
+				gotoXY(30, 10);
+				cout << "Failed to open database file. Please check your file's name and path to file and try again in 3 seconds.";
+				Sleep(3000);
+			}
+			else
+			{
+				gotoXY(40, 10);
+				cout << "Succeed to import data from file. You will be back to STUDENT menu in 3 seconds.";
+				Sleep(3000);
+				return;
+			}
+		}
 		else if (getChoose == 1)
-			exportStudentToFile(faculty, fileExport, classExport);
+		{
+			int getResultAfterExport = exportStudentToFile(faculty, fileExport, classExport);
+			if (getResultAfterExport == 1)
+			{
+				gotoXY(33, 10);
+				cout << "Failed to save data to file. Please check again if you have permission or broken hard drive";
+			}
+			else if (getResultAfterExport == 2)
+			{
+				gotoXY(40, 10);
+				cout << "          Failed to save data to file. There is no exist data to save.          ";
+			}
+			else if (getResultAfterExport == 3)
+			{
+				gotoXY(40, 10);
+				cout << "          Failed to save data to file. Found no class has name: " << classExport << "         ";
+			}
+			else
+			{
+				gotoXY(40, 10);
+				cout << "Succeed to save data to file. You will be back to STUDENT menu in 3 seconds" << "             ";
+				Sleep(3000);
+				return;
+			}
+			Sleep(3000);
+		}
 		else if (getChoose == 2)
 			return;
 	}
 }
 
-void importStudentFromFile(Faculty & faculty, const string & path)
+bool importStudentFromFile(Faculty & faculty, const string & path)
 {
 	string getLine;
 	ifstream fileInput(path);
 	if (fileInput.fail())
-	{
-		gotoXY(30, 10);
-		cout << "Failed to open database file. Please check your file's name and path to file and try again in 3 seconds.";
-		Sleep(3000);
-		return;
-	}
+		return false;
 	getline(fileInput, getLine);
 	Class newClass;
 	Student *currentStudent = nullptr;
@@ -173,26 +207,18 @@ void importStudentFromFile(Faculty & faculty, const string & path)
 	}
 	fileInput.close();
 	faculty.classMember.push_back(newClass);
+	return true;
 }
 
-void exportStudentToFile(Faculty & faculty, const string & path, const string &mode)
+int exportStudentToFile(Faculty & faculty, const string & path, const string &mode)
 {
 	ofstream fileOutput(path);
 	if (fileOutput.fail())
-	{
-		gotoXY(33, 10);
-		cout << "Failed to save data to file. Please check again if you have permission or broken hard drive";
-		Sleep(3000);
-	}
+		return 1;
 	if (mode == "all")
 	{
 		if (faculty.classMember.size() == 0)
-		{
-			gotoXY(40, 10);
-			cout << "          Failed to save data to file. There is no exist data to save.          ";
-			Sleep(3000);
-			return;
-		}
+			return 2;
 		for (auto i : faculty.classMember)
 		{
 			fileOutput << "Class," << i.name << "," << endl;
@@ -211,11 +237,9 @@ void exportStudentToFile(Faculty & faculty, const string & path, const string &m
 				for (Student *j = i.student; j; j = j->nextStudent)
 					fileOutput << j->getNo() << "," << j->getId() << "," << j->getName() << endl;
 				fileOutput.close();
-				return;
+				return 0;
 			}
-		gotoXY(40, 10);
-		cout << "          Failed to save data to file. Found no class has name: " << mode << "         ";
-		Sleep(3000);
+		return 3;
 	}
 	fileOutput.close();
 }

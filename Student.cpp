@@ -22,9 +22,20 @@ void Student::setNo(const string & noInput) { this->no = stoi(noInput); }
 
 uint32_t Student::getId() { return this->id; }
 
-void Student::setId(const uint32_t & idInput) { this->id = idInput; }
+bool Student::setId(const uint32_t & idInput)
+{ 
+	this->id = idInput;
+	return true;
+}
 
-void Student::setId(const string & idInput) { this->id = stoi(idInput); }
+bool Student::setId(const string & idInput) 
+{
+	for (auto i : idInput)
+		if (i < 48 || i > 57)
+			return false;
+	this->id = stoi(idInput); 
+	return true;
+}
 
 string Student::getName() { return this->name; }
 

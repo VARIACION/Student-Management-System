@@ -56,23 +56,63 @@ int controlAddStudentMenu()
 
 void addStudentMenu(Faculty & faculty)
 {
+	int checkIfAddSuccess = 0;
 	while (true)
 	{
 		drawFieldAddStudent();
-		gotoXY(57, 10);	cout << "                                                          ";
+		gotoXY(55, 10);	cout << "                                                                  ";
 		gotoXY(57, 10);	cout << "Enter the name of the class you want to add student";
 		string classToAdd = getFileName(65, 14);
-		gotoXY(57, 10);	cout << "                                                          ";
+		gotoXY(57, 10);	cout << "                                                                  ";
 		gotoXY(60, 10);	cout << "Enter the ID of the new student you want to add";
 		string idNewStudent = getFileName(65, 18);
-		gotoXY(57, 10);	cout << "                                                          ";
+		gotoXY(57, 10);	cout << "                                                                  ";
 		gotoXY(57, 10);	cout << "Enter the name of the new student you want to add";
 		string nameNewStudent = getFileName(65, 22);
-		gotoXY(57, 10);	cout << "                                                          ";
+		gotoXY(57, 10);	cout << "                                                                  ";
 		int getChoose = controlAddStudentMenu();
 		if (getChoose == 1)
 			break;
 		else if (getChoose == 2)
 			continue;
+		else
+		{
+			if (!addNewStudent(faculty, classToAdd, idNewStudent, nameNewStudent))
+			{
+				gotoXY(50, 10);
+				cout << "Failed to add new student. Check your data and try again in 3 seconds";
+				Sleep(3000);
+			}
+			else
+			{
+				gotoXY(45, 10);
+				cout << "Succeed to add new student. You will be back to STUDENT menu in 3 seconds";
+				Sleep(3000);
+				return;
+			}
+		}
 	}
+}
+
+bool addNewStudent(Faculty &faculty, const string & className, const string & ID, const string & name)
+{
+	for (auto i : faculty.classMember)
+		if (i.name == className)
+		{
+			for (Student *j = i.student; j; j = j->nextStudent)
+				if (!j->nextStudent)
+				{
+					Student *newStudent = new Student;
+					newStudent->setNo(j->getNo() + 1);
+					if (!newStudent->setId(ID))
+					{
+						delete newStudent;
+						return false;
+					}
+					newStudent->setName(name);
+					j->nextStudent = newStudent;
+					return true;
+				}
+		}
+	return false;
 }
