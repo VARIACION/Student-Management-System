@@ -6,7 +6,7 @@ void drawStudentMenu()
 	gotoXY(67, 6);
 	cout << "EDIT CLASS AND STUDENT";
 	drawLabel(23, 24, 12, 120, "");
-	drawLabel(25, 16, 2, 20, "Import");
+	drawLabel(25, 16, 2, 20, "Import/Export");
 	drawLabel(65, 16, 2, 20, "Add student");
 	drawLabel(105, 16, 2, 20, "Edit");
 	drawLabel(25, 24, 2, 20, "Remove");
@@ -22,7 +22,7 @@ int controlStudentMenu()
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[9] =
 	{
-		{ "      Import students of a class from a csv file" },
+		{ "   Import/Export students of a class from a csv file" },
 		{ "             Add a new student to a class" },
 		{ "               Edit an existing student" },
 		{ "                   Remove a student" },
@@ -32,7 +32,8 @@ int controlStudentMenu()
 		{ "           View list of students in a class" },
 		{ "                 View list of classes" }
 	};
-	Point academicStaffMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 },{ 25, 24 },{ 65, 24 },{ 105, 24 }, { 25, 32 }, { 65, 32 }, { 105, 32 } };
+	Point academicStaffMenuPoint[9] = { { 25, 16 }, { 65, 16 }, { 105, 16 }, { 25, 24 }, { 65, 24 },
+	{ 105, 24 }, { 25, 32 }, { 65, 32 }, { 105, 32 } };
 	int chooseControlStudentMenu = 0;
 	gotoXY(50, 10);
 	cout << textDescribeFeature[chooseControlStudentMenu];
@@ -93,7 +94,13 @@ void studentMenu(Faculty &faculty)
 			importExportStudentFromFile(faculty);
 		else if (getChoose == 1)
 			addStudentMenu(faculty);
+		else if (getChoose == 2)
+			editStudentMenu(faculty);
 		else if (getChoose == 3)
 			removeStudentMenu(faculty);
+		else if (getChoose == 4)
+			changeClassMenu(faculty);
+		else if (getChoose == 5)
+			addClassMenu(faculty);
 	}
 }

@@ -112,7 +112,7 @@ bool checkNewPassword(User & staff, string & oldPassword, string & newPassword, 
 
 	if (oldPassword != staff.getPassword())
 	{
-		gotoXY(20, 12);
+		gotoXY(20, 14);
 		cout << "Your old password that you have typed does not match with your current password. Please try again in 5 seconds.";
 		Sleep(5000);
 		delete[] newPasswordC;
@@ -120,7 +120,7 @@ bool checkNewPassword(User & staff, string & oldPassword, string & newPassword, 
 	}
 	else if (newPassword != renewPassword)
 	{
-		gotoXY(25, 12);
+		gotoXY(25, 14);
 		cout << "Your new password and the re-enter new password must be the same. Please try again in 5 seconds.";
 		Sleep(5000);
 		delete[] newPasswordC;
@@ -128,9 +128,9 @@ bool checkNewPassword(User & staff, string & oldPassword, string & newPassword, 
 	}
 	else if (!staff.checkInputPassword(newPasswordC))
 	{
-		gotoXY(22, 11);
+		gotoXY(22, 13);
 		cout << "Password must have numbers (0..9), upcase (A..Z), lowcase (a..z) and special chracter (!,@,#,$,%,^,&,*)";
-		gotoXY(60, 12);	cout << "Please try again in 5 seconds.";
+		gotoXY(60, 14);	cout << "Please try again in 5 seconds.";
 		Sleep(5000);
 		delete[] newPasswordC;
 		return false;
@@ -172,12 +172,12 @@ void applyNewPassword(User & staff, const string & newPassword)
 
 	if (remove("Resources/UsersMD5Temp.csv") != 0)
 	{
-		gotoXY(25, 12);
+		gotoXY(25, 14);
 		cout << "We have successfully changed your password but for some reasons that we can not delete the cache file.";
 		return;
 	}
 
-	gotoXY(25, 12);
+	gotoXY(25, 14);
 	cout << "Password has been changed successfully. You will automatically go back to PROFILE window in 3 seconds.";
 	Sleep(3000);
 	return;

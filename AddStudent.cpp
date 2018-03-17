@@ -99,20 +99,38 @@ bool addNewStudent(Faculty &faculty, const string & className, const string & ID
 	for (auto i : faculty.classMember)
 		if (i.name == className)
 		{
-			for (Student *j = i.student; j; j = j->nextStudent)
-				if (!j->nextStudent)
-				{
-					Student *newStudent = new Student;
-					newStudent->setNo(j->getNo() + 1);
-					if (!newStudent->setId(ID))
-					{
-						delete newStudent;
-						return false;
-					}
-					newStudent->setName(name);
-					j->nextStudent = newStudent;
-					return true;
-				}
+			Student *newStudent = new Student;
+			newStudent->setName(name);
+			if (!newStudent->setId(ID))
+			{
+				delete newStudent;
+				return false;
+			}
+			if (!i.student->nextStudent || ID <= to_string(i.student->nextStudent->getId()))
+			{
+				newStudent->setNo(1);
+				newStudent->nextStudent = i.student->nextStudent;
+				i.student->nextStudent = newStudent;
+			}
+			else
+				for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
+					if (to_string(j->getId()) <= ID)
+						if (!j->nextStudent)
+						{
+							j->nextStudent = newStudent;
+							newStudent->setNo(j->nextStudent->getNo() + 1);
+							break;
+						}
+						else if (to_string(j->nextStudent->getId()) >= ID)
+						{
+							newStudent->nextStudent = j->nextStudent;
+							j->nextStudent = newStudent;
+							newStudent->setNo(j->getNo() + 1);
+							break;
+						}
+			for (Student *j = newStudent->nextStudent; j; j = j->nextStudent)
+				j->setNo(j->getNo() + 1);
+			return true;
 		}
 	return false;
 }

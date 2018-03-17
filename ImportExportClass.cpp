@@ -182,13 +182,16 @@ void importExportStudentFromFile(Faculty &faculty)
 
 bool importStudentFromFile(Faculty & faculty, const string & path)
 {
+	
 	string getLine;
 	ifstream fileInput(path);
 	if (fileInput.fail())
 		return false;
 	getline(fileInput, getLine);
 	Class newClass;
-	Student *currentStudent = nullptr;
+	newClass.student = new Student;
+	newClass.student->setName("NULL");
+	Student *currentStudent = newClass.student;
 	getLine.pop_back();
 	newClass.name = getLine.substr(6, getLine.length() - 6);
 	getline(fileInput, getLine);
@@ -223,7 +226,7 @@ int exportStudentToFile(Faculty & faculty, const string & path, const string &mo
 		{
 			fileOutput << "Class," << i.name << "," << endl;
 			fileOutput << "No,Student ID,Student name" << endl;
-			for (Student *j = i.student; j; j = j->nextStudent)
+			for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
 				fileOutput << j->getNo() << "," << j->getId() << "," << j->getName() << endl;
 		}
 	}
@@ -234,7 +237,7 @@ int exportStudentToFile(Faculty & faculty, const string & path, const string &mo
 			{
 				fileOutput << "Class," << i.name << "," << endl;
 				fileOutput << "No,Student ID,Student name" << endl;
-				for (Student *j = i.student; j; j = j->nextStudent)
+				for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
 					fileOutput << j->getNo() << "," << j->getId() << "," << j->getName() << endl;
 				fileOutput.close();
 				return 0;

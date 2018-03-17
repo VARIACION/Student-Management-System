@@ -14,6 +14,9 @@
 #include "ImportExportClass.h"
 #include "AddStudent.h"
 #include "RemoveStudent.h"
+#include "AddClass.h"
+#include "ChangeClass.h"
+#include "EditStudent.h"
 using namespace std;
 
 void drawStudentMenu();

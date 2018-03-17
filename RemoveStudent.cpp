@@ -81,7 +81,7 @@ void removeStudentMenu(Faculty &faculty)
 			else
 			{
 				gotoXY(50, 10);
-				cout << "Failed to remove student. Check the id and try again in 3 seconds";
+				cout << "Failed to remove student. Check the data and try again in 3 seconds";
 				Sleep(3000);
 			}
 		}
