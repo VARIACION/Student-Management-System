@@ -13,6 +13,7 @@
 #include "Class.h"
 #include "ImportExportClass.h"
 #include "AddStudent.h"
+#include "RemoveStudent.h"
 using namespace std;
 
 void drawStudentMenu();

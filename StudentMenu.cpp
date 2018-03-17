@@ -93,5 +93,7 @@ void studentMenu(Faculty &faculty)
 			importExportStudentFromFile(faculty);
 		else if (getChoose == 1)
 			addStudentMenu(faculty);
+		else if (getChoose == 3)
+			removeStudentMenu(faculty);
 	}
 }
