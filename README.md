@@ -5,6 +5,7 @@
 * Version: pre-released alpha 1.7.
 * Some features in this version may not work correctly. I won't advise running this program until the beta version is released.
 * Every information about bugs please contact me at huaanhminh0412@gmail.com
+* Alpha version is coming soon.
 
 ## About my team
 * Anh Minh
