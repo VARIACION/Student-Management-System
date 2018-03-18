@@ -17,6 +17,8 @@
 #include "AddClass.h"
 #include "ChangeClass.h"
 #include "EditStudent.h"
+#include "ViewClasses.h"
+#include "ViewStudents.h"
 using namespace std;
 
 void drawStudentMenu();

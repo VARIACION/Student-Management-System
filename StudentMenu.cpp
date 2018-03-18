@@ -102,5 +102,9 @@ void studentMenu(Faculty &faculty)
 			changeClassMenu(faculty);
 		else if (getChoose == 5)
 			addClassMenu(faculty);
+		else if (getChoose == 7)
+			viewStudentsMenu(faculty);
+		else if (getChoose == 8)
+			viewClassesMenu(faculty);
 	}
 }

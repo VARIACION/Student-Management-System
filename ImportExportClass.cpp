@@ -138,13 +138,13 @@ void importExportStudentFromFile(Faculty &faculty)
 			{
 				gotoXY(30, 10);
 				cout << "Failed to open database file. Please check your file's name and path to file and try again in 3 seconds.";
-				Sleep(3000);
+				Sleep(1000);
 			}
 			else
 			{
 				gotoXY(40, 10);
 				cout << "Succeed to import data from file. You will be back to STUDENT menu in 3 seconds.";
-				Sleep(3000);
+				Sleep(1000);
 				return;
 			}
 		}
@@ -170,10 +170,10 @@ void importExportStudentFromFile(Faculty &faculty)
 			{
 				gotoXY(40, 10);
 				cout << "Succeed to save data to file. You will be back to STUDENT menu in 3 seconds" << "             ";
-				Sleep(3000);
+				Sleep(1000);
 				return;
 			}
-			Sleep(3000);
+			Sleep(1000);
 		}
 		else if (getChoose == 2)
 			return;

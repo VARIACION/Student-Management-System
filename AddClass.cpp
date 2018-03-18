@@ -69,13 +69,13 @@ void addClassMenu(Faculty &faculty)
 			{
 				
 				gotoXY(43, 15); cout << "Succeed to add new empty class. You will be back to STUDENT menu in 3 seconds";
-				Sleep(3000);
+				Sleep(1000);
 				return;
 			}
 			else
 			{
 				gotoXY(55, 15); cout << "Failed to add new empty class. Try again in 3 seconds";
-				Sleep(3000);
+				Sleep(1000);
 			}
 		}
 	}

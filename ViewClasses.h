@@ -9,4 +9,9 @@
 #include <string>
 using namespace std;
 
+void drawFieldViewClasses();
+void displayClass(Faculty &faculty, const int &pointClass);
+int countNumberOfStudentsInClass(Class &className);
+void viewClassesMenu(Faculty &faculty);
+
 #endif // !VIEW_CLASSES_H
