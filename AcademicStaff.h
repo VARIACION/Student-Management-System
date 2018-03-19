@@ -11,6 +11,8 @@
 #include "UserInformation.h"
 #include "Screen.h"
 #include "StudentMenu.h"
+#include "CourseMenu.h"
+#include "Courses.h"
 using namespace std;
 
 void drawAcademicStaffMenu();

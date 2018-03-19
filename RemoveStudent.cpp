@@ -16,41 +16,6 @@ void drawFieldRemoveStudent()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-int controlRemoveStudentMenu()
-{
-	ShowConsoleCursor(false);
-	drawLabel(60, 28, 2, 17, "");
-	int getButton = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
-			char getSwitchKey = _getch();
-			switch (getSwitchKey)
-			{
-			case 13:
-				return getButton;
-			case 75: case 77: case 9:
-				if (getButton == 0)
-				{
-					getButton = 1;
-					eraseLabel(60, 28, 2, 17);
-					drawLabel(85, 28, 2, 17, "");
-				}
-				else
-				{
-					getButton = 0;
-					eraseLabel(85, 28, 2, 17);
-					drawLabel(60, 28, 2, 17, "");
-				}
-				break;
-			case 72:
-				return 2;
-			}
-		}
-	}
-}
-
 void removeStudentMenu(Faculty &faculty)
 {
 	int checkIfRemoveSuccess = 0;
@@ -64,7 +29,7 @@ void removeStudentMenu(Faculty &faculty)
 		gotoXY(50, 10);	cout << "Optional: enter the class of the student you want to remove";
 		string classStudentRemoved = getFileName(65, 20);
 		gotoXY(50, 10);	cout << "                                                                        ";
-		int getChoose = controlRemoveStudentMenu();
+		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
 			break;
 		else if (getChoose == 2)

@@ -8,10 +8,10 @@
 #include "RemoveStudent.h"
 #include "AddStudent.h"
 #include "Class.h"
+#include "AddClass.h"
 using namespace std;
 
 void drawFieldChangeClass();
-int controlChangeClassMenu();
 void changeClassMenu(Faculty &faculty);
 bool changeClass(Faculty &faculty, const string &id, const string &newClass);
 

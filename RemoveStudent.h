@@ -10,10 +10,10 @@
 #include <conio.h>
 #include <string>
 #include "ImportExportClass.h"
+#include "AddClass.h"
 using namespace std;
 
 void drawFieldRemoveStudent();
-int controlRemoveStudentMenu();
 void removeStudentMenu(Faculty &faculty);
 bool removeStudent(Faculty &faculty, const string &idStudentRemoved, const string &classStudentRemoved);
 

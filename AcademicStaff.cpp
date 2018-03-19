@@ -22,13 +22,13 @@ int controlAcademicStaffMenu()
 	string textDescribeFeature[8] =
 	{
 		{"View/Change your information like password, email, etc"},
-		{"   Classes's informtion and students's information"},
-		{"                Courses's information"},
-		{"          Courses's schedules's information"},
-		{"                 Attendance lists"},
-		{"                 Scoreboard lists"},
-		{"                       Quit"},
-		{"             Log out to log in screen"}
+		{"   Classes's informtion and students's information    "},
+		{"                Courses's information                 "},
+		{"          Courses's schedules's information           "},
+		{"                 Attendance lists                     "},
+		{"                 Scoreboard lists                     "},
+		{"                       Quit                           "},
+		{"             Log out to log in screen                 "}
 	};
 	Point academicStaffMenuPoint[8] = { {25, 16}, {65, 16}, {105, 16}, {25, 24}, {65, 24}, {105, 24}, { 65, 32 }, {105, 32} };
 	int chooseControlAcademicStaffMenu = 0;
@@ -42,7 +42,6 @@ int controlAcademicStaffMenu()
 			eraseLabel(academicStaffMenuPoint[chooseControlAcademicStaffMenu].x,
 				academicStaffMenuPoint[chooseControlAcademicStaffMenu].y, 3, 22);
 			gotoXY(50, 10);
-			cout << "                                                                             ";
 			switch (getSwitchKey)
 			{
 			case 13:
@@ -75,8 +74,6 @@ int controlAcademicStaffMenu()
 				academicStaffMenuPoint[chooseControlAcademicStaffMenu].y, 3, 22, "");
 			gotoXY(50, 10);
 			cout << textDescribeFeature[chooseControlAcademicStaffMenu];
-			gotoXY(academicStaffMenuPoint[chooseControlAcademicStaffMenu].x,
-				academicStaffMenuPoint[chooseControlAcademicStaffMenu].y);
 		}
 	}
 }
@@ -85,6 +82,7 @@ void academicStaffMenu(User &staff)
 {
 	int chooseFeature = -1;
 	Faculty faculty;
+	ListCourses listCourses;
 	while (true)
 	{
 		ShowConsoleCursor(false);
@@ -98,5 +96,7 @@ void academicStaffMenu(User &staff)
 			accessInfo(staff);
 		else if (chooseFeature == 1)
 			studentMenu(faculty);
+		else if (chooseFeature == 2)
+			courseMenu(listCourses);
 	}
 }

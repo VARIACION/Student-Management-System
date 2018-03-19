@@ -8,10 +8,10 @@
 #include "Class.h"
 #include <conio.h>
 #include "ImportExportClass.h"
+#include "AddClass.h"
 using namespace std;
 
 void drawFieldAddStudent();
-int controlAddStudentMenu();
 void addStudentMenu(Faculty &faculty);
 bool addNewStudent(Faculty &faculty, const string &className, const string &ID, const string &name);
 

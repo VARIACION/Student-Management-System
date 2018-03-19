@@ -23,14 +23,14 @@ int controlStudentMenu()
 	string textDescribeFeature[9] =
 	{
 		{ "   Import/Export students of a class from a csv file" },
-		{ "             Add a new student to a class" },
-		{ "               Edit an existing student" },
-		{ "                   Remove a student" },
-		{ "        Change students from class A to class B" },
-		{ "                 Add a new empty class" },
-		{ "              Back to ACADEMIC STAFF menu" },
-		{ "           View list of students in a class" },
-		{ "                 View list of classes" }
+		{ "             Add a new student to a class           " },
+		{ "               Edit an existing student             " },
+		{ "                   Remove a student                 " },
+		{ "        Change students from class A to class B     " },
+		{ "                 Add a new empty class              " },
+		{ "              Back to ACADEMIC STAFF menu           " },
+		{ "           View list of students in a class         " },
+		{ "                 View list of classes               " }
 	};
 	Point academicStaffMenuPoint[9] = { { 25, 16 }, { 65, 16 }, { 105, 16 }, { 25, 24 }, { 65, 24 },
 	{ 105, 24 }, { 25, 32 }, { 65, 32 }, { 105, 32 } };
@@ -45,7 +45,6 @@ int controlStudentMenu()
 			eraseLabel(academicStaffMenuPoint[chooseControlStudentMenu].x,
 				academicStaffMenuPoint[chooseControlStudentMenu].y, 3, 22);
 			gotoXY(50, 10);
-			cout << "                                                                             ";
 			switch (getSwitchKey)
 			{
 			case 13:
@@ -75,8 +74,6 @@ int controlStudentMenu()
 				academicStaffMenuPoint[chooseControlStudentMenu].y, 3, 22, "");
 			gotoXY(50, 10);
 			cout << textDescribeFeature[chooseControlStudentMenu];
-			gotoXY(academicStaffMenuPoint[chooseControlStudentMenu].x,
-				academicStaffMenuPoint[chooseControlStudentMenu].y);
 		}
 	}
 }
