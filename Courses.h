@@ -1,5 +1,4 @@
-#ifndef COURSES_H
-#define COURSES_H
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -8,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-
+string splitToken(string &stringInput, const string &delim);
 class Time
 {
 private:
@@ -67,17 +66,19 @@ public:
 	bool setSemester(const char &semesterInput);
 	Date getStartDate();
 	bool setStartDate(Date &startDateInput);
+	bool setStartDate_str(string &startDataInput);
 	Date getEndDate();
 	bool setEndDate(Date &endDateInput);
+	bool setEndDate_str(string &endDataInput);
 	string getStartDate_str();
 	string getEndDate_str();
 	Time getStartTime();
-	void setStartTime(Time &startTimeInput);
+	bool setStartTime(string &startTimeInput);
 	Time getEndTime();
 	string getStartTime_str();
 	string getEndTime_str();
-	void setEndTime(Time &endTimeInput);
-	void setDateOfWeek(Week &dayStart);
+	bool setEndTime(string &endTimeInput);
+	bool setDateOfWeek(const string &dayStart);
 	Week getDateOfWeek();
 	string getDateOfWeek_str();
 };
@@ -87,5 +88,3 @@ struct ListCourses
 	vector<Courses> list;
 	~ListCourses();
 };
-
-#endif // !COURSES_H

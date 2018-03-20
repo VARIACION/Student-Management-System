@@ -27,13 +27,13 @@ void addStudentMenu(Faculty & faculty)
 		drawFieldAddStudent();
 		gotoXY(55, 10);	cout << "                                                                  ";
 		gotoXY(57, 10);	cout << "Enter the name of the class you want to add student";
-		string classToAdd = getFileName(65, 14);
+		string classToAdd = getFileName(65, 14, "class");
 		gotoXY(57, 10);	cout << "                                                                  ";
 		gotoXY(60, 10);	cout << "Enter the ID of the new student you want to add";
-		string idNewStudent = getFileName(65, 18);
+		string idNewStudent = getFileName(65, 18, "id");
 		gotoXY(57, 10);	cout << "                                                                  ";
 		gotoXY(57, 10);	cout << "Enter the name of the new student you want to add";
-		string nameNewStudent = getFileName(65, 22);
+		string nameNewStudent = getFileName(65, 22, "student");
 		gotoXY(57, 10);	cout << "                                                                  ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)

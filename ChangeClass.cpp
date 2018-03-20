@@ -23,10 +23,10 @@ void changeClassMenu(Faculty &faculty)
 		drawFieldChangeClass();
 		gotoXY(50, 12);	cout << "                                                                        ";
 		gotoXY(54, 12);	cout << "Enter the ID of the student you want to change class";
-		string idStudentChange = getFileName(65, 16);
+		string idStudentChange = getFileName(65, 16, "ID");
 		gotoXY(50, 12);	cout << "                                                                        ";
 		gotoXY(67, 12);	cout << "Enter the name of the class";
-		string classStudentChange = getFileName(65, 20);
+		string classStudentChange = getFileName(65, 20, "class");
 		gotoXY(50, 12);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)

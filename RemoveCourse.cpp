@@ -21,7 +21,7 @@ void removeCourseMenu(ListCourses & listCourses)
 		drawFieldRemoveCourse();
 		gotoXY(60, 15);	cout << "                                                                        ";
 		gotoXY(60, 15);	cout << "Enter the code of the course you want to remove";
-		string courseCode = getFileName(65, 20);
+		string courseCode = getFileName(65, 20, "code");
 		gotoXY(60, 15);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)

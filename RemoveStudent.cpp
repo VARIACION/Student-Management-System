@@ -24,10 +24,10 @@ void removeStudentMenu(Faculty &faculty)
 		drawFieldRemoveStudent();
 		gotoXY(50, 10);	cout << "                                                                        ";
 		gotoXY(60, 10);	cout << "Enter the ID of the student you want to remove";
-		string idStudentRemoved = getFileName(65, 16);
+		string idStudentRemoved = getFileName(65, 16, "ID");
 		gotoXY(50, 10);	cout << "                                                                        ";
 		gotoXY(50, 10);	cout << "Optional: enter the class of the student you want to remove";
-		string classStudentRemoved = getFileName(65, 20);
+		string classStudentRemoved = getFileName(65, 20, "class");
 		gotoXY(50, 10);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)

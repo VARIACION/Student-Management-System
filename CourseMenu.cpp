@@ -76,7 +76,7 @@ void courseMenu(ListCourses & listCourses)
 		else if (getChoose == 0)
 			importExportCoursesMenu(listCourses);
 		else if (getChoose == 1)
-			drawFieldAddCourse();
+			addCourseMenu(listCourses);
 		else if (getChoose == 3)
 			removeCourseMenu(listCourses);
 	}

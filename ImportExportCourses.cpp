@@ -24,10 +24,10 @@ void importExportCoursesMenu(ListCourses &listCourses)
 		drawFieldImportExportCourses();
 		gotoXY(50, 12);	cout << "                                                                        ";
 		gotoXY(55, 12);	cout << "Enter the path to the file you want to import courses";
-		string fileImportCourses = getFileName(65, 16);
+		string fileImportCourses = getFileName(65, 16, "file");
 		gotoXY(50, 12);	cout << "                                                                        ";
 		gotoXY(55, 12);	cout << "Enter the path to the file you want to export courses";
-		string fileExportCourses = getFileName(65, 20);
+		string fileExportCourses = getFileName(65, 20, "file");
 		gotoXY(50, 12);	cout << "                                                                        ";
 		int getChoose = controlFileImportExport();
 		if (getChoose == 2)
@@ -63,83 +63,6 @@ void importExportCoursesMenu(ListCourses &listCourses)
 	}
 }
 
-bool reformatDate(string dateString, Date &date)
-{
-	int countSplash = 0, day, month, year;
-	for (auto i : dateString)
-		if (i == '/')
-			++countSplash;
-	if (countSplash != 2)
-		return false;
-	char *dateCStr = fromStrCppToStrC(dateString);
-	char *token = strtok(dateCStr, "/");
-	day = stoi(token);
-	token = strtok(nullptr, "/");
-	month = stoi(token);
-	token = strtok(nullptr, "/");
-	year = stoi(token);
-	delete[] dateCStr;
-
-	if (!date.setYear(year))
-		return false;
-	else if (!date.setMonth(month))
-		return false;
-	else if (!date.setDate(day))
-		return false;
-	return true;
-}
-
-bool reformatTime(string timeInput, Time &time)
-{
-	bool checkExistH = false;
-	for (auto i : timeInput)
-		if (i == 'h')
-			checkExistH = true;
-	if (!checkExistH) return false;
-	char *time_c = fromStrCppToStrC(timeInput);
-	int hour, minute;
-	char *token = strtok(time_c, "h");
-	hour = stoi(token);
-	token = strtok(nullptr, "h");
-	minute = stoi(token);
-	delete[] time_c;
-	if (!time.setHour(hour))
-		return false;
-	else if (!time.setMinute(minute))
-		return false;
-	return true;
-}
-
-Week reformatDateOfWeek(const string &date)
-{
-	if (date == "MONDAY")
-		return MONDAY;
-	else if (date == "TUESDAY")
-		return TUESDAY;
-	else if (date == "WEDNESDAY")
-		return WEDNESDAY;
-	else if (date == "THURSDAY")
-		return THURSDAY;
-	else if (date == "FRIDAY")
-		return FRIDAY;
-	else if (date == "SATURDAY")
-		return SATURDAY;
-	else if (date == "SUNDAY")
-		return SUNDAY;
-}
-
-string splitToken(string &stringInput, const string &delim)
-{
-	size_t pos = 0;
-	string token = "";
-	if ((pos = stringInput.find(delim)) != string::npos)
-	{
-		token = stringInput.substr(0, pos);
-		stringInput.erase(0, pos + delim.length());
-	}
-	return token;
-}
-
 bool importCoursesFromFile(ListCourses &listCourses, const string &path)
 {
 	string getLine;
@@ -165,22 +88,16 @@ bool importCoursesFromFile(ListCourses &listCourses, const string &path)
 		token = splitToken(getLine, ",");
 		newCourse.setLecturerUsername(token);
 		token = splitToken(getLine, ",");
-		Date courseDate;
-		if (!reformatDate(token, courseDate)) return false;
-		newCourse.setStartDate(courseDate);
+		if (!newCourse.setStartDate_str(token)) return false;
 		token = splitToken(getLine, ",");
-		if (!reformatDate(token, courseDate)) return false;
-		newCourse.setEndDate(courseDate);
+		if (!newCourse.setEndDate_str(token)) return false;
 		Time courseTime;
 		token = splitToken(getLine, ",");
-		if (!reformatTime(token, courseTime)) return false;
-		newCourse.setStartTime(courseTime);
+		if (!newCourse.setStartTime(token)) return false;
 		token = splitToken(getLine, ",");
-		if (!reformatTime(token, courseTime)) return false;
-		newCourse.setEndTime(courseTime);
+		if (!newCourse.setEndTime(token)) return false;
 		token = splitToken(getLine, ",");
-		Week courseWeek = reformatDateOfWeek(getLine);
-		newCourse.setDateOfWeek(courseWeek);
+		if (!newCourse.setDateOfWeek(getLine)) return false;
 		listCourses.list.push_back(newCourse);
 	}
 	fileInput.close();

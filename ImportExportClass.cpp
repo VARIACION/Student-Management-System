@@ -53,7 +53,7 @@ int controlFileImportExport()
 	}
 }
 
-string getFileName(const int &x, const int &y)
+string getFileName(const int &x, const int &y, const string &tooLongInputWarning)
 {
 	ShowConsoleCursor(true);
 	string importFile = "";
@@ -72,18 +72,59 @@ string getFileName(const int &x, const int &y)
 				importFile.push_back(getimportFile);
 				cout << getimportFile;
 			}
-			else //show warning about too long importFile
+			else
 			{
 				gotoXY(45, 10);
-				cout << "The number of characters in file's name must be shorter than 45 characters.";
+				cout << "The number of characters in " << tooLongInputWarning << "'s name must be shorter than 45 characters.";
 			}
 		}
 		else if (getimportFile == 8 && importFile.length() > 0)
 		{
-			if (importFile.length() >= 45) //delete warning about too long importFile or invalid chracters in importFile
+			if (importFile.length() >= 45)
 			{
 				gotoXY(45, 10);
-				cout << "                                                                              ";
+				cout << "                                                                                             ";
+			}
+			importFile.pop_back();
+			gotoXY(x + importFile.length(), y);
+			cout << " ";
+			gotoXY(x + importFile.length(), y);
+		}
+		while (_kbhit()) _getch();
+	}
+}
+
+string getFileName(const int &x, const int &y, const int &length, const int &errorLine, const string &tooLongInputWarning)
+{
+	ShowConsoleCursor(true);
+	string importFile = "";
+	while (_kbhit()) _getch();
+	gotoXY(x, y);
+	while (!_kbhit())
+	{
+		char getimportFile = _getch();
+		if (getimportFile == 13 || getimportFile == 9)
+			return importFile;
+		else if (getimportFile >= 32 && getimportFile < 127)
+		{
+			if (importFile.length() < length)
+			{
+				gotoXY(x + importFile.length(), y);
+				importFile.push_back(getimportFile);
+				cout << getimportFile;
+			}
+			else
+			{
+				gotoXY(45, errorLine);
+				cout << "The number of characters in " << tooLongInputWarning << "'s name must be shorter than 45 characters.";
+			}
+		}
+		else if (getimportFile == 8 && importFile.length() > 0)
+		{
+			if (importFile.length() >= length)
+			{
+				gotoXY(45, errorLine);
+				cout << "                                                                                                     ";
 			}
 			importFile.pop_back();
 			gotoXY(x + importFile.length(), y);
@@ -123,13 +164,13 @@ void importExportStudentFromFile(Faculty &faculty)
 		drawFieldInputFileName();
 		gotoXY(40, 10);	cout << "                                                                           ";
 		gotoXY(57, 10);	cout << "Enter the path to the file you want to import data";
-		string fileImport = getFileName(65, 14);
+		string fileImport = getFileName(65, 14, "file");
 		gotoXY(40, 10);	cout << "                                                                           ";
 		gotoXY(57, 10);	cout << "Enter the path to the file you want to export data";
-		string fileExport = getFileName(65, 18);
+		string fileExport = getFileName(65, 18, "file");
 		gotoXY(45, 10);	cout << "                                                                           ";
 		gotoXY(45, 10);	cout << "Enter the name of the class you want to export or type all to export all";
-		string classExport = getFileName(65, 22);
+		string classExport = getFileName(65, 22, "class");
 		gotoXY(45, 10);	cout << "                                                                           ";
 		int getChoose = controlFileImportExport();
 		if (getChoose == 0)

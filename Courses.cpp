@@ -1,5 +1,16 @@
 #include "Courses.h"
 
+string splitToken(string &stringInput, const string &delim)
+{
+	size_t pos = 0;
+	string token = "";
+	if ((pos = stringInput.find(delim)) != string::npos)
+	{
+		token = stringInput.substr(0, pos);
+		stringInput.erase(0, pos + delim.length());
+	}
+	return token;
+}
 
 Time::Time()
 {
@@ -155,7 +166,12 @@ bool Courses::setEndDate(Date & endDateInput)
 
 Time Courses::getStartTime() { return this->from; }
 
-void Courses::setStartTime(Time & startTimeInput) { this->from = startTimeInput; }
+bool Courses::setStartTime(string & startTimeInput)
+{ 
+	int hour = stoi(splitToken(startTimeInput, "h"));
+	int minute = stoi(startTimeInput);
+	return (this->from.setHour(hour) && this->from.setMinute(minute));
+}
 
 Time Courses::getEndTime() { return this->to; }
 
@@ -169,9 +185,32 @@ string Courses::getEndTime_str()
 	return to_string(this->to.getHour()) + "h" + to_string(this->to.getMinute());
 }
 
-void Courses::setEndTime(Time & endTimeInput) { this->to = endTimeInput; }
+bool Courses::setEndTime(string & endTimeInput)
+{ 
+	int hour = stoi(splitToken(endTimeInput, "h"));
+	int minute = stoi(endTimeInput);
+	return (this->to.setHour(hour) && this->to.setMinute(minute));
+}
 
-void Courses::setDateOfWeek(Week & dayStart) { this->dateOfWeek = dayStart; }
+bool Courses::setDateOfWeek(const string &dayStart) 
+{
+	if (dayStart == "MONDAY")
+		this->dateOfWeek = MONDAY;
+	else if (dayStart == "TUESDAY")
+		this->dateOfWeek = TUESDAY;
+	else if (dayStart == "WEDNESDAY")
+		this->dateOfWeek = WEDNESDAY;
+	else if (dayStart == "THURSDAY")
+		this->dateOfWeek = THURSDAY;
+	else if (dayStart == "FRIDAY")
+		this->dateOfWeek = FRIDAY;
+	else if (dayStart == "SATURDAY")
+		this->dateOfWeek = SATURDAY;
+	else if (dayStart == "SUNDAY")
+		this->dateOfWeek = SUNDAY;
+	else return false;
+	return true;
+}
 
 Week Courses::getDateOfWeek() { return this->dateOfWeek; }
 
@@ -209,4 +248,26 @@ string Courses::getDateOfWeek_str()
 	case SUNDAY:
 		return "SUNDAY";
 	}
+}
+
+bool Courses::setStartDate_str(string & startDataInput)
+{
+	string day = splitToken(startDataInput, "/");
+	string month = splitToken(startDataInput, "/");
+	Date checkDate;
+	checkDate.setYear(stoi(startDataInput));
+	checkDate.setMonth(stoi(month));
+	checkDate.setDate(stoi(day));
+	return this->setStartDate(checkDate);
+}
+
+bool Courses::setEndDate_str(string & endDataInput)
+{
+	string day = splitToken(endDataInput, "/");
+	string month = splitToken(endDataInput, "/");
+	Date checkDate;
+	checkDate.setYear(stoi(endDataInput));
+	checkDate.setMonth(stoi(month));
+	checkDate.setDate(stoi(day));
+	return this->setEndDate(checkDate);
 }

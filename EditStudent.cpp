@@ -26,13 +26,13 @@ void editStudentMenu(Faculty &faculty)
 		drawFieldEditStudent();
 		gotoXY(45, 10);	cout << "                                                                           ";
 		gotoXY(70, 10);	cout << "Enter the ID of student";
-		string currentID = getFileName(65, 14);
+		string currentID = getFileName(65, 14, "ID");
 		gotoXY(40, 10);	cout << "                                                                           ";
 		gotoXY(45, 10);	cout << "Enter the new ID of student. Leave blank if you don't want to change";
-		string newID = getFileName(65, 18);
+		string newID = getFileName(65, 18, "ID");
 		gotoXY(45, 10);	cout << "                                                                           ";
 		gotoXY(45, 10);	cout << "Enter the new name of student. Leave blank if you don't want to change";
-		string newName = getFileName(65, 22);
+		string newName = getFileName(65, 22, "student");
 		gotoXY(45, 10);	cout << "                                                                           ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)

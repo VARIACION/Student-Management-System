@@ -147,7 +147,7 @@ void viewStudentsMenu(Faculty &faculty)
 		drawFieldViewStudents();
 		gotoXY(50, 15);	cout << "                                                                        ";
 		gotoXY(60, 15);	cout << "Enter the name of the class you want to view";
-		string classToView = getFileName(65, 20);
+		string classToView = getFileName(65, 20, "class");
 		gotoXY(50, 15);	cout << "                                                                        ";
 		int getChoose = controlViewStudentsMenu();
 		if (getChoose == 1)

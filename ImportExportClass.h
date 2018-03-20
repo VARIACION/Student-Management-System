@@ -13,7 +13,8 @@ using namespace std;
 
 void drawFieldInputFileName();
 int controlFileImportExport();
-string getFileName(const int &x, const int &y);
+string getFileName(const int &x, const int &y, const string &tooLongInputWarning);
+string getFileName(const int &x, const int &y, const int &length, const int &errorLine, const string &tooLongInputWarning);
 
 Student *allocateNewStudent(string &input);
 

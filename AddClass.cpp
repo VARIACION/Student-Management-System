@@ -56,7 +56,7 @@ void addClassMenu(Faculty &faculty)
 		drawFieldAddClass();
 		gotoXY(50, 15);	cout << "                                                                        ";
 		gotoXY(60, 15);	cout << "Enter the name of the class you want to add";
-		string classToAdd = getFileName(65, 20);
+		string classToAdd = getFileName(65, 20, "class");
 		gotoXY(50, 15);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
