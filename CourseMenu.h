@@ -12,6 +12,7 @@
 #include "Class.h"
 #include "ImportExportCourses.h"
 #include "RemoveCourse.h"
+#include "AddCourse.h"
 using namespace std;
 
 void drawCoursesMenu();

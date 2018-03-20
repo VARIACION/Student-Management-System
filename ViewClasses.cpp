@@ -3,10 +3,10 @@
 void drawFieldViewClasses()
 {
 	system("cls");
-	gotoXY(68, 8);
+	gotoXY(68, 3);
 	cout << "VIEW LIST OF CLASSES";
-	drawLabel(70, 26, 14, 40, "");
-	gotoXY(60, 11);
+	drawLabel(70, 20, 14, 40, "");
+	gotoXY(60, 5);
 	cout << "Press ENTER to go back to STUDENT menu";
 }
 
@@ -20,7 +20,7 @@ int countNumberOfStudentsInClass(Class &className)
 
 void displayClass(Faculty &faculty, const int &pointClass)
 {
-	int posY[] = { 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38 };
+	int posY[] = { 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32 };
 	for (int i = 0; i < 13; ++i)
 	{
 		gotoXY(60, posY[i]);

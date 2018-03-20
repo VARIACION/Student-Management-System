@@ -16,10 +16,10 @@ void drawFieldViewStudents()
 void drawFieldDisplayStudents()
 {
 	system("cls");
-	gotoXY(68, 8);
+	gotoXY(68, 3);
 	cout << "VIEW LIST OF CLASSES";
-	drawLabel(55, 26, 14, 80, "");
-	gotoXY(60, 11);
+	drawLabel(55, 20, 14, 80, "");
+	gotoXY(60, 5);
 	cout << "Press ENTER to go back to STUDENT menu";
 }
 
@@ -60,7 +60,7 @@ int controlViewStudentsMenu()
 
 void displayStudent(Student* &copyStudents, const int &pointStudent, const int &numberOfStudents)
 {
-	int posY[] = { 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38 };
+	int posY[] = { 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32 };
 
 	for (int i = 0; i < 13; ++i)
 	{
