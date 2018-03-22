@@ -20,7 +20,6 @@ void checkPasswordInput(const int &x, const int &y, string &password);
 void checkUsernameInput(string &username);
 User loginMenu();
 void encryptDataInput(const string &username, const string &password, string & usernameToMD5, string & passwordToMD5);
-char * reformatInputData(string &dataInput);
 User checkLogin(const string &username, const string & password, bool &checkValidLogin);
 void prompExit();
 void aboutProject();

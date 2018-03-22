@@ -1,5 +1,70 @@
 #include "Screen.h"
 
+char * reformatInputData(string & dataInput)
+{
+	int i = 0;
+	while (true)
+	{
+		if (i == dataInput.length()) break;
+		if (dataInput[i] == ',' && dataInput[i + 1] == ',')
+			dataInput.insert(dataInput.begin() + i + 1, ' ');
+		++i;
+	}
+	if (dataInput.back() == ',') dataInput.push_back(' ');
+	char *splitColumnInRow = new char[dataInput.length() + 1];
+	for (size_t i = 0; i < dataInput.length(); ++i)
+		splitColumnInRow[i] = dataInput[i];
+	splitColumnInRow[dataInput.length()] = '\0';
+	return splitColumnInRow;
+}
+
+void prompExit()
+{
+	ShowConsoleCursor(false);
+	system("cls");
+	drawLabel(55, 18, 2, 35, "Are you sure you want to quit?");
+	drawLabel(63, 24, 1, 5, "Yes");
+	drawLabel(75, 24, 1, 5, "No");
+
+	Point exitButtonMenu[2] = { { 63, 24 },{ 75, 24 } };
+	drawLabel(63, 24, 2, 7, "");
+	int choose = 0;
+	while (true)
+	{
+		if (_kbhit())
+		{
+			char getSwitchKey = _getch();
+			eraseLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7);
+			switch (getSwitchKey)
+			{
+			case 13:
+				if (choose == 0) exit(EXIT_SUCCESS);
+				else return;
+			case 77:
+				if (choose == 1) choose = 0; else ++choose;
+				break;
+			case 75:
+				if (choose == 0) choose = 1; else --choose;
+				break;
+			}
+			drawLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7, "");
+			gotoXY(exitButtonMenu[choose].x, exitButtonMenu[choose].y);
+		}
+	}
+}
+
+string splitToken(string &stringInput, const string &delim)
+{
+	size_t pos = 0;
+	string token = "";
+	if ((pos = stringInput.find(delim)) != string::npos)
+	{
+		token = stringInput.substr(0, pos);
+		stringInput.erase(0, pos + delim.length());
+	}
+	return token;
+}
+
 bool gotoXY(const int &x, const int &y)
 {
 	/* Move cursor to (x, y) coordinate */

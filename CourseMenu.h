@@ -13,6 +13,8 @@
 #include "ImportExportCourses.h"
 #include "RemoveCourse.h"
 #include "AddCourse.h"
+#include "EditCourse.h"
+#include "ViewCourses.h"
 using namespace std;
 
 void drawCoursesMenu();

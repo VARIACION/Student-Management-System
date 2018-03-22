@@ -1,30 +1,30 @@
-#include "CourseMenu.h"
+#include "Lecturer.h"
 
-void drawCoursesMenu()
+void drawFieldLecturer()
 {
 	system("cls");
 	gotoXY(67, 6);
-	cout << "EDIT COURSES";
+	cout << "LECTURER MENU";
 	drawLabel(23, 20, 8, 120, "");
-	drawLabel(25, 16, 2, 20, "Import/Export");
-	drawLabel(65, 16, 2, 20, "Add courses");
-	drawLabel(105, 16, 2, 20, "Edit courses");
-	drawLabel(25, 24, 2, 20, "Remove courses");
-	drawLabel(65, 24, 2, 20, "View courses");
-	drawLabel(105, 24, 2, 20, "Back");
+	drawLabel(25, 16, 2, 20, "Information");
+	drawLabel(65, 16, 2, 20, "Import/Export");
+	drawLabel(105, 16, 2, 20, "Edit grade");
+	drawLabel(25, 24, 2, 20, "View scoreboard");
+	drawLabel(65, 24, 2, 20, "Log out");
+	drawLabel(105, 24, 2, 20, "Exit");
 }
 
-int controlCoursesMenu()
+int controlLecturerMenu()
 {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[6] =
 	{
-		{ "         Import/Export courses from a csv file" },
-		{ "                   Add a new course           " },
-		{ "               Edit an existing course        " },
-		{ "                   Remove a course            " },
-		{ "                 View list of courses         " },
-		{ "              Back to ACADEMIC STAFF menu     "}
+		{ "                   View Information            " },
+		{ "        Import / Export scoreboard of a course " },
+		{ "               Edit grade of a student         " },
+		{ "                   View a scoreboard           " },
+		{ "                 Log out to LOG IN menu        " },
+		{ "                          Quit                 " }
 	};
 	Point courseMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 },{ 25, 24 },{ 65, 24 }, { 105, 24 } };
 	int chooseControlCourseMenu = 0;
@@ -62,26 +62,21 @@ int controlCoursesMenu()
 			cout << textDescribeFeature[chooseControlCourseMenu];
 		}
 	}
+	return 0;
 }
 
-void courseMenu(ListCourses & listCourses)
+void lecturerMenu(User &lecturer)
 {
 	while (true)
 	{
 		ShowConsoleCursor(false);
-		drawCoursesMenu();
-		int getChoose = controlCoursesMenu();
+		drawFieldLecturer();
+		int getChoose = controlLecturerMenu();
 		if (getChoose == 5)
+			prompExit();
+		else if (getChoose == 4)
 			return;
 		else if (getChoose == 0)
-			importExportCoursesMenu(listCourses);
-		else if (getChoose == 1)
-			addCourseMenu(listCourses);
-		else if (getChoose == 2)
-			editCourseMenu(listCourses);
-		else if (getChoose == 3)
-			removeCourseMenu(listCourses);
-		else if (getChoose == 4)
-			viewCourseMenu(listCourses);
+			accessInfo(lecturer);
 	}
 }

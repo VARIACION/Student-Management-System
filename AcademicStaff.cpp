@@ -98,5 +98,11 @@ void academicStaffMenu(User &staff)
 			studentMenu(faculty);
 		else if (chooseFeature == 2)
 			courseMenu(listCourses);
+		else if (chooseFeature == 3)
+			courseSchedulesMenu();
+		else if (chooseFeature == 4)
+			attendanceListMenu();
+		else if (chooseFeature == 5)
+			scoreboardStaffMenu();
 	}
 }

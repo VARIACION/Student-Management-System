@@ -12,6 +12,9 @@ struct Point
 	int x, y;
 };
 
+char * reformatInputData(string & dataInput);
+void prompExit();
+string splitToken(string &stringInput, const string &delim);
 bool gotoXY(const int &x, const int &y);
 void setFullScreen();
 void setScreenAttribute();

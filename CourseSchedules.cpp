@@ -1,29 +1,29 @@
-#include "CourseMenu.h"
+#include "CourseSchedules.h"
 
-void drawCoursesMenu()
+void drawFieldCourseSchedulesMenu()
 {
 	system("cls");
 	gotoXY(67, 6);
 	cout << "EDIT COURSES";
 	drawLabel(23, 20, 8, 120, "");
 	drawLabel(25, 16, 2, 20, "Import/Export");
-	drawLabel(65, 16, 2, 20, "Add courses");
-	drawLabel(105, 16, 2, 20, "Edit courses");
-	drawLabel(25, 24, 2, 20, "Remove courses");
-	drawLabel(65, 24, 2, 20, "View courses");
+	drawLabel(65, 16, 2, 20, "Add schedule");
+	drawLabel(105, 16, 2, 20, "Edit schedule");
+	drawLabel(25, 24, 2, 20, "Remove schedule");
+	drawLabel(65, 24, 2, 20, "View schedules");
 	drawLabel(105, 24, 2, 20, "Back");
 }
 
-int controlCoursesMenu()
+int controlCourseSchedulesMenu()
 {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[6] =
 	{
-		{ "         Import/Export courses from a csv file" },
-		{ "                   Add a new course           " },
-		{ "               Edit an existing course        " },
-		{ "                   Remove a course            " },
-		{ "                 View list of courses         " },
+		{ "         Import/Export schedules from a csv file" },
+		{ "                   Add a new schedule           " },
+		{ "               Edit an existing schedule        " },
+		{ "                   Remove a schedule            " },
+		{ "                 View list of schedules         " },
 		{ "              Back to ACADEMIC STAFF menu     "}
 	};
 	Point courseMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 },{ 25, 24 },{ 65, 24 }, { 105, 24 } };
@@ -64,24 +64,19 @@ int controlCoursesMenu()
 	}
 }
 
-void courseMenu(ListCourses & listCourses)
+void courseSchedulesMenu()
 {
+	ListSchedules listSchedules;
 	while (true)
 	{
 		ShowConsoleCursor(false);
-		drawCoursesMenu();
-		int getChoose = controlCoursesMenu();
+		drawFieldCourseSchedulesMenu();
+		int getChoose = controlCourseSchedulesMenu();
 		if (getChoose == 5)
 			return;
 		else if (getChoose == 0)
-			importExportCoursesMenu(listCourses);
-		else if (getChoose == 1)
-			addCourseMenu(listCourses);
-		else if (getChoose == 2)
-			editCourseMenu(listCourses);
+			importExportSchedulesMenu(listSchedules);
 		else if (getChoose == 3)
-			removeCourseMenu(listCourses);
-		else if (getChoose == 4)
-			viewCourseMenu(listCourses);
+			removeScheduleMenu(listSchedules);
 	}
 }

@@ -13,6 +13,9 @@
 #include "StudentMenu.h"
 #include "CourseMenu.h"
 #include "Courses.h"
+#include "CourseSchedules.h"
+#include "AttendanceList.h"
+#include "ScoreboardStaff.h"
 using namespace std;
 
 void drawAcademicStaffMenu();

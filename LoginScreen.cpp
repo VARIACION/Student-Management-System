@@ -201,24 +201,6 @@ void encryptDataInput(const string & username, const string & password, string &
 	delete[] password_cType;
 }
 
-char * reformatInputData(string & dataInput)
-{
-	int i = 0;
-	while (true)
-	{
-		if (i == dataInput.length()) break;
-		if (dataInput[i] == ',' && dataInput[i + 1] == ',')
-			dataInput.insert(dataInput.begin() + i + 1, ' ');
-		++i;
-	}
-	if (dataInput.back() == ',') dataInput.push_back(' ');
-	char *splitColumnInRow = new char[dataInput.length() + 1];
-	for (size_t i = 0; i < dataInput.length(); ++i)
-		splitColumnInRow[i] = dataInput[i];
-	splitColumnInRow[dataInput.length()] = '\0';
-	return splitColumnInRow;
-}
-
 User checkLogin(const string &username, const string & password, bool &checkValidLogin)
 {
 	User userLogin;
@@ -278,41 +260,6 @@ User checkLogin(const string &username, const string & password, bool &checkVali
 	return userLogin;
 }
 
-void prompExit()
-{
-	ShowConsoleCursor(false);
-	system("cls");
-	drawLabel(55, 18, 2, 35, "Are you sure you want to quit?");
-	drawLabel(63, 24, 1, 5, "Yes");
-	drawLabel(75, 24, 1, 5, "No");
-	
-	Point exitButtonMenu[2] = { {63, 24}, {75, 24} };
-	drawLabel(63, 24, 2, 7, "");
-	int choose = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
-			char getSwitchKey = _getch();
-			eraseLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7);
-			switch (getSwitchKey)
-			{
-			case 13:
-				if (choose == 0) exit(EXIT_SUCCESS);
-				else return;
-			case 77:
-				if (choose == 1) choose = 0; else ++choose;
-				break;
-			case 75:
-				if (choose == 0) choose = 1; else --choose;
-				break;
-			}
-			drawLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7, "");
-			gotoXY(exitButtonMenu[choose].x, exitButtonMenu[choose].y);
-		}
-	}
-}
-
 void aboutProject()
 {
 	system("cls");
@@ -320,7 +267,7 @@ void aboutProject()
 	cout << "PROJECT: STUDENT MANAGEMENT SYSTEM";
 	drawLabel(30, 22, 12, 120, "");
 	gotoXY(20, 11);	cout << "About this project";
-	gotoXY(20, 12);	cout << "Version: pre-released alpha 1.2.";
+	gotoXY(20, 12);	cout << "Version: alpha 1.3.";
 	gotoXY(20, 13);	cout << "This project is open source, you can freely download, use, and modify it with no cost.";
 	gotoXY(20, 14);	cout << "This project is a part of my course Programming Techniques at school.";
 	gotoXY(20, 15);	cout << "Any information about bugs or feature, contact me at huaanhminh0412@gmail.com.";

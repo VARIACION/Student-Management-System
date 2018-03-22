@@ -5,9 +5,10 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include "Screen.h"
 using namespace std;
 
-string splitToken(string &stringInput, const string &delim);
+
 class Time
 {
 private:

@@ -100,7 +100,7 @@ void addCourseMenu(ListCourses & listCourses)
 		newCourse.setCode(basicInfo[0]);
 		if (!newCourse.setYear(basicInfo[1]) || !newCourse.setSemester(basicInfo[2][0]))
 		{
-			gotoXY(40, 6); cout << "    Invalid data input. Please try again in 3 seconds       ";
+			gotoXY(40, 6); cout << "                   Invalid data input. Please try again in 3 seconds       ";
 			Sleep(3000);
 			continue;
 		}
@@ -112,7 +112,7 @@ void addCourseMenu(ListCourses & listCourses)
 		if (!newCourse.setStartDate_str(dateInfo[0]) || !newCourse.setEndDate_str(dateInfo[1]) 
 			|| !newCourse.setStartTime(dateInfo[2]) || !newCourse.setEndTime(dateInfo[3]) || !newCourse.setDateOfWeek(dateInfo[4]))
 		{
-			gotoXY(40, 6); cout << "    Invalid data input. Please try again in 3 seconds       ";
+			gotoXY(40, 6); cout << "                   Invalid data input. Please try again in 3 seconds       ";
 			Sleep(3000);
 			continue;
 		}

@@ -1,17 +1,5 @@
 #include "Courses.h"
 
-string splitToken(string &stringInput, const string &delim)
-{
-	size_t pos = 0;
-	string token = "";
-	if ((pos = stringInput.find(delim)) != string::npos)
-	{
-		token = stringInput.substr(0, pos);
-		stringInput.erase(0, pos + delim.length());
-	}
-	return token;
-}
-
 Time::Time()
 {
 	this->minute = this->hour = -1;
@@ -122,8 +110,15 @@ bool Courses::setYear(const string & yearInput)
 	struct tm newtime;
 	time_t now = time(0);
 	localtime_s(&newtime, &now);
-	if (stoi(yearInput.substr(0, 4)) < 2000 || stoi(yearInput.substr(5, 4)) > 1900 + newtime.tm_year)
+	try
+	{
+		if (stoi(yearInput.substr(0, 4)) < 2000 || stoi(yearInput.substr(5, 4)) > 1900 + newtime.tm_year)
+			return false;
+	}
+	catch (const exception &error)
+	{
 		return false;
+	}
 	this->year = yearInput;
 	return true;
 }
@@ -146,8 +141,15 @@ bool Courses::setStartDate(Date & startDateInput)
 {
 	if (this->year == "")
 		return false;
-	if (startDateInput.getYear() < stoi(this->year.substr(0, 4)) || startDateInput.getYear() > stoi(this->year.substr(0, 4)) + 1)
+	try
+	{
+		if (startDateInput.getYear() < stoi(this->year.substr(0, 4)) || startDateInput.getYear() > stoi(this->year.substr(0, 4)) + 1)
+			return false;
+	}
+	catch (const exception &error)
+	{
 		return false;
+	}
 	this->start = startDateInput;
 	return true;
 }
@@ -158,8 +160,15 @@ bool Courses::setEndDate(Date & endDateInput)
 {
 	if (this->year == "")
 		return false;
-	if (endDateInput.getYear() < stoi(this->year.substr(0, 4)) || endDateInput.getYear() > stoi(this->year.substr(0, 4)) + 1)
+	try
+	{
+		if (endDateInput.getYear() < stoi(this->year.substr(0, 4)) || endDateInput.getYear() > stoi(this->year.substr(0, 4)) + 1)
+			return false;
+	}
+	catch (const exception &error)
+	{
 		return false;
+	}
 	this->end = endDateInput;
 	return true;
 }
@@ -168,8 +177,16 @@ Time Courses::getStartTime() { return this->from; }
 
 bool Courses::setStartTime(string & startTimeInput)
 { 
-	int hour = stoi(splitToken(startTimeInput, "h"));
-	int minute = stoi(startTimeInput);
+	int hour, minute;
+	try
+	{
+		hour = stoi(splitToken(startTimeInput, "h"));
+		minute = stoi(startTimeInput);
+	}
+	catch (exception &error)
+	{
+		return false;
+	}
 	return (this->from.setHour(hour) && this->from.setMinute(minute));
 }
 
@@ -186,9 +203,17 @@ string Courses::getEndTime_str()
 }
 
 bool Courses::setEndTime(string & endTimeInput)
-{ 
-	int hour = stoi(splitToken(endTimeInput, "h"));
-	int minute = stoi(endTimeInput);
+{
+	int hour, minute;
+	try
+	{
+		hour = stoi(splitToken(endTimeInput, "h"));
+		minute = stoi(endTimeInput);
+	}
+	catch (const exception &error)
+	{
+		return false;
+	}
 	return (this->to.setHour(hour) && this->to.setMinute(minute));
 }
 
@@ -255,9 +280,16 @@ bool Courses::setStartDate_str(string & startDataInput)
 	string day = splitToken(startDataInput, "/");
 	string month = splitToken(startDataInput, "/");
 	Date checkDate;
-	checkDate.setYear(stoi(startDataInput));
-	checkDate.setMonth(stoi(month));
-	checkDate.setDate(stoi(day));
+	try
+	{
+		checkDate.setYear(stoi(startDataInput));
+		checkDate.setMonth(stoi(month));
+		checkDate.setDate(stoi(day));
+	}
+	catch (const exception &error)
+	{
+		return false;
+	}
 	return this->setStartDate(checkDate);
 }
 
@@ -266,8 +298,15 @@ bool Courses::setEndDate_str(string & endDataInput)
 	string day = splitToken(endDataInput, "/");
 	string month = splitToken(endDataInput, "/");
 	Date checkDate;
-	checkDate.setYear(stoi(endDataInput));
-	checkDate.setMonth(stoi(month));
-	checkDate.setDate(stoi(day));
+	try
+	{
+		checkDate.setYear(stoi(endDataInput));
+		checkDate.setMonth(stoi(month));
+		checkDate.setDate(stoi(day));
+	}
+	catch (const exception &error)
+	{
+		return false;
+	}
 	return this->setEndDate(checkDate);
 }
