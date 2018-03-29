@@ -25,7 +25,7 @@ int controlAddClassMenu()
 			char getSwitchKey = _getch();
 			switch (getSwitchKey)
 			{
-			case 13:
+			case 13: case 27:
 				return getButton;
 			case 75: case 77: case 9:
 				if (getButton == 0)

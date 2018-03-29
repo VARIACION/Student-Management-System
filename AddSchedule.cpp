@@ -27,9 +27,8 @@ void drawFieldAddSchedule()
 	cout << "    MONDAY    |    TUESDAY   |   WEDNESDAY  |   THURSDAY   |    FRIDAY    |   SATURDAY   ";
 	gotoXY(20, 8); cout << "7h30-9h15";
 	gotoXY(20, 13); cout << "9h30-11h15";
-	gotoXY(35, 16); cout << "=========================================================================================";
-	gotoXY(20, 19); cout << "13h30-15h15";
-	gotoXY(20, 24); cout << "15h30-17h00";
+	gotoXY(20, 18); cout << "13h30-15h15";
+	gotoXY(20, 23); cout << "15h30-17h00";
 	int setX[6];	setX[0] = 37;
 	for (int i = 1; i < 6; ++i)
 		setX[i] = setX[i - 1] + 15;
@@ -37,8 +36,8 @@ void drawFieldAddSchedule()
 	{
 		drawLabel(setX[i], 8, 2, 12, "");
 		drawLabel(setX[i], 13, 2, 12, "");
-		drawLabel(setX[i], 19, 2, 12, "");
-		drawLabel(setX[i], 24, 2, 12, "");
+		drawLabel(setX[i], 18, 2, 12, "");
+		drawLabel(setX[i], 23, 2, 12, "");
 	}
 	drawLabel(60, 28, 1, 15, "Add");
 	drawLabel(85, 28, 1, 15, "Cancel");
@@ -60,10 +59,14 @@ void inputBasicInfoSchedule(string basicInfo[])
 		if (!newSchedule.setSemester(basicInfo[2][0] - '0')) continue;
 
 		basicInfo[3] = getFileName(50, 16, 25, 7, "start date");
+		string temp = basicInfo[3];
 		if (!newSchedule.setStartDate(basicInfo[3])) continue;
-
+		basicInfo[3] = temp;
+		
 		basicInfo[4] = getFileName(95, 16, 25, 7, "end date");
+		temp = basicInfo[4];
 		if (!newSchedule.setEndDate(basicInfo[4])) continue;
+		basicInfo[4] = temp;
 		
 		break;
 	}
@@ -76,7 +79,7 @@ void inputSchedule(Schedule & schedule)
 	for (int i = 1; i < 6; ++i)
 		setX[i] = setX[i - 1] + 15;
 
-	int setY[] = { 8, 13, 19, 24 };
+	int setY[] = { 8, 13, 18, 23 };
 
 	for (int i = 0; i < 4; ++i)
 	{

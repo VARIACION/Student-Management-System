@@ -10,6 +10,8 @@
 #include "ImportExportSchedule.h"
 #include "RemoveSchedule.h"
 #include "AddSchedule.h"
+#include "EditSchedule.h"
+#include "ViewSchedules.h"
 using namespace std;
 
 void drawFieldCourseSchedulesMenu();

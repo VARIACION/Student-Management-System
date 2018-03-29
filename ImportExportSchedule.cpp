@@ -42,7 +42,7 @@ void importExportSchedulesMenu(ListSchedules & listSchedules)
 			if (importScheduleFromFile(listSchedules, fileImport))
 			{
 				gotoXY(40, 10); cout << "Succeed to import courses's schedule. You will be back to SCHEDULES menu in 3 seconds";
-				Sleep(3000);
+				Sleep(1000);
 				return;
 			}
 		}
@@ -51,7 +51,7 @@ void importExportSchedulesMenu(ListSchedules & listSchedules)
 			if (exportScheduleToFile(listSchedules, fileExport, classExport))
 			{
 				gotoXY(40, 10); cout << "Succeed to export courses's schedule. You will be back to SCHEDULES menu in 3 seconds";
-				Sleep(3000);
+				Sleep(1000);
 				return;
 			}
 		}

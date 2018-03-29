@@ -78,7 +78,11 @@ void courseSchedulesMenu()
 			importExportSchedulesMenu(listSchedules);
 		else if (getChoose == 1)
 			addScheduleMenu(listSchedules);
+		else if (getChoose == 2)
+			editScheduleMenu(listSchedules);
 		else if (getChoose == 3)
 			removeScheduleMenu(listSchedules);
+		else if (getChoose == 4)
+			viewSchedulesMenu(listSchedules);
 	}
 }

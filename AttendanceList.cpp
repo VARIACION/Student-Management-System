@@ -7,7 +7,7 @@ void drawFieldAttendanceList()
 	cout << "EDIT COURSES";
 	drawLabel(21, 16, 4, 110, "");
 	drawLabel(25, 16, 2, 20, "Search/View");
-	drawLabel(65, 16, 2, 20, "Export");
+	drawLabel(65, 16, 2, 20, "Import/Export");
 	drawLabel(105, 16, 2, 20, "Back");
 }
 
@@ -16,9 +16,9 @@ int controlAttendanceListMenu()
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[3] =
 	{
-		{ "        Search and view attendance list of a course" },
-		{ "                  Export attendance list           " },
-		{ "                Back to ACADEMIC STAFF menu        "}
+		{ "      Search and view attendance list of attendance lists" },
+		{ "               Import/Export attendance list             " },
+		{ "                Back to ACADEMIC STAFF menu              "}
 	};
 	Point courseMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 } };
 	int chooseControlCourseMenu = 0;
@@ -52,11 +52,14 @@ int controlAttendanceListMenu()
 
 void attendanceListMenu()
 {
+	ListPresence listPresence;
 	while (true)
 	{
 		drawFieldAttendanceList();
 		int getChoose = controlAttendanceListMenu();
 		if (getChoose == 2)
 			return;
+		else if (getChoose == 1)
+			importExportAttendanceListFromFile(listPresence);
 	}
 }

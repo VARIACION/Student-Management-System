@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <fstream>
 #include "Screen.h"
+#include "Presence.h"
+#include "ImportExportAttendanceList.h"
 using namespace std;
 
 void drawFieldAttendanceList();
