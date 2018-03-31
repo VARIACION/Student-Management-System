@@ -11,7 +11,7 @@ using namespace std;
 struct SheetScore
 {
 	map<int, string> student;
-	map<int, vector<int>> list;
+	map<int, vector<double>> list;
 };
 
 class ScoreBoard
@@ -48,9 +48,9 @@ public:
 
 	int getSizeOfClass();
 
-	bool setScore(const int &no, const int &scoreInput);
+	bool setScore(const int &no, const double &scoreInput);
 
-	int getScore(const int &no, const int &type);
+	double getScore(const int &no, const int &type);
 };
 
 struct ListScoreboard

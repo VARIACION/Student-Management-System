@@ -8,6 +8,7 @@
 #include "Screen.h"
 #include "ScoreBoard.h"
 #include "ImportExportScoreboard.h"
+#include "SearchViewScoreboard.h"
 using namespace std;
 
 void drawFieldScoreboardStaff();

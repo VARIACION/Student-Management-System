@@ -26,7 +26,6 @@ void drawFieldViewDetailInfoAttendanceList()
 
 void searchViewAttendanceListMenu(ListPresence & listPresence)
 {
-	int checkIfViewSuccess = 0;
 	while (true)
 	{
 		drawSearchAndViewAttendanceList();
@@ -42,14 +41,12 @@ void searchViewAttendanceListMenu(ListPresence & listPresence)
 			break;
 		else if (getChoose == 2)
 			continue;
-		else
+		else if (!checkViewAtendanceList(listPresence, courseName, className))
 		{
-			if (!checkViewAtendanceList(listPresence, courseName, className))
-			{
-				gotoXY(45, 10); cout << "Failed to view attendance list. Check your data and try again in 1 second.";
-				Sleep(1000);
-			}
+			gotoXY(45, 10); cout << "Failed to view attendance list. Check your data and try again in 1 second.";
+			Sleep(1000);
 		}
+		else break;
 	}
 }
 
@@ -165,7 +162,7 @@ bool checkViewAtendanceList(ListPresence & listPresence, const string & courseNa
 				viewBasicInfoAttendanceList(i);
 				int getChoose = controlAddClassMenu();
 				if (getChoose == 1) return true;
-					else viewDetailInforAttendanceList(i);
+				else viewDetailInforAttendanceList(i);
 			}
 			return true;
 		}

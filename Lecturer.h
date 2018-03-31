@@ -9,6 +9,8 @@
 #include "Screen.h"
 #include "User.h"
 #include "UserInformation.h"
+#include "ScoreBoard.h"
+#include "ImportExportScoreboard.h"
 using namespace std;
 
 void drawFieldLecturer();

@@ -73,7 +73,7 @@ void importExportAttendanceListFromFile(ListPresence & listPresence)
 			else
 			{
 				gotoXY(40, 10);
-				cout << "Succeed to save data to file. You will be back to STUDENT menu in 3 seconds" << "             ";
+				cout << "Succeed to save data to file. You will be back to ATTENDANCE menu in 3 seconds" << "             ";
 				Sleep(1000);
 				return;
 			}
@@ -116,9 +116,9 @@ bool importAttendanceListFromFile(ListPresence & listPresence, const string & pa
 		token = splitToken(getLine, ",");
 		if (!newPresence.setYear(token)) return false;
 		if (!newPresence.setSemester(getLine[0] - '0')) return false;
-		fileInput.close();
 		listPresence.list.push_back(newPresence);
 	}
+	fileInput.close();
 	return true;
 }
 
@@ -145,8 +145,8 @@ int exportAttendanceListToFile(ListPresence & listPresence, const string & path,
 			}
 			fileOutput << "Course,Class,Year,Semester" << endl;
 			fileOutput << i.getCourse() << "," << i.getClassName() << "," << i.getYear() << "," << i.getSemester() << endl;
+			break;
 		}
-		else break;
 	fileOutput.close();
 	if (!existClass) return 3;
 	return 4;

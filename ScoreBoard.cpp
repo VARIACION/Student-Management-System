@@ -58,14 +58,14 @@ string ScoreBoard::getStudent(const int & no) { return this->score.student[no - 
 
 int ScoreBoard::getSizeOfClass() { return this->score.student.size(); }
 
-bool ScoreBoard::setScore(const int & no, const int & scoreInput)
+bool ScoreBoard::setScore(const int & no, const double & scoreInput)
 {
 	if (no < 1 || no > this->score.student.size() || scoreInput < 0 || scoreInput > 10) return false;
 	this->score.list[no - 1].push_back(scoreInput);
 	return true;
 }
 
-int ScoreBoard::getScore(const int & no, const int & type)
+double ScoreBoard::getScore(const int & no, const int & type)
 {
 	if (no < 1 || no > this->score.student.size() || type < 1 || type > 3) return -1;
 	return this->score.list[no - 1][type - 1];

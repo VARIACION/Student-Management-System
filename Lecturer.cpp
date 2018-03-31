@@ -67,6 +67,7 @@ int controlLecturerMenu()
 
 void lecturerMenu(User &lecturer)
 {
+	ListScoreboard listScoreboard;
 	while (true)
 	{
 		ShowConsoleCursor(false);
@@ -78,5 +79,7 @@ void lecturerMenu(User &lecturer)
 			return;
 		else if (getChoose == 0)
 			accessInfo(lecturer);
+		else if (getChoose == 1)
+			importExportScoreboardMenu(listScoreboard);
 	}
 }

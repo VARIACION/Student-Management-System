@@ -60,6 +60,8 @@ void scoreboardStaffMenu()
 		if (getChoose == 2)
 			return;
 		else if (getChoose == 1)
-			drawFieldImportExportScoreboard();
+			importExportScoreboardMenu(listScoreboard);
+		else
+			searchViewScoreboardMenu(listScoreboard);
 	}
 }
