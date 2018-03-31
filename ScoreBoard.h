@@ -8,22 +8,23 @@
 #include <iterator>
 using namespace std;
 
-struct SheetPresence
+struct SheetScore
 {
-	map<int, string> students;
-	map<int, vector<bool>> list;
+	map<int, string> student;
+	map<int, vector<int>> list;
 };
 
-class Presence
+class ScoreBoard
 {
 private:
 	string className, year, course;
 	char semester;
-	SheetPresence presence;
-public:
-	Presence();
+	SheetScore score;
 
-	~Presence();
+public:
+	ScoreBoard();
+
+	~ScoreBoard();
 
 	void setClassName(const string &name);
 
@@ -41,21 +42,19 @@ public:
 
 	int getSemester();
 
-	bool setPresence(const int &no, const bool &isPresence);
-
-	string getPresence(const int &no, const int &week);
-
 	void setStudent(const int &no, const string &name);
 
 	string getStudent(const int &no);
 
 	int getSizeOfClass();
 
-	int getNumberOfWeek();
+	bool setScore(const int &no, const int &scoreInput);
+
+	int getScore(const int &no, const int &type);
 };
 
-struct ListPresence
+struct ListScoreboard
 {
-	vector<Presence> list;
-	~ListPresence();
+	vector<ScoreBoard> list;
+	~ListScoreboard();
 };

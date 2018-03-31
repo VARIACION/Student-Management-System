@@ -7,6 +7,7 @@
 #include <fstream>
 #include "Screen.h"
 #include "Presence.h"
+#include "SearchViewAttendanceList.h"
 #include "ImportExportAttendanceList.h"
 using namespace std;
 

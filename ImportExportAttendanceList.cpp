@@ -92,6 +92,7 @@ bool importAttendanceListFromFile(ListPresence & listPresence, const string & pa
 	while (!fileInput.eof())
 	{
 		getline(fileInput, getLine);
+		if (getLine == "") break;
 		Presence newPresence;
 		getline(fileInput, getLine);
 		while (getLine[0] != 'C')

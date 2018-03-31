@@ -59,7 +59,7 @@ bool Presence::setPresence(const int & no, const bool & isPresence)
 	return true;
 }
 
-string Presence::getPresence(int & no, int & week)
+string Presence::getPresence(const int & no, const int & week)
 {
 	if (no < 1 || no > this->presence.students.size() || week < 1 || week > this->presence.list[no - 1].size()) return "";
 	else if (this->presence.list[no - 1][week - 1]) return "1";

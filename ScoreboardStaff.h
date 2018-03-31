@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <fstream>
 #include "Screen.h"
+#include "ScoreBoard.h"
+#include "ImportExportScoreboard.h"
 using namespace std;
 
 void drawFieldScoreboardStaff();

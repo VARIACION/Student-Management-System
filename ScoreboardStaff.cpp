@@ -7,7 +7,7 @@ void drawFieldScoreboardStaff()
 	cout << "SCORE BOARD";
 	drawLabel(21, 16, 4, 110, "");
 	drawLabel(25, 16, 2, 20, "Search/View");
-	drawLabel(65, 16, 2, 20, "Export");
+	drawLabel(65, 16, 2, 20, "Import/Export");
 	drawLabel(105, 16, 2, 20, "Back");
 }
 
@@ -17,7 +17,7 @@ int controlScoreboardStaffMenu()
 	string textDescribeFeature[3] =
 	{
 		{ "     Search and view attendance scoreboard of a course" },
-		{ "                    Export a scoreboard               " },
+		{ "              Import / Export a scoreboard            " },
 		{ "               Back to ACADEMIC STAFF menu            " }
 	};
 	Point courseMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 } };
@@ -52,11 +52,14 @@ int controlScoreboardStaffMenu()
 
 void scoreboardStaffMenu()
 {
+	ListScoreboard listScoreboard;
 	while (true)
 	{
 		drawFieldScoreboardStaff();
 		int getChoose = controlScoreboardStaffMenu();
 		if (getChoose == 2)
 			return;
+		else if (getChoose == 1)
+			drawFieldImportExportScoreboard();
 	}
 }

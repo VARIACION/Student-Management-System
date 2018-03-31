@@ -61,5 +61,7 @@ void attendanceListMenu()
 			return;
 		else if (getChoose == 1)
 			importExportAttendanceListFromFile(listPresence);
+		else if (getChoose == 0)
+			searchViewAttendanceListMenu(listPresence);
 	}
 }
