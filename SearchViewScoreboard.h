@@ -10,11 +10,17 @@
 using namespace std;
 
 void drawFieldSearchViewScoreboard();
+
 void drawFieldViewDetailScoreboard();
+
 void viewBasicInfoScoreboard(ScoreBoard &scoreboard);
-void searchViewScoreboardMenu(ListScoreboard &listScoreboard);
-bool checkViewScoreboard(ListScoreboard &listScroreboard, const string &courseName, const string &className);
+
+void searchViewScoreboardMenu(ListScoreboard* &listScoreboard);
+
+bool checkViewScoreboard(ListScoreboard* &listScroreboard, const string &courseName, const string &className);
+
 void viewDetailInfoScoreboard(ScoreBoard &scoreboard);
+
 void displayDetailScoreboard(ScoreBoard &scoreboard, const int &pointStudent);
 
 #endif // !SEARCH_VIEW_SCOREBOARD_H

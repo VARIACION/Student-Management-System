@@ -24,7 +24,7 @@ void drawFieldViewDetailInfoAttendanceList()
 	drawLabel(55, 20, 16, 80, "");
 }
 
-void searchViewAttendanceListMenu(ListPresence & listPresence)
+void searchViewAttendanceListMenu(ListPresence* & listPresence)
 {
 	while (true)
 	{
@@ -152,9 +152,9 @@ void viewDetailInforAttendanceList(Presence & presence)
 	}
 }
 
-bool checkViewAtendanceList(ListPresence & listPresence, const string & courseName, const string & className)
+bool checkViewAtendanceList(ListPresence* & listPresence, const string & courseName, const string & className)
 {
-	for (auto i : listPresence.list)
+	for (auto& i : listPresence->list)
 		if (i.getCourse() == courseName && i.getClassName() == className)
 		{
 			while (true)

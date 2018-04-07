@@ -12,8 +12,8 @@
 using namespace std;
 
 void drawFiledImportExportSchedules();
-void importExportSchedulesMenu(ListSchedules &listSchedules);
-bool importScheduleFromFile(ListSchedules &listSchedules, const string &path);
-bool exportScheduleToFile(ListSchedules &listSchedules, const string &path, const string &className);
+void importExportSchedulesMenu(ListSchedules* &listSchedules);
+bool importScheduleFromFile(ListSchedules* &listSchedules, const string &path);
+bool exportScheduleToFile(ListSchedules* &listSchedules, const string &path, const string &className);
 
 #endif // !IMPORT_EXPORT_SCHEDULE_H

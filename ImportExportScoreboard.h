@@ -12,10 +12,10 @@ using namespace std;
 
 void drawFieldImportExportScoreboard();
 
-void importExportScoreboardMenu(ListScoreboard &listScoreboard);
+void importExportScoreboardMenu(ListScoreboard* &listScoreboard);
 
-bool importScoreboardFromFile(ListScoreboard &listScoreboard, const string &path);
+bool importScoreboardFromFile(ListScoreboard* &listScoreboard, const string &path);
 
-int exportScoreboardToFile(ListScoreboard &listScoreboard, const string &path, const string &className);
+int exportScoreboardToFile(ListScoreboard* &listScoreboard, const string &path, const string &className);
 
 #endif // !IMPORT_EXPORT_SCOREBOARD_H

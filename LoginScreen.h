@@ -18,10 +18,9 @@ void drawLoginMenu();
 int controlLoginMenu();
 void checkPasswordInput(const int &x, const int &y, string &password);
 void checkUsernameInput(string &username);
-User loginMenu();
+User loginMenu(bool &exit_signal);
 void encryptDataInput(const string &username, const string &password, string & usernameToMD5, string & passwordToMD5);
 User checkLogin(const string &username, const string & password, bool &checkValidLogin);
-void prompExit();
 void aboutProject();
 bool checkInputDatabase();
 

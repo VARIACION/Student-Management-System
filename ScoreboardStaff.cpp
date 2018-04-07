@@ -50,9 +50,9 @@ int controlScoreboardStaffMenu()
 	}
 }
 
-void scoreboardStaffMenu()
+void scoreboardStaffMenu(ListScoreboard* &listScoreboard)
 {
-	ListScoreboard listScoreboard;
+	
 	while (true)
 	{
 		drawFieldScoreboardStaff();

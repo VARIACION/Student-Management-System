@@ -13,6 +13,6 @@ void drawFieldBasicInfoSchedule();
 void drawFieldAddSchedule();
 void inputBasicInfoSchedule(string basicInfo[]);
 void inputSchedule(Schedule &schedule);
-void addScheduleMenu(ListSchedules &listSchedules);
+void addScheduleMenu(ListSchedules* &listSchedules);
 
 #endif // !ADD_SCHEDULE_H

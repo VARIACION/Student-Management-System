@@ -17,7 +17,7 @@ struct SheetScore
 class ScoreBoard
 {
 private:
-	string className, year, course;
+	string className, year, course, lecturerName;
 	char semester;
 	SheetScore score;
 
@@ -29,6 +29,10 @@ public:
 	void setClassName(const string &name);
 
 	string getClassName();
+
+  void setLecturerName(const string &name);
+
+  string getLecturerName();
 
 	void setCourse(const string &courseInput);
 
@@ -49,6 +53,8 @@ public:
 	int getSizeOfClass();
 
 	bool setScore(const int &no, const double &scoreInput);
+
+  bool setScore(const int &no, const double &scoreInput, const int &type);
 
 	double getScore(const int &no, const int &type);
 };

@@ -1,7 +1,6 @@
 #include "AddCourse.h"
 
-void drawFieldBasicInfo()
-{
+void drawFieldBasicInfo() {
 	system("cls");
 	gotoXY(70, 3);
 	cout << "BASIC INFO";
@@ -20,8 +19,7 @@ void drawFieldBasicInfo()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void drawFieldDateTime()
-{
+void drawFieldDateTime() {
 	system("cls");
 	gotoXY(70, 3);
 	cout << "DATE AND TIME";
@@ -40,10 +38,8 @@ void drawFieldDateTime()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-int basicInfoMenu(string basicInfo[])
-{
-	while (true)
-	{
+int basicInfoMenu(string basicInfo[]) {
+	while (true) {
 		drawFieldBasicInfo();
 		gotoXY(40, 6); cout << "                    Enter the code of the course. Eg: CTT008   ";
 		basicInfo[0] = getFileName(46, 10, 15, 6, "code");
@@ -65,10 +61,8 @@ int basicInfoMenu(string basicInfo[])
 	}
 }
 
-void dateTimeMenu(string dateInfo[])
-{
-	while (true)
-	{
+void dateTimeMenu(string dateInfo[]) {
+	while (true) {
 		drawFieldDateTime();
 		gotoXY(40, 6); cout << "              Enter the start date of the course. Eg: 01/01/2018";
 		dateInfo[0] = getFileName(47, 12, 28, 6, "start date");
@@ -89,17 +83,14 @@ void dateTimeMenu(string dateInfo[])
 	}
 }
 
-void addCourseMenu(ListCourses & listCourses)
-{
+void addCourseMenu(ListCourses & listCourses) {
 	Courses newCourse;
 	int getChoose = 0;
-	while (true)
-	{
+	while (true) {
 		string basicInfo[5];
 		if (basicInfoMenu(basicInfo) == 0) return;
 		newCourse.setCode(basicInfo[0]);
-		if (!newCourse.setYear(basicInfo[1]) || !newCourse.setSemester(basicInfo[2][0]))
-		{
+		if (!newCourse.setYear(basicInfo[1]) || !newCourse.setSemester(basicInfo[2][0])) {
 			gotoXY(40, 6); cout << "                   Invalid data input. Please try again in 3 seconds       ";
 			Sleep(3000);
 			continue;
@@ -110,8 +101,7 @@ void addCourseMenu(ListCourses & listCourses)
 		string dateInfo[5];
 		dateTimeMenu(dateInfo);
 		if (!newCourse.setStartDate_str(dateInfo[0]) || !newCourse.setEndDate_str(dateInfo[1]) 
-			|| !newCourse.setStartTime(dateInfo[2]) || !newCourse.setEndTime(dateInfo[3]) || !newCourse.setDateOfWeek(dateInfo[4]))
-		{
+			|| !newCourse.setStartTime(dateInfo[2]) || !newCourse.setEndTime(dateInfo[3]) || !newCourse.setDateOfWeek(dateInfo[4])) {
 			gotoXY(40, 6); cout << "                   Invalid data input. Please try again in 3 seconds       ";
 			Sleep(3000);
 			continue;

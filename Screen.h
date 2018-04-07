@@ -5,6 +5,8 @@
 #include <windows.h>
 #include <conio.h>
 #include <string>
+#include "Presence.h"
+#include "ScoreBoard.h"
 using namespace std;
 
 struct Point
@@ -13,7 +15,7 @@ struct Point
 };
 
 char * reformatInputData(string & dataInput);
-void prompExit();
+bool prompExit();
 string splitToken(string &stringInput, const string &delim);
 bool gotoXY(const int &x, const int &y);
 void setFullScreen();

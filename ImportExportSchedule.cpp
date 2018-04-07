@@ -20,7 +20,7 @@ void drawFiledImportExportSchedules()
 	drawLabel(93, 28, 1, 15, "Back");
 }
 
-void importExportSchedulesMenu(ListSchedules & listSchedules)
+void importExportSchedulesMenu(ListSchedules* & listSchedules)
 {
 	while (true)
 	{
@@ -58,7 +58,7 @@ void importExportSchedulesMenu(ListSchedules & listSchedules)
 	}
 }
 
-bool importScheduleFromFile(ListSchedules & listSchedules, const string &path)
+bool importScheduleFromFile(ListSchedules* & listSchedules, const string &path)
 {
 	Schedule newSchedule;
 	ifstream fileInput(path);
@@ -97,15 +97,15 @@ bool importScheduleFromFile(ListSchedules & listSchedules, const string &path)
 	if (!newSchedule.setEndDate(getLine)) return false;
 
 	fileInput.close();
-	listSchedules.list.push_back(newSchedule);
+	listSchedules->list.push_back(newSchedule);
 	return true;
 }
 
-bool exportScheduleToFile(ListSchedules & listSchedules, const string & path, const string &className)
+bool exportScheduleToFile(ListSchedules* & listSchedules, const string & path, const string &className)
 {
 	ofstream fileOutput(path);
 	if (fileOutput.fail()) return false;
-	for (auto i : listSchedules.list)
+	for (auto& i : listSchedules->list)
 		if (i.getClassName() == className)
 		{
 			fileOutput << "Time,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY" << endl;

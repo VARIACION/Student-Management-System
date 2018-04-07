@@ -107,23 +107,30 @@ int controlLogoutExitMenu()
 	}
 }
 
-void studentRoleMenu(User & student)
+void studentRoleMenu(ListSchedules* &listSchedule, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User & student)
 {
 	while (true)
 	{
 		ShowConsoleCursor(false);
 		drawFieldStudentRoleMenu();
 		int getChoose = controlStudentRoleMenu();
-		if (getChoose == 0)
-			accessInfo(student);
-		else if (getChoose == 5)
-		{
-			drawFieldLogoutExit();
-			int exitLogout = controlLogoutExitMenu();
-			if (exitLogout == 0)
-				return;
-			else if (exitLogout == 1)
-				prompExit();
-		}
+    if (getChoose == 0)
+      accessInfo(student);
+    else if (getChoose == 5)
+    {
+      drawFieldLogoutExit();
+      int exitLogout = controlLogoutExitMenu();
+      if (exitLogout == 0)
+        return;
+      else if (exitLogout == 1)
+        if (prompExit()) {
+          delete listPresence;
+          delete listScoreboard;
+          delete listSchedule;
+          exit(EXIT_SUCCESS);
+        }
+    }
+    else if (getChoose == 4)
+      viewSchedulesMenu(listSchedule);
 	}
 }

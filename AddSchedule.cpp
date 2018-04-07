@@ -1,7 +1,6 @@
 #include "AddSchedule.h"
 
-void drawFieldBasicInfoSchedule()
-{
+void drawFieldBasicInfoSchedule() {
 	system("cls");
 	gotoXY(70, 5);
 	cout << "ADD A SCHEDULE";
@@ -20,8 +19,7 @@ void drawFieldBasicInfoSchedule()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void drawFieldAddSchedule()
-{
+void drawFieldAddSchedule() {
 	system("cls");
 	gotoXY(35, 5);
 	cout << "    MONDAY    |    TUESDAY   |   WEDNESDAY  |   THURSDAY   |    FRIDAY    |   SATURDAY   ";
@@ -32,8 +30,7 @@ void drawFieldAddSchedule()
 	int setX[6];	setX[0] = 37;
 	for (int i = 1; i < 6; ++i)
 		setX[i] = setX[i - 1] + 15;
-	for (int i = 0; i < 6; ++i)
-	{
+	for (int i = 0; i < 6; ++i) {
 		drawLabel(setX[i], 8, 2, 12, "");
 		drawLabel(setX[i], 13, 2, 12, "");
 		drawLabel(setX[i], 18, 2, 12, "");
@@ -43,10 +40,8 @@ void drawFieldAddSchedule()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void inputBasicInfoSchedule(string basicInfo[])
-{
-	while (true)
-	{
+void inputBasicInfoSchedule(string basicInfo[]) {
+	while (true) {
 		Schedule newSchedule;
 		ShowConsoleCursor(false);
 		drawFieldBasicInfoSchedule();
@@ -72,8 +67,7 @@ void inputBasicInfoSchedule(string basicInfo[])
 	}
 }
 
-void inputSchedule(Schedule & schedule)
-{
+void inputSchedule(Schedule & schedule) {
 	drawFieldAddSchedule();
 	int setX[6];	setX[0] = 37;
 	for (int i = 1; i < 6; ++i)
@@ -81,20 +75,16 @@ void inputSchedule(Schedule & schedule)
 
 	int setY[] = { 8, 13, 18, 23 };
 
-	for (int i = 0; i < 4; ++i)
-	{
-		for (Week j = (Week)0; j != SUNDAY; j = (Week)(j + 1))
-		{
+	for (int i = 0; i < 4; ++i) {
+		for (Week j = (Week)0; j != SUNDAY; j = (Week)(j + 1)) {
 			string courseInput = getFileName(setX[j], setY[i], 12, 7, "course");
 			schedule.setSchedule(j, i, courseInput);
 		}
 	}
 }
 
-void addScheduleMenu(ListSchedules & listSchedules)
-{
-	while (true)
-	{
+void addScheduleMenu(ListSchedules* & listSchedules) {
+	while (true) {
 		Schedule newSchedule;
 		string basicInfo[5];
 		inputBasicInfoSchedule(basicInfo);
@@ -110,7 +100,7 @@ void addScheduleMenu(ListSchedules & listSchedules)
 		newSchedule.setSemester(basicInfo[2][0] - '0');
 		newSchedule.setStartDate(basicInfo[3]);
 		newSchedule.setEndDate(basicInfo[4]);
-		listSchedules.list.push_back(newSchedule);
+		listSchedules->list.push_back(newSchedule);
 		break;
 	}
 }

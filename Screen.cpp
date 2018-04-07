@@ -18,39 +18,40 @@ char * reformatInputData(string & dataInput)
 	return splitColumnInRow;
 }
 
-void prompExit()
+bool prompExit()
 {
-	ShowConsoleCursor(false);
-	system("cls");
-	drawLabel(55, 18, 2, 35, "Are you sure you want to quit?");
-	drawLabel(63, 24, 1, 5, "Yes");
-	drawLabel(75, 24, 1, 5, "No");
+  ShowConsoleCursor(false);
+  system("cls");
+  drawLabel(55, 18, 2, 35, "Are you sure you want to quit?");
+  drawLabel(63, 24, 1, 5, "Yes");
+  drawLabel(75, 24, 1, 5, "No");
 
-	Point exitButtonMenu[2] = { { 63, 24 },{ 75, 24 } };
-	drawLabel(63, 24, 2, 7, "");
-	int choose = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
-			char getSwitchKey = _getch();
-			eraseLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7);
-			switch (getSwitchKey)
-			{
-			case 13:
-				if (choose == 0) exit(EXIT_SUCCESS);
-				else return;
-			case 77:
-				if (choose == 1) choose = 0; else ++choose;
-				break;
-			case 75:
-				if (choose == 0) choose = 1; else --choose;
-				break;
-			}
-			drawLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7, "");
-			gotoXY(exitButtonMenu[choose].x, exitButtonMenu[choose].y);
-		}
-	}
+  Point exitButtonMenu[2] = { { 63, 24 },{ 75, 24 } };
+  drawLabel(63, 24, 2, 7, "");
+  int choose = 0;
+  while (true)
+  {
+    if (_kbhit())
+    {
+      char getSwitchKey = _getch();
+      eraseLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7);
+      switch (getSwitchKey)
+      {
+      case 13:
+        if (choose == 0) return true;
+        else false;
+      case 77:
+        if (choose == 1) choose = 0; else ++choose;
+        break;
+      case 75:
+        if (choose == 0) choose = 1; else --choose;
+        break;
+      }
+      drawLabel(exitButtonMenu[choose].x, exitButtonMenu[choose].y, 2, 7, "");
+      gotoXY(exitButtonMenu[choose].x, exitButtonMenu[choose].y);
+    }
+  }
+  return true;
 }
 
 string splitToken(string &stringInput, const string &delim)

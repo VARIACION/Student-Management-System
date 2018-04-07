@@ -11,9 +11,9 @@ using namespace std;
 
 void drawSearchAndViewAttendanceList();
 
-void searchViewAttendanceListMenu(ListPresence &listPresence);
+void searchViewAttendanceListMenu(ListPresence* &listPresence);
 
-bool checkViewAtendanceList(ListPresence &listPresence, const string &courseName, const string &className);
+bool checkViewAtendanceList(ListPresence* &listPresence, const string &courseName, const string &className);
 
 void viewBasicInfoAttendanceList(Presence &presence);
 

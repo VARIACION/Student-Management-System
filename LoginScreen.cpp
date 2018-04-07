@@ -158,8 +158,9 @@ void checkUsernameInput(string &username)
 	}
 }
 
-User loginMenu()
+User loginMenu(bool &exit_signal)
 {
+  User userLogin;
 	while (true)
 	{
 		drawLoginMenu();
@@ -169,12 +170,17 @@ User loginMenu()
 		checkUsernameInput(username);
 		checkPasswordInput(65, 22, password);
 		chooseButton = controlLoginMenu();
-		if (chooseButton == 2)
-			prompExit();
+    if (chooseButton == 2)
+      if (prompExit()) {
+        exit_signal = true;
+        return userLogin;
+      }
+      else
+        exit_signal = false;
 		else if (chooseButton == 0)
 		{
 			bool checkValidData;
-			User userLogin = checkLogin(username, password, checkValidData);
+			userLogin = checkLogin(username, password, checkValidData);
 			if (checkValidData) return userLogin;
 			else
 			{
@@ -186,6 +192,7 @@ User loginMenu()
 		else if (chooseButton == 1)
 			aboutProject();
 	}
+  exit_signal = false;
 }
 
 void encryptDataInput(const string & username, const string & password, string & usernameToMD5, string & passwordToMD5)

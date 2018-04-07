@@ -13,6 +13,6 @@ using namespace std;
 
 void drawFieldAttendanceList();
 int controlAttendanceListMenu();
-void attendanceListMenu();
+void attendanceListMenu(ListPresence* &listPresence);
 
 #endif // !ATTENDANCE_LIST_H

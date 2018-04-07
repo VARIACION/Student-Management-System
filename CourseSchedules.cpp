@@ -1,7 +1,6 @@
 #include "CourseSchedules.h"
 
-void drawFieldCourseSchedulesMenu()
-{
+void drawFieldCourseSchedulesMenu() {
 	system("cls");
 	gotoXY(67, 6);
 	cout << "EDIT COURSES";
@@ -14,8 +13,7 @@ void drawFieldCourseSchedulesMenu()
 	drawLabel(105, 24, 2, 20, "Back");
 }
 
-int controlCourseSchedulesMenu()
-{
+int controlCourseSchedulesMenu() {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[6] =
 	{
@@ -30,14 +28,11 @@ int controlCourseSchedulesMenu()
 	int chooseControlCourseMenu = 0;
 	gotoXY(47, 10);
 	cout << textDescribeFeature[chooseControlCourseMenu];
-	while (true)
-	{
-		if (_kbhit())
-		{
+	while (true) {
+		if (_kbhit()) {
 			char getSwitchKey = _getch();
 			eraseLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22);
-			switch (getSwitchKey)
-			{
+			switch (getSwitchKey) {
 			case 13:
 				return chooseControlCourseMenu;
 			case 77: case 9:
@@ -64,16 +59,14 @@ int controlCourseSchedulesMenu()
 	}
 }
 
-void courseSchedulesMenu()
-{
-	ListSchedules listSchedules;
-	while (true)
-	{
+ListSchedules * courseSchedulesMenu() {
+	ListSchedules *listSchedules = new ListSchedules;
+	while (true) {
 		ShowConsoleCursor(false);
 		drawFieldCourseSchedulesMenu();
 		int getChoose = controlCourseSchedulesMenu();
-		if (getChoose == 5)
-			return;
+    if (getChoose == 5)
+      return listSchedules;
 		else if (getChoose == 0)
 			importExportSchedulesMenu(listSchedules);
 		else if (getChoose == 1)
@@ -85,4 +78,5 @@ void courseSchedulesMenu()
 		else if (getChoose == 4)
 			viewSchedulesMenu(listSchedules);
 	}
+  return listSchedules;
 }

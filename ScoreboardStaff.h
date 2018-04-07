@@ -13,6 +13,6 @@ using namespace std;
 
 void drawFieldScoreboardStaff();
 int controlScoreboardStaffMenu();
-void scoreboardStaffMenu();
+void scoreboardStaffMenu(ListScoreboard* &listScoreboard);
 
 #endif // !SCOREBOARD_STAFF_H

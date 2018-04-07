@@ -13,7 +13,7 @@ void drawFieldRemoveSchedule()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void removeScheduleMenu(ListSchedules &listSchedules)
+void removeScheduleMenu(ListSchedules* &listSchedules)
 {
 	int checkIfRemoveSuccess = 0;
 	while (true)
@@ -45,12 +45,12 @@ void removeScheduleMenu(ListSchedules &listSchedules)
 	}
 }
 
-bool removeSchedule(ListSchedules & listSchedules, const string & className)
+bool removeSchedule(ListSchedules* & listSchedules, const string & className)
 {
-	for (size_t i = 0; i < listSchedules.list.size(); ++i)
-		if (listSchedules.list[i].getClassName() == className)
+	for (size_t i = 0; i < listSchedules->list.size(); ++i)
+		if (listSchedules->list[i].getClassName() == className)
 		{
-			listSchedules.list.erase(listSchedules.list.begin() + i);
+			listSchedules->list.erase(listSchedules->list.begin() + i);
 			return true;
 		}
 	return false;

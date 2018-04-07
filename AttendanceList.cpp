@@ -1,7 +1,6 @@
 #include "AttendanceList.h"
 
-void drawFieldAttendanceList()
-{
+void drawFieldAttendanceList() {
 	system("cls");
 	gotoXY(67, 6);
 	cout << "EDIT COURSES";
@@ -11,8 +10,7 @@ void drawFieldAttendanceList()
 	drawLabel(105, 16, 2, 20, "Back");
 }
 
-int controlAttendanceListMenu()
-{
+int controlAttendanceListMenu() {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[3] =
 	{
@@ -24,14 +22,11 @@ int controlAttendanceListMenu()
 	int chooseControlCourseMenu = 0;
 	gotoXY(47, 10);
 	cout << textDescribeFeature[chooseControlCourseMenu];
-	while (true)
-	{
-		if (_kbhit())
-		{
+	while (true) {
+		if (_kbhit()) {
 			char getSwitchKey = _getch();
 			eraseLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22);
-			switch (getSwitchKey)
-			{
+			switch (getSwitchKey) {
 			case 13:
 				return chooseControlCourseMenu;
 			case 77: case 9:
@@ -50,11 +45,8 @@ int controlAttendanceListMenu()
 	}
 }
 
-void attendanceListMenu()
-{
-	ListPresence listPresence;
-	while (true)
-	{
+void attendanceListMenu(ListPresence* &listPresence) {
+	while (true) {
 		drawFieldAttendanceList();
 		int getChoose = controlAttendanceListMenu();
 		if (getChoose == 2)

@@ -71,7 +71,7 @@ void displaySchedule(Schedule & schedule)
 	}
 }
 
-void displayListSchedules(ListSchedules & listSchedules, const int & pointSchedule)
+void displayListSchedules(ListSchedules* & listSchedules, const int & pointSchedule)
 {
 	drawFieldViewSchedules();
 	ShowConsoleCursor(false);
@@ -79,14 +79,14 @@ void displayListSchedules(ListSchedules & listSchedules, const int & pointSchedu
 	for (int i = 0; i < 13; ++i)
 	{
 		gotoXY(60, posY[i]);
-		if (i + pointSchedule < listSchedules.list.size())
-			cout << pointSchedule + i << ". " << listSchedules.list[pointSchedule + i].getClassName() << "       ";
+		if (i + pointSchedule < listSchedules->list.size())
+			cout << pointSchedule + i << ". " << listSchedules->list[pointSchedule + i].getClassName() << "       ";
 		else
 			break;
 	}
 }
 
-void viewSchedulesMenu(ListSchedules & listSchedules)
+void viewSchedulesMenu(ListSchedules* & listSchedules)
 {
 	while (true)
 	{
@@ -103,19 +103,19 @@ void viewSchedulesMenu(ListSchedules & listSchedules)
 				{
 					string getClass = getFileName(57, 36, 40, 38, "id");
 					int getCourseInt;
-					for (int i = 0; i < listSchedules.list.size(); ++i)
-						if (listSchedules.list[i].getClassName() == getClass)
+					for (int i = 0; i < listSchedules->list.size(); ++i)
+						if (listSchedules->list[i].getClassName() == getClass)
 						{
-							displaySchedule(listSchedules.list[i]);
+							displaySchedule(listSchedules->list[i]);
 							break;
 						}
 				}
 				else if (scroll == 80)
 				{
-					if (listSchedules.list.size() > 13 && startScheduleToDisplay < listSchedules.list.size() - 13)
+					if (listSchedules->list.size() > 13 && startScheduleToDisplay < listSchedules->list.size() - 13)
 						startScheduleToDisplay += 1;
-					else if (listSchedules.list.size() > 13 && startScheduleToDisplay >= listSchedules.list.size() - 13)
-						startScheduleToDisplay = listSchedules.list.size() - 13;
+					else if (listSchedules->list.size() > 13 && startScheduleToDisplay >= listSchedules->list.size() - 13)
+						startScheduleToDisplay = listSchedules->list.size() - 13;
 					else
 						startScheduleToDisplay = 0;
 				}

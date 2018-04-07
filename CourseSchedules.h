@@ -16,6 +16,6 @@ using namespace std;
 
 void drawFieldCourseSchedulesMenu();
 int controlCourseSchedulesMenu();
-void courseSchedulesMenu();
+ListSchedules * courseSchedulesMenu();
 
 #endif // !COURSE_SCHEDULES_H

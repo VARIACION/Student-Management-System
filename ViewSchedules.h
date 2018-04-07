@@ -14,7 +14,7 @@ void drawFieldViewSchedules();
 void displayBasicSchedule(Schedule &schedule);
 void displayDetailSchedule(Schedule &schedule);
 void displaySchedule(Schedule &schedule);
-void displayListSchedules(ListSchedules &listSchedules, const int &pointSchedule);
-void viewSchedulesMenu(ListSchedules &listSchedules);
+void displayListSchedules(ListSchedules* &listSchedules, const int &pointSchedule);
+void viewSchedulesMenu(ListSchedules* &listSchedules);
 
 #endif // !VIEW_SCHEDULES_H

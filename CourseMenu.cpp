@@ -1,7 +1,6 @@
 #include "CourseMenu.h"
 
-void drawCoursesMenu()
-{
+void drawCoursesMenu() {
 	system("cls");
 	gotoXY(67, 6);
 	cout << "EDIT COURSES";
@@ -14,8 +13,7 @@ void drawCoursesMenu()
 	drawLabel(105, 24, 2, 20, "Back");
 }
 
-int controlCoursesMenu()
-{
+int controlCoursesMenu() {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[6] =
 	{
@@ -30,14 +28,11 @@ int controlCoursesMenu()
 	int chooseControlCourseMenu = 0;
 	gotoXY(47, 10);
 	cout << textDescribeFeature[chooseControlCourseMenu];
-	while (true)
-	{
-		if (_kbhit())
-		{
+	while (true) {
+		if (_kbhit()) {
 			char getSwitchKey = _getch();
 			eraseLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22);
-			switch (getSwitchKey)
-			{
+			switch (getSwitchKey) {
 			case 13:
 				return chooseControlCourseMenu;
 			case 77: case 9:
@@ -64,10 +59,8 @@ int controlCoursesMenu()
 	}
 }
 
-void courseMenu(ListCourses & listCourses)
-{
-	while (true)
-	{
+void courseMenu(ListCourses & listCourses) {
+	while (true) {
 		ShowConsoleCursor(false);
 		drawCoursesMenu();
 		int getChoose = controlCoursesMenu();

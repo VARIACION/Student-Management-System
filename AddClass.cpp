@@ -1,7 +1,6 @@
 #include "AddClass.h"
 
-void drawFieldAddClass()
-{
+void drawFieldAddClass() {
 	system("cls");
 	gotoXY(70, 12);
 	cout << "ADD A NEW EMPTY CLASS";
@@ -13,29 +12,23 @@ void drawFieldAddClass()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-int controlAddClassMenu()
-{
+int controlAddClassMenu() {
 	ShowConsoleCursor(false);
 	drawLabel(60, 28, 2, 17, "");
 	int getButton = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
+	while (true) {
+		if (_kbhit()) {
 			char getSwitchKey = _getch();
-			switch (getSwitchKey)
-			{
+			switch (getSwitchKey) {
 			case 13: case 27:
 				return getButton;
 			case 75: case 77: case 9:
-				if (getButton == 0)
-				{
+				if (getButton == 0) {
 					getButton = 1;
 					eraseLabel(60, 28, 2, 17);
 					drawLabel(85, 28, 2, 17, "");
 				}
-				else
-				{
+				else {
 					getButton = 0;
 					eraseLabel(85, 28, 2, 17);
 					drawLabel(60, 28, 2, 17, "");
@@ -48,32 +41,25 @@ int controlAddClassMenu()
 	}
 }
 
-void addClassMenu(Faculty &faculty)
-{
+void addClassMenu(Faculty &faculty) {
 	int checkIfAddSuccess = 0;
-	while (true)
-	{
+	while (true) {
 		drawFieldAddClass();
 		gotoXY(50, 15);	cout << "                                                                        ";
 		gotoXY(60, 15);	cout << "Enter the name of the class you want to add";
 		string classToAdd = getFileName(65, 20, "class");
 		gotoXY(50, 15);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
-		if (getChoose == 1)
-			break;
-		else if (getChoose == 2)
-			continue;
-		else
-		{
-			if (addClass(faculty, classToAdd))
-			{
-				
+    if (getChoose == 1) {
+      break;
+    } else if (getChoose == 2) {
+      continue;
+    } else {
+			if (addClass(faculty, classToAdd)) {
 				gotoXY(43, 15); cout << "Succeed to add new empty class. You will be back to STUDENT menu in 3 seconds";
 				Sleep(1000);
 				return;
-			}
-			else
-			{
+			} else {
 				gotoXY(55, 15); cout << "Failed to add new empty class. Try again in 3 seconds";
 				Sleep(1000);
 			}
@@ -81,8 +67,7 @@ void addClassMenu(Faculty &faculty)
 	}
 }
 
-bool addClass(Faculty &faculty, const string &nameNewClass)
-{
+bool addClass(Faculty &faculty, const string &nameNewClass) {
 	if (nameNewClass.length() == 0)
 		return false;
 	for (auto i : faculty.classMember)

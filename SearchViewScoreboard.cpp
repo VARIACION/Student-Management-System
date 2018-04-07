@@ -16,16 +16,14 @@ void drawFieldSearchViewScoreboard()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void drawFieldViewDetailScoreboard()
-{
+void drawFieldViewDetailScoreboard() {
 	system("cls");
 	gotoXY(68, 1);
 	cout << "VIEW ATTENDANCE LIST";
 	drawLabel(65, 20, 16, 60, "");
 }
 
-void viewBasicInfoScoreboard(ScoreBoard &scoreboard)
-{
+void viewBasicInfoScoreboard(ScoreBoard &scoreboard) {
 	system("cls");
 	gotoXY(70, 5);
 	cout << "BASIC INFORMATION";
@@ -42,10 +40,8 @@ void viewBasicInfoScoreboard(ScoreBoard &scoreboard)
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void searchViewScoreboardMenu(ListScoreboard & listScoreboard)
-{
-	while (true)
-	{
+void searchViewScoreboardMenu(ListScoreboard* &listScoreboard) {
+	while (true) {
 		drawFieldSearchViewScoreboard();
 		gotoXY(50, 10);	cout << "                                                                        ";
 		gotoXY(60, 10);	cout << "Enter the course's name you want to view data";
@@ -55,25 +51,23 @@ void searchViewScoreboardMenu(ListScoreboard & listScoreboard)
 		string className = getFileName(65, 20, "class");
 		gotoXY(50, 10);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
-		if (getChoose == 1)
-			break;
-		else if (getChoose == 2)
-			continue;
-		else if (!checkViewScoreboard(listScoreboard, courseName, className))
-		{
+    if (getChoose == 1) {
+      break;
+    }
+    else if (getChoose == 2) {
+      continue;
+    }
+		else if (!checkViewScoreboard(listScoreboard, courseName, className)) {
 			gotoXY(45, 10); cout << "Failed to view list scoreboard. Check your data and try again in 1 second.";
 			Sleep(1000);
 		}
 	}
 }
 
-bool checkViewScoreboard(ListScoreboard & listScroreboard, const string & courseName, const string & className)
-{
-	for (auto i : listScroreboard.list)
-		if (i.getClassName() == className && i.getCourse() == courseName)
-		{
-			while (true)
-			{
+bool checkViewScoreboard(ListScoreboard* &listScroreboard, const string & courseName, const string & className) {
+	for (auto i : listScroreboard->list)
+		if (i.getClassName() == className && i.getCourse() == courseName) {
+			while (true) {
 				viewBasicInfoScoreboard(i);
 				int getChoose = controlAddClassMenu();
 				if (getChoose == 1) return true;
@@ -84,20 +78,15 @@ bool checkViewScoreboard(ListScoreboard & listScroreboard, const string & course
 	return false;
 }
 
-void viewDetailInfoScoreboard(ScoreBoard & scoreboard)
-{
-	while (true)
-	{
+void viewDetailInfoScoreboard(ScoreBoard & scoreboard) {
+	while (true) {
 		drawFieldViewDetailScoreboard();
 		int startStudentToDisplay = 1;
 		displayDetailScoreboard(scoreboard, startStudentToDisplay);
-		while (true)
-		{
-			if (_kbhit())
-			{
+		while (true) {
+			if (_kbhit()) {
 				int scroll = _getch();
-				switch (scroll)
-				{
+				switch (scroll) {
 				case 13:
 					return;
 				case 80:
@@ -121,12 +110,10 @@ void viewDetailInfoScoreboard(ScoreBoard & scoreboard)
 	}
 }
 
-void displayDetailScoreboard(ScoreBoard & scoreboard, const int & pointStudent)
-{
+void displayDetailScoreboard(ScoreBoard & scoreboard, const int & pointStudent) {
 	int posY[] = { 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32 };
 	gotoXY(70, 6); cout << "  Midterm  |    Lab    |    Final  ";
-	for (int i = 0; i < 13; ++i)
-	{
+	for (int i = 0; i < 13; ++i) {
 		gotoXY(55, posY[i]);
 		if (i + pointStudent <= scoreboard.getSizeOfClass())
 			cout << scoreboard.getStudent(pointStudent + i);
@@ -140,7 +127,7 @@ void displayDetailScoreboard(ScoreBoard & scoreboard, const int & pointStudent)
 		while (printScore.size() < 22) printScore.push_back(' ');
 		printScore += to_string(scoreboard.getScore(pointStudent + i, 3));
 		for (int j = 0; j < 5; ++j) printScore.pop_back();
-		while (printScore.size() < 22) printScore.push_back(' ');
+		printScore.push_back(' ');
 		cout << printScore;
 	}
 }

@@ -12,7 +12,7 @@
 using namespace std;
 
 void drawFieldRemoveSchedule();
-void removeScheduleMenu(ListSchedules &listSchedules);
-bool removeSchedule(ListSchedules &listSchedules, const string &className);
+void removeScheduleMenu(ListSchedules* &listSchedules);
+bool removeSchedule(ListSchedules* &listSchedules, const string &className);
 
 #endif // !REMOVE_SCHEDULE_H

@@ -2,7 +2,7 @@
 
 ScoreBoard::ScoreBoard()
 {
-	this->className = this->year = "";
+	this->className = this->year = this->lecturerName = "";
 	this->semester = '0';
 }
 
@@ -60,9 +60,18 @@ int ScoreBoard::getSizeOfClass() { return this->score.student.size(); }
 
 bool ScoreBoard::setScore(const int & no, const double & scoreInput)
 {
-	if (no < 1 || no > this->score.student.size() || scoreInput < 0 || scoreInput > 10) return false;
+	if (no < 1 || no > this->score.student.size() || scoreInput < 0 || scoreInput > 10) 
+    return false;
 	this->score.list[no - 1].push_back(scoreInput);
 	return true;
+}
+
+bool ScoreBoard::setScore(const int & no, const double & scoreInput, const int & type)
+{
+  if (no < 1 || no > this->score.student.size() || scoreInput < 0 || scoreInput > 10 || type < 0 || type > 2)
+    return false;
+  this->score.list[no - 1][type] = scoreInput;
+  return true;
 }
 
 double ScoreBoard::getScore(const int & no, const int & type)
@@ -74,4 +83,14 @@ double ScoreBoard::getScore(const int & no, const int & type)
 ListScoreboard::~ListScoreboard()
 {
 	this->list.clear();
+}
+
+void ScoreBoard::setLecturerName(const string & name)
+{
+  this->lecturerName = name;
+}
+
+string ScoreBoard::getLecturerName()
+{
+  return this->lecturerName;
 }

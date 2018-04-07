@@ -16,10 +16,11 @@
 #include "CourseSchedules.h"
 #include "AttendanceList.h"
 #include "ScoreboardStaff.h"
+#include "ScoreBoard.h"
 using namespace std;
 
 void drawAcademicStaffMenu();
 int controlAcademicStaffMenu();
-void academicStaffMenu(User &staff);
+void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules);
 
 #endif // !ACADEMIC_STAFF_H

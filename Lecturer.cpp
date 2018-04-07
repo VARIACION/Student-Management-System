@@ -65,21 +65,29 @@ int controlLecturerMenu()
 	return 0;
 }
 
-void lecturerMenu(User &lecturer)
+void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence* &listPresence)
 {
-	ListScoreboard listScoreboard;
 	while (true)
 	{
 		ShowConsoleCursor(false);
 		drawFieldLecturer();
 		int getChoose = controlLecturerMenu();
-		if (getChoose == 5)
-			prompExit();
-		else if (getChoose == 4)
-			return;
-		else if (getChoose == 0)
-			accessInfo(lecturer);
-		else if (getChoose == 1)
-			importExportScoreboardMenu(listScoreboard);
+    if (getChoose == 5) {
+      if (prompExit()) {
+        delete listScoreboard;
+        delete listPresence;
+        exit(EXIT_SUCCESS);
+      }
+    }
+    else if (getChoose == 4)
+      return;
+    else if (getChoose == 0)
+      accessInfo(lecturer);
+    else if (getChoose == 1)
+      importExportScoreboardMenu(listScoreboard);
+    else if (getChoose == 2)
+      EditGradeMenu(lecturer, listScoreboard);
+    else if (getChoose == 3)
+      searchViewScoreboardMenu(listScoreboard);
 	}
 }

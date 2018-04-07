@@ -20,7 +20,7 @@ void drawFieldImportExportScoreboard()
 	drawLabel(93, 28, 1, 15, "Back");
 }
 
-void importExportScoreboardMenu(ListScoreboard & listScoreboard)
+void importExportScoreboardMenu(ListScoreboard* &listScoreboard)
 {
 	int getChoose = 0;
 	while (true)
@@ -85,7 +85,7 @@ void importExportScoreboardMenu(ListScoreboard & listScoreboard)
 	}
 }
 
-bool importScoreboardFromFile(ListScoreboard & listScoreboard, const string & path)
+bool importScoreboardFromFile(ListScoreboard* &listScoreboard, const string & path)
 {
 	ifstream fileInput(path);
 	if (fileInput.fail()) return false;
@@ -96,7 +96,7 @@ bool importScoreboardFromFile(ListScoreboard & listScoreboard, const string & pa
 		if (getLine == "") break;
 		ScoreBoard newScoreboard;
 		getline(fileInput, getLine);
-		while (getLine[0] != 'C')
+		while (getLine[0] != 'L')
 		{
 			int no = stoi(splitToken(getLine, ","));
 			string name = splitToken(getLine, ",");
@@ -109,35 +109,37 @@ bool importScoreboardFromFile(ListScoreboard & listScoreboard, const string & pa
 			newScoreboard.setScore(no, stod(getLine));
 			getline(fileInput, getLine);
 		}
-		getline(fileInput, getLine);
+    getline(fileInput, getLine);
 		string token = splitToken(getLine, ",");
+    newScoreboard.setLecturerName(token);
+    token = splitToken(getLine, ",");
 		newScoreboard.setCourse(token);
 		token = splitToken(getLine, ",");
 		newScoreboard.setClassName(token);
 		token = splitToken(getLine, ",");
 		if (!newScoreboard.setYear(token)) return false;
 		if (!newScoreboard.setSemester(getLine[0] - '0')) return false;
-		listScoreboard.list.push_back(newScoreboard);
+		listScoreboard->list.push_back(newScoreboard);
 	}
 	fileInput.close();
 	return true;
 }
 
-int exportScoreboardToFile(ListScoreboard & listScoreboard, const string & path, const string &className)
+int exportScoreboardToFile(ListScoreboard* &listScoreboard, const string & path, const string &className)
 {
-	if (listScoreboard.list.size() == 0) return 2;
+	if (listScoreboard->list.size() == 0) return 2;
 	ofstream fileOutput(path);
 	if (fileOutput.fail()) return 1;
 	bool existClass = false;
-	for (auto i : listScoreboard.list)
+	for (auto i : listScoreboard->list)
 		if (i.getClassName() == className)
 		{
 			existClass = true;
 			fileOutput << "STT,MSSV,Midterm,Lab,Final" << endl;
 			for (int j = 1; j <= i.getSizeOfClass(); ++j)
 				fileOutput << j << "," << i.getStudent(j) << "," << i.getScore(j, 1) << "," << i.getScore(j, 2) << "," << i.getScore(j, 3) << endl;
-			fileOutput << "Course,Class,Year,Semester" << endl;
-			fileOutput << i.getCourse() << "," << i.getClassName() << "," << i.getYear() << "," << i.getSemester() << endl;
+			fileOutput << "Lecturer,Course,Class,Year,Semester" << endl;
+			fileOutput << i.getLecturerName() << "," << i.getCourse() << "," << i.getClassName() << "," << i.getYear() << "," << i.getSemester() << endl;
 			break;
 		}
 	fileOutput.close();

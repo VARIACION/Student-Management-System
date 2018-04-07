@@ -1,7 +1,6 @@
 #include "AcademicStaff.h"
 
-void drawAcademicStaffMenu()
-{
+void drawAcademicStaffMenu() {
 	system("cls");
 	gotoXY(67, 6);
 	cout << "ACADEMIC STAFF";
@@ -16,8 +15,7 @@ void drawAcademicStaffMenu()
 	drawLabel(65, 32, 2, 20, "Quit");
 }
 
-int controlAcademicStaffMenu()
-{
+int controlAcademicStaffMenu() {
 	drawLabel(25, 16, 3, 22, "");
 	string textDescribeFeature[8] =
 	{
@@ -34,16 +32,13 @@ int controlAcademicStaffMenu()
 	int chooseControlAcademicStaffMenu = 0;
 	gotoXY(50, 10);
 	cout << textDescribeFeature[chooseControlAcademicStaffMenu];
-	while (true)
-	{
-		if (_kbhit())
-		{
+	while (true) {
+		if (_kbhit()) {
 			char getSwitchKey = _getch();
 			eraseLabel(academicStaffMenuPoint[chooseControlAcademicStaffMenu].x,
 				academicStaffMenuPoint[chooseControlAcademicStaffMenu].y, 3, 22);
 			gotoXY(50, 10);
-			switch (getSwitchKey)
-			{
+			switch (getSwitchKey) {
 			case 13:
 				return chooseControlAcademicStaffMenu;
 			case 77: case 9: //->
@@ -78,20 +73,25 @@ int controlAcademicStaffMenu()
 	}
 }
 
-void academicStaffMenu(User &staff)
-{
+void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules) {
 	int chooseFeature = -1;
+  listSchedules = new ListSchedules;
 	Faculty faculty;
 	ListCourses listCourses;
-	while (true)
-	{
+	while (true) {
 		ShowConsoleCursor(false);
 		drawAcademicStaffMenu();
 		chooseFeature = controlAcademicStaffMenu();
 		if (chooseFeature == 7)
 			break;
-		else if (chooseFeature == 6)
-			prompExit();
+    else if (chooseFeature == 6) {
+      if (prompExit()) {
+        delete listScoreboard;
+        delete listPresence;
+        delete listSchedules;
+        exit(EXIT_SUCCESS);
+      }
+    }
 		else if (chooseFeature == 0)
 			accessInfo(staff);
 		else if (chooseFeature == 1)
@@ -99,10 +99,10 @@ void academicStaffMenu(User &staff)
 		else if (chooseFeature == 2)
 			courseMenu(listCourses);
 		else if (chooseFeature == 3)
-			courseSchedulesMenu();
+			listSchedules = courseSchedulesMenu();
 		else if (chooseFeature == 4)
-			attendanceListMenu();
+			attendanceListMenu(listPresence);
 		else if (chooseFeature == 5)
-			scoreboardStaffMenu();
+			scoreboardStaffMenu(listScoreboard);
 	}
 }

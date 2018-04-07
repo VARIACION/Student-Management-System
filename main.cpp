@@ -3,20 +3,28 @@
 #include "StudentMenu.h"
 #include "Lecturer.h"
 #include "StudentRoleMenu.h"
+#include "ScoreBoard.h"
+#include "AttendanceList.h"
 
-int main()
-{
+int main() {
 	setFullScreen();
 	setScreenAttribute();
-	while (true)
-	{
-		User userLogin = loginMenu();
+  ListScoreboard *listScoreboard = new ListScoreboard;
+  ListPresence *listPresence = new ListPresence;
+  ListSchedules *listSchedules;
+  bool exit_signal = false;
+	while (true) {
+		User userLogin = loginMenu(exit_signal);
+    if (exit_signal)
+      break;
 		if (userLogin.getType() == 1)
-			academicStaffMenu(userLogin);
+			academicStaffMenu(userLogin, listScoreboard, listPresence, listSchedules);
 		else if (userLogin.getType() == 2)
-			lecturerMenu(userLogin);
+			lecturerMenu(userLogin, listScoreboard, listPresence);
 		else
-			studentRoleMenu(userLogin);
+			studentRoleMenu(listSchedules, listPresence, listScoreboard, userLogin);
 	}
-    return EXIT_SUCCESS;
+  delete listScoreboard;
+  delete listPresence;
+  return EXIT_SUCCESS;
 }

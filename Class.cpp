@@ -1,23 +1,19 @@
 #include "Class.h"
 
-Class::Class()
-{
+Class::Class() {
 	this->name = "";
 	if (this->student != nullptr)
 		this->student = nullptr;
 }
 
-Faculty::~Faculty()
-{
+Faculty::~Faculty() {
 	for (auto i : this->classMember)
 		deleteClass(i);
 }
 
-void deleteClass(Class & classMember)
-{
+void deleteClass(Class & classMember) {
 	Student *getStudent = nullptr;
-	while (classMember.student)
-	{
+	while (classMember.student) {
 		getStudent = classMember.student;
 		classMember.student = classMember.student->nextStudent;
 		delete getStudent;

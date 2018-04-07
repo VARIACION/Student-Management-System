@@ -12,6 +12,6 @@
 using namespace std;
 
 void drawFieldEditSchedule();
-void editScheduleMenu(ListSchedules &listSchedules);
+void editScheduleMenu(ListSchedules* &listSchedules);
 
 #endif // !EDIT_SCHEDULE_H

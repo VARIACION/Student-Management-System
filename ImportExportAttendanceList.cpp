@@ -20,7 +20,7 @@ void drawFieldImportExportAttendanceList()
 	drawLabel(93, 28, 1, 15, "Back");
 }
 
-void importExportAttendanceListFromFile(ListPresence & listPresence)
+void importExportAttendanceListFromFile(ListPresence* & listPresence)
 {
 	while (true)
 	{
@@ -84,7 +84,7 @@ void importExportAttendanceListFromFile(ListPresence & listPresence)
 	}
 }
 
-bool importAttendanceListFromFile(ListPresence & listPresence, const string & path)
+bool importAttendanceListFromFile(ListPresence* & listPresence, const string & path)
 {
 	string getLine;
 	ifstream fileInput(path);
@@ -116,19 +116,19 @@ bool importAttendanceListFromFile(ListPresence & listPresence, const string & pa
 		token = splitToken(getLine, ",");
 		if (!newPresence.setYear(token)) return false;
 		if (!newPresence.setSemester(getLine[0] - '0')) return false;
-		listPresence.list.push_back(newPresence);
+		listPresence->list.push_back(newPresence);
 	}
 	fileInput.close();
 	return true;
 }
 
-int exportAttendanceListToFile(ListPresence & listPresence, const string & path, const string & className)
+int exportAttendanceListToFile(ListPresence* & listPresence, const string & path, const string & className)
 {
 	ofstream fileOutput(path);
 	if (fileOutput.fail()) return 1;
 	bool existClass = false;
-	if (listPresence.list.size() == 0) return 2;
-	for (auto i : listPresence.list)
+	if (listPresence->list.size() == 0) return 2;
+	for (auto& i : listPresence->list)
 		if (i.getClassName() == className)
 		{
 			existClass = true;
