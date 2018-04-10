@@ -11,20 +11,23 @@ int main() {
 	setScreenAttribute();
   ListScoreboard *listScoreboard = new ListScoreboard;
   ListPresence *listPresence = new ListPresence;
-  ListSchedules *listSchedules;
+  ListSchedules *listSchedules = new ListSchedules;
+  ListCourses *listCourses = new ListCourses;
   bool exit_signal = false;
 	while (true) {
 		User userLogin = loginMenu(exit_signal);
     if (exit_signal)
       break;
 		if (userLogin.getType() == 1)
-			academicStaffMenu(userLogin, listScoreboard, listPresence, listSchedules);
+			academicStaffMenu(userLogin, listScoreboard, listPresence, listSchedules, listCourses);
 		else if (userLogin.getType() == 2)
-			lecturerMenu(userLogin, listScoreboard, listPresence);
+			lecturerMenu(userLogin, listScoreboard, listPresence, listSchedules);
 		else
-			studentRoleMenu(listSchedules, listPresence, listScoreboard, userLogin);
+			studentRoleMenu(listCourses, listSchedules, listPresence, listScoreboard, userLogin);
 	}
   delete listScoreboard;
   delete listPresence;
+  delete listSchedules;
+  delete listCourses;
   return EXIT_SUCCESS;
 }

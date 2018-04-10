@@ -21,6 +21,6 @@ using namespace std;
 
 void drawAcademicStaffMenu();
 int controlAcademicStaffMenu();
-void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules);
+void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules, ListCourses* &listCourses);
 
 #endif // !ACADEMIC_STAFF_H

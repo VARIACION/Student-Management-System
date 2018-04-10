@@ -11,7 +11,7 @@
 using namespace std;
 
 void drawFieldRemoveCourse();
-void removeCourseMenu(ListCourses &listCourses);
-bool removeCourse(ListCourses &listCourses, const string &code);
+void removeCourseMenu(ListCourses* &listCourses);
+bool removeCourse(ListCourses* &listCourses, const string &code);
 
 #endif // !REMOVE_COURSE_H

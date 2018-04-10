@@ -73,11 +73,9 @@ int controlAcademicStaffMenu() {
 	}
 }
 
-void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules) {
+void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules, ListCourses* &listCourses) {
 	int chooseFeature = -1;
-  listSchedules = new ListSchedules;
 	Faculty faculty;
-	ListCourses listCourses;
 	while (true) {
 		ShowConsoleCursor(false);
 		drawAcademicStaffMenu();
@@ -89,6 +87,7 @@ void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresenc
         delete listScoreboard;
         delete listPresence;
         delete listSchedules;
+        delete listCourses;
         exit(EXIT_SUCCESS);
       }
     }
@@ -99,7 +98,7 @@ void academicStaffMenu(User &staff, ListScoreboard* &listScoreboard, ListPresenc
 		else if (chooseFeature == 2)
 			courseMenu(listCourses);
 		else if (chooseFeature == 3)
-			listSchedules = courseSchedulesMenu();
+			courseSchedulesMenu(listSchedules);
 		else if (chooseFeature == 4)
 			attendanceListMenu(listPresence);
 		else if (chooseFeature == 5)

@@ -12,7 +12,7 @@
 using namespace std;
 
 void drawFieldEditCourse();
-void editCourseMenu(ListCourses &listCourses);
-bool checkExistedCourse(const string &code, const string &name, ListCourses &listCourses);
+void editCourseMenu(ListCourses* &listCourses);
+bool checkExistedCourse(const string &code, const string &name, ListCourses* &listCourses);
 
 #endif // !EDIT_COURSE_H

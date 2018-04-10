@@ -9,12 +9,14 @@
 #include "Screen.h"
 #include "UserInformation.h"
 #include "SearchViewAttendanceList.h"
+#include "CheckIn.h"
+#include "ViewCheckIn.h"
 using namespace std;
 
 void drawFieldStudentRoleMenu();
 int controlStudentRoleMenu();
 void drawFieldLogoutExit();
 int controlLogoutExitMenu();
-void studentRoleMenu(ListSchedules* &listSchedules, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User &student);
+void studentRoleMenu(ListCourses* &listCourses, ListSchedules* &listSchedules, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User &student);
 
 #endif // !STUDENT_ROLE_MENU_H

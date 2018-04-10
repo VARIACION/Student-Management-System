@@ -59,14 +59,13 @@ int controlCourseSchedulesMenu() {
 	}
 }
 
-ListSchedules * courseSchedulesMenu() {
-	ListSchedules *listSchedules = new ListSchedules;
+void courseSchedulesMenu(ListSchedules* &listSchedules) {
 	while (true) {
 		ShowConsoleCursor(false);
 		drawFieldCourseSchedulesMenu();
 		int getChoose = controlCourseSchedulesMenu();
     if (getChoose == 5)
-      return listSchedules;
+      return;
 		else if (getChoose == 0)
 			importExportSchedulesMenu(listSchedules);
 		else if (getChoose == 1)
@@ -78,5 +77,4 @@ ListSchedules * courseSchedulesMenu() {
 		else if (getChoose == 4)
 			viewSchedulesMenu(listSchedules);
 	}
-  return listSchedules;
 }

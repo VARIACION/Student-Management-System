@@ -83,7 +83,7 @@ void dateTimeMenu(string dateInfo[]) {
 	}
 }
 
-void addCourseMenu(ListCourses & listCourses) {
+void addCourseMenu(ListCourses* & listCourses) {
 	Courses newCourse;
 	int getChoose = 0;
 	while (true) {
@@ -106,7 +106,7 @@ void addCourseMenu(ListCourses & listCourses) {
 			Sleep(3000);
 			continue;
 		}
-		listCourses.list.push_back(newCourse);
+		listCourses->list.push_back(newCourse);
 		return;
 	}
 }

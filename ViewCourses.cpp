@@ -11,7 +11,7 @@ void drawFieldViewCourses()
 	cout << "Press ENTER to go back to COURSE menu or TAB to choose course for detail";
 }
 
-void displayCourses(ListCourses & listCourses, const int &pointCourse)
+void displayCourses(ListCourses* & listCourses, const int &pointCourse)
 {
 	drawFieldViewCourses();
 	ShowConsoleCursor(false);
@@ -19,8 +19,8 @@ void displayCourses(ListCourses & listCourses, const int &pointCourse)
 	for (int i = 0; i < 13; ++i)
 	{
 		gotoXY(60, posY[i]);
-		if (i + pointCourse < listCourses.list.size())
-			cout << pointCourse + i << ". " << listCourses.list[pointCourse + i].getCode() << "       ";
+		if (i + pointCourse < listCourses->list.size())
+			cout << pointCourse + i << ". " << listCourses->list[pointCourse + i].getCode() << "       ";
 		else
 			break;
 	}
@@ -55,7 +55,7 @@ void displayDetailCourse(Courses & course)
 	_getch();
 }
 
-void viewCourseMenu(ListCourses & listCourses)
+void viewCourseMenu(ListCourses* & listCourses)
 {
 	while (true)
 	{
@@ -82,15 +82,15 @@ void viewCourseMenu(ListCourses & listCourses)
 						cout << "Invalid number";
 						break;
 					}
-					if (getCourseInt < listCourses.list.size())
-						displayDetailCourse(listCourses.list[getCourseInt]);
+					if (getCourseInt < listCourses->list.size())
+						displayDetailCourse(listCourses->list[getCourseInt]);
 				}
 				else if (scroll == 80)
 				{
-					if (listCourses.list.size() > 13 && startCourseToDisplay < listCourses.list.size() - 13)
+					if (listCourses->list.size() > 13 && startCourseToDisplay < listCourses->list.size() - 13)
 						startCourseToDisplay += 1;
-					else if (listCourses.list.size() > 13 && startCourseToDisplay >= listCourses.list.size() - 13)
-						startCourseToDisplay = listCourses.list.size() - 13;
+					else if (listCourses->list.size() > 13 && startCourseToDisplay >= listCourses->list.size() - 13)
+						startCourseToDisplay = listCourses->list.size() - 13;
 					else
 						startCourseToDisplay = 0;
 				}

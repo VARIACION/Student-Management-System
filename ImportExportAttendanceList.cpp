@@ -105,7 +105,8 @@ bool importAttendanceListFromFile(ListPresence* & listPresence, const string & p
 				name = splitToken(getLine, ",");
 				if (name != "") newPresence.setPresence(no, name[0] - '0');
 			}
-			newPresence.setPresence(no, getLine[0] - '0');
+			if (getLine.size() == 1 && (getLine[0] == '1' || getLine[0] == '0'))
+        newPresence.setPresence(no, getLine[0] - '0');
 			getline(fileInput, getLine);
 		}
 		getline(fileInput, getLine);

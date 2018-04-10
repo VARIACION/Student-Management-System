@@ -59,7 +59,7 @@ int controlCoursesMenu() {
 	}
 }
 
-void courseMenu(ListCourses & listCourses) {
+void courseMenu(ListCourses* & listCourses) {
 	while (true) {
 		ShowConsoleCursor(false);
 		drawCoursesMenu();

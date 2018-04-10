@@ -17,7 +17,7 @@ void drawFieldImportExportCourses()
 	drawLabel(93, 28, 1, 15, "Back");
 }
 
-void importExportCoursesMenu(ListCourses &listCourses)
+void importExportCoursesMenu(ListCourses* &listCourses)
 {
 	while (true)
 	{
@@ -63,7 +63,7 @@ void importExportCoursesMenu(ListCourses &listCourses)
 	}
 }
 
-bool importCoursesFromFile(ListCourses &listCourses, const string &path)
+bool importCoursesFromFile(ListCourses* &listCourses, const string &path)
 {
 	string getLine;
 	ifstream fileInput(path);
@@ -98,19 +98,19 @@ bool importCoursesFromFile(ListCourses &listCourses, const string &path)
 		if (!newCourse.setEndTime(token)) return false;
 		token = splitToken(getLine, ",");
 		if (!newCourse.setDateOfWeek(getLine)) return false;
-		listCourses.list.push_back(newCourse);
+		listCourses->list.push_back(newCourse);
 	}
 	fileInput.close();
 	return true;
 }
 
-bool exportCoursesToFile(ListCourses &listCourses, const string &path)
+bool exportCoursesToFile(ListCourses* &listCourses, const string &path)
 {
 	ofstream fileOutput(path);
 	if (!fileOutput)
 		return false;
 	fileOutput << "Code,Year,Semester,Name,Lecturer Username,Start,End,From,To,Date" << endl;
-	for (auto i : listCourses.list)
+	for (auto& i : listCourses->list)
 		fileOutput << i.getCode() << "," << i.getYear() << "," << i.getSemester() << "," << i.getName()
 		<< "," << i.getLecturerUsername() << "," << i.getStartDate_str() << "," << i.getEndDate_str() << ","
 		<< i.getStartTime_str() << "," << i.getEndTime_str() << "," << i.getDateOfWeek_str() << endl;

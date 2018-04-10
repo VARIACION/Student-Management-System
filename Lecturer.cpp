@@ -65,7 +65,7 @@ int controlLecturerMenu()
 	return 0;
 }
 
-void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence* &listPresence)
+void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules)
 {
 	while (true)
 	{
@@ -76,6 +76,7 @@ void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence*
       if (prompExit()) {
         delete listScoreboard;
         delete listPresence;
+        delete listSchedules;
         exit(EXIT_SUCCESS);
       }
     }

@@ -20,6 +20,10 @@ public:
 
 	bool setHour(const int &hourInput);
 	bool setMinute(const int &minuteInput);
+
+  bool operator>(Time &timeCompare);
+  bool operator<(Time &timeCompare);
+  bool operator==(Time &timeCompare);
 };
 
 class Date
@@ -34,6 +38,10 @@ public:
 	bool setMonth(const int &monthInput);
 	bool setYear(const int &yearInput);
 	bool setDate(const int &dayInput);
+
+  bool operator>(Date &dateCompare);
+  bool operator<(Date &dateCompare);
+  bool operator==(Date &dateCompare);
 
 	Date();
 };

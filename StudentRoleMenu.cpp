@@ -4,7 +4,7 @@ void drawFieldStudentRoleMenu()
 {
 	system("cls");
 	gotoXY(67, 6);
-	cout << "LECTURER MENU";
+	cout << "STUDENT MENU";
 	drawLabel(23, 20, 8, 120, "");
 	drawLabel(25, 16, 2, 20, "Information");
 	drawLabel(65, 16, 2, 20, "Check in");
@@ -107,8 +107,12 @@ int controlLogoutExitMenu()
 	}
 }
 
-void studentRoleMenu(ListSchedules* &listSchedule, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User & student)
+void studentRoleMenu(ListCourses* &listCourses, ListSchedules* &listSchedule, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User & student)
 {
+  int current_week;
+  ifstream file_input("Resources/current_week.txt");
+  file_input >> current_week;
+  file_input.close();
 	while (true)
 	{
 		ShowConsoleCursor(false);
@@ -127,9 +131,23 @@ void studentRoleMenu(ListSchedules* &listSchedule, ListPresence* &listPresence, 
           delete listPresence;
           delete listScoreboard;
           delete listSchedule;
+          delete listCourses;
           exit(EXIT_SUCCESS);
         }
+        else {
+          continue;
+        }
     }
+    else if (getChoose == 1) {
+      gotoXY(47, 10);
+      if (CheckIn(listCourses, listPresence, student, current_week))
+        cout << "                Succeed to check-in           ";
+      else
+        cout << "                Failed to check-in            ";
+      Sleep(1000);
+    }
+    else if (getChoose == 2)
+      drawFieldViewCheckIn(current_week);
     else if (getChoose == 4)
       viewSchedulesMenu(listSchedule);
 	}

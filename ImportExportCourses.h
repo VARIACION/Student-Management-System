@@ -12,8 +12,8 @@
 using namespace std;
 
 void drawFieldImportExportCourses();
-void importExportCoursesMenu(ListCourses &listCourses);
-bool importCoursesFromFile(ListCourses &listCourses, const string &path);
-bool exportCoursesToFile(ListCourses &listCourses, const string &path);
+void importExportCoursesMenu(ListCourses* &listCourses);
+bool importCoursesFromFile(ListCourses* &listCourses, const string &path);
+bool exportCoursesToFile(ListCourses* &listCourses, const string &path);
 
 #endif // !IMPORT_EXPORT_COURSES_H

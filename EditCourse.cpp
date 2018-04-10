@@ -14,16 +14,16 @@ void drawFieldEditCourse() {
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-bool checkExistedCourse(const string & code, const string & name, ListCourses &listCourses) {
-	for (size_t i = 0; i < listCourses.list.size(); ++i)
-		if (listCourses.list[i].getCode() == code && listCourses.list[i].getLecturerUsername() == name) {
-			listCourses.list.erase(listCourses.list.begin() + i);
+bool checkExistedCourse(const string & code, const string & name, ListCourses* &listCourses) {
+	for (size_t i = 0; i < listCourses->list.size(); ++i)
+		if (listCourses->list[i].getCode() == code && listCourses->list[i].getLecturerUsername() == name) {
+			listCourses->list.erase(listCourses->list.begin() + i);
 			return true;
 		}
 	return false;
 }
 
-void editCourseMenu(ListCourses &listCourses) {
+void editCourseMenu(ListCourses* &listCourses) {
 	while (true) {
 		ShowConsoleCursor(false);
 		drawFieldEditCourse();

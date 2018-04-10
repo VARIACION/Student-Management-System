@@ -17,6 +17,6 @@ using namespace std;
 
 void drawFieldLecturer();
 int controlLecturerMenu();
-void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence* &listPresence);
+void lecturerMenu(User &lecturer, ListScoreboard* &listScoreboard, ListPresence* &listPresence, ListSchedules* &listSchedules);
 
 #endif // !LECTURER_H

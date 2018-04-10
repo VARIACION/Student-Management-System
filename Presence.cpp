@@ -59,6 +59,17 @@ bool Presence::setPresence(const int & no, const bool & isPresence)
 	return true;
 }
 
+bool Presence::setPresence(const int & no, const bool & isPresence, const int & week)
+{
+  if (no < 1 || no > this->presence.students.size() || week < 1 || week > this->presence.list[0].size()) return false;
+  try {
+    this->presence.list[no - 1][week - 1] = isPresence;
+  } catch (const exception &error) {
+    return false;
+  }
+  return true;
+}
+
 string Presence::getPresence(const int & no, const int & week)
 {
 	if (no < 1 || no > this->presence.students.size() || week < 1 || week > this->presence.list[no - 1].size()) return "";
@@ -89,4 +100,12 @@ int Presence::getNumberOfWeek()
 ListPresence::~ListPresence()
 {
 	this->list.clear();
+}
+
+int Presence::getNoOfStudent(const string & name)
+{
+  for (int i = 0; i < this->presence.students.size(); ++i)
+    if (this->presence.students[i] == name)
+      return i + 1;
+  return -1;
 }

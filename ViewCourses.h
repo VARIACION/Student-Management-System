@@ -11,8 +11,8 @@
 using namespace std;
 
 void drawFieldViewCourses();
-void displayCourses(ListCourses &listCourses, const int &pointCourse);
+void displayCourses(ListCourses* &listCourses, const int &pointCourse);
 void displayDetailCourse(Courses &course);
-void viewCourseMenu(ListCourses &listCourses);
+void viewCourseMenu(ListCourses* &listCourses);
 
 #endif // !VIEW_COURSES_H

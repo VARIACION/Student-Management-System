@@ -43,11 +43,15 @@ public:
 
 	bool setPresence(const int &no, const bool &isPresence);
 
+  bool setPresence(const int &no, const bool &isPresence, const int &week);
+
 	string getPresence(const int &no, const int &week);
 
 	void setStudent(const int &no, const string &name);
 
 	string getStudent(const int &no);
+
+  int getNoOfStudent(const string &name);
 
 	int getSizeOfClass();
 

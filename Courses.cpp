@@ -22,6 +22,37 @@ bool Time::setMinute(const int & minuteInput) {
 	return true;
 }
 
+bool Time::operator>(Time & timeCompare)
+{
+  if (this->hour > timeCompare.getHour())
+    return true;
+  else if (this->hour < timeCompare.getHour())
+    return false;
+  else if (this->hour == timeCompare.getHour())
+    if (this->minute > timeCompare.getMinute())
+      return true;
+    else if (this->minute <= timeCompare.getMinute())
+      return false;
+}
+
+bool Time::operator<(Time & timeCompare)
+{
+  if (this->hour < timeCompare.getHour())
+    return true;
+  else if (this->hour > timeCompare.getHour())
+    return false;
+  else if (this->hour == timeCompare.getHour())
+    if (this->minute < timeCompare.getMinute())
+      return true;
+    else if (this->minute >= timeCompare.getMinute())
+      return false;
+}
+
+bool Time::operator==(Time & timeCompare)
+{
+  return (this->hour == timeCompare.getHour() && this->minute == timeCompare.getMinute());
+}
+
 Date::Date() {
 	this->day = this->month = this->year = 0;
 }
@@ -72,6 +103,47 @@ bool Date::setDate(const int & dayInput) {
 		break;
 	}
 	return true;
+}
+
+bool Date::operator>(Date & dateCompare)
+{
+  if (this->year > dateCompare.getYear())
+    return true;
+  else if (this->year < dateCompare.getYear())
+    return false;
+  else if (this->year == dateCompare.getYear())
+    if (this->month > dateCompare.getMonth())
+      return true;
+    else if (this->month < dateCompare.getMonth())
+      return false;
+    else if (this->month == dateCompare.getMonth())
+      if (this->day > dateCompare.getDay())
+        return true;
+  return false;
+}
+
+bool Date::operator<(Date & dateCompare)
+{
+  if (this->year < dateCompare.getYear())
+    return true;
+  else if (this->year > dateCompare.getYear())
+    return false;
+  else if (this->year == dateCompare.getYear())
+    if (this->month < dateCompare.getMonth())
+      return true;
+    else if (this->month > dateCompare.getMonth())
+      return false;
+    else if (this->month == dateCompare.getMonth())
+      if (this->day < dateCompare.getDay())
+        return true;
+  return false;
+}
+
+bool Date::operator==(Date & dateCompare)
+{
+  if (this->day == dateCompare.getDay() && this->month == dateCompare.getMonth() && this->year == dateCompare.getYear())
+    return true;
+  return false;
 }
 
 Courses::Courses() {

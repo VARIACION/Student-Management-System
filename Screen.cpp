@@ -39,7 +39,7 @@ bool prompExit()
       {
       case 13:
         if (choose == 0) return true;
-        else false;
+        else return false;
       case 77:
         if (choose == 1) choose = 0; else ++choose;
         break;

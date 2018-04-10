@@ -14,6 +14,6 @@ void drawFieldBasicInfo();
 void drawFieldDateTime();
 int basicInfoMenu(string basicInfo[]);
 void dateTimeMenu(string dateInfo[]);
-void addCourseMenu(ListCourses &listCourses);
+void addCourseMenu(ListCourses* &listCourses);
 
 #endif // !ADD_COURSE_H

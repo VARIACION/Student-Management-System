@@ -13,7 +13,7 @@ void drawFieldRemoveCourse()
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void removeCourseMenu(ListCourses & listCourses)
+void removeCourseMenu(ListCourses* & listCourses)
 {
 	int checkIfRemoveSuccess = 0;
 	while (true)
@@ -45,12 +45,12 @@ void removeCourseMenu(ListCourses & listCourses)
 	}
 }
 
-bool removeCourse(ListCourses & listCourses, const string &code)
+bool removeCourse(ListCourses* & listCourses, const string &code)
 {
-	for (size_t i = 0; i < listCourses.list.size(); ++i)
-		if (listCourses.list[i].getCode() == code)
+	for (size_t i = 0; i < listCourses->list.size(); ++i)
+		if (listCourses->list[i].getCode() == code)
 		{
-			listCourses.list.erase(listCourses.list.begin() + i);
+			listCourses->list.erase(listCourses->list.begin() + i);
 			return true;
 		}
 	return false;

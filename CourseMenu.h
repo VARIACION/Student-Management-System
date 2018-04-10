@@ -19,6 +19,6 @@ using namespace std;
 
 void drawCoursesMenu();
 int controlCoursesMenu();
-void courseMenu(ListCourses &listCourses);
+void courseMenu(ListCourses* &listCourses);
 
 #endif // !COURSE_MENU_H
