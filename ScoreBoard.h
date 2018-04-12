@@ -50,6 +50,8 @@ public:
 
 	string getStudent(const int &no);
 
+  int getStudent(const string &name);
+
 	int getSizeOfClass();
 
 	bool setScore(const int &no, const double &scoreInput);

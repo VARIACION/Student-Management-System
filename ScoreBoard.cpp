@@ -8,9 +8,9 @@ ScoreBoard::ScoreBoard()
 
 ScoreBoard::~ScoreBoard()
 {
-	for (int i = 0; i < this->score.student.size(); ++i)
+	for (size_t i = 0; i < this->score.student.size(); ++i)
 		this->score.student[i].clear();
-	for (int i = 0; i < this->score.list.size(); ++i)
+	for (size_t i = 0; i < this->score.list.size(); ++i)
 		this->score.list[i].clear();
 }
 
@@ -34,6 +34,7 @@ bool ScoreBoard::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	this->year = yearInput;
@@ -55,6 +56,14 @@ int ScoreBoard::getSemester() { return this->semester - '0'; }
 void ScoreBoard::setStudent(const int & no, const string & name) { this->score.student[no - 1] = name; }
 
 string ScoreBoard::getStudent(const int & no) { return this->score.student[no - 1]; }
+
+int ScoreBoard::getStudent(const string & name)
+{
+  for (int i = 0; i < this->score.student.size(); ++i)
+    if (this->score.student[i] == name)
+      return i + 1;
+  return -1;
+}
 
 int ScoreBoard::getSizeOfClass() { return this->score.student.size(); }
 

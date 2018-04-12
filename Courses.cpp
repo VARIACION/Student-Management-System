@@ -31,8 +31,7 @@ bool Time::operator>(Time & timeCompare)
   else if (this->hour == timeCompare.getHour())
     if (this->minute > timeCompare.getMinute())
       return true;
-    else if (this->minute <= timeCompare.getMinute())
-      return false;
+  return false;
 }
 
 bool Time::operator<(Time & timeCompare)
@@ -44,8 +43,7 @@ bool Time::operator<(Time & timeCompare)
   else if (this->hour == timeCompare.getHour())
     if (this->minute < timeCompare.getMinute())
       return true;
-    else if (this->minute >= timeCompare.getMinute())
-      return false;
+  return false;
 }
 
 bool Time::operator==(Time & timeCompare)
@@ -176,6 +174,7 @@ bool Courses::setYear(const string & yearInput) {
 			return false;
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	this->year = yearInput;
@@ -203,6 +202,7 @@ bool Courses::setStartDate(Date & startDateInput) {
 			return false;
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	this->start = startDateInput;
@@ -219,6 +219,7 @@ bool Courses::setEndDate(Date & endDateInput) {
 			return false;
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	this->end = endDateInput;
@@ -234,6 +235,7 @@ bool Courses::setStartTime(string & startTimeInput) {
 		minute = stoi(startTimeInput);
 	}
 	catch (exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	return (this->from.setHour(hour) && this->from.setMinute(minute));
@@ -256,6 +258,7 @@ bool Courses::setEndTime(string & endTimeInput) {
 		minute = stoi(endTimeInput);
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	return (this->to.setHour(hour) && this->to.setMinute(minute));
@@ -311,6 +314,7 @@ string Courses::getDateOfWeek_str() {
 	case SUNDAY:
 		return "SUNDAY";
 	}
+  return "";
 }
 
 bool Courses::setStartDate_str(string & startDataInput) {
@@ -323,6 +327,7 @@ bool Courses::setStartDate_str(string & startDataInput) {
 		checkDate.setDate(stoi(day));
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	return this->setStartDate(checkDate);
@@ -338,6 +343,7 @@ bool Courses::setEndDate_str(string & endDataInput) {
 		checkDate.setDate(stoi(day));
 	}
 	catch (const exception &error) {
+    cerr << error.what();
 		return false;
 	}
 	return this->setEndDate(checkDate);

@@ -8,9 +8,9 @@ Presence::Presence()
 
 Presence::~Presence()
 {
-	for (int i = 0; i < this->presence.list.size(); ++i)
+	for (size_t i = 0; i < this->presence.list.size(); ++i)
 		this->presence.list[i].clear();
-	for (int i = 0; i < this->presence.students.size(); ++i)
+	for (size_t i = 0; i < this->presence.students.size(); ++i)
 		this->presence.students[i].clear();
 }
 
@@ -34,6 +34,7 @@ bool Presence::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	this->year = yearInput;
@@ -65,6 +66,7 @@ bool Presence::setPresence(const int & no, const bool & isPresence, const int & 
   try {
     this->presence.list[no - 1][week - 1] = isPresence;
   } catch (const exception &error) {
+    cerr << error.what();
     return false;
   }
   return true;
@@ -104,7 +106,7 @@ ListPresence::~ListPresence()
 
 int Presence::getNoOfStudent(const string & name)
 {
-  for (int i = 0; i < this->presence.students.size(); ++i)
+  for (size_t i = 0; i < this->presence.students.size(); ++i)
     if (this->presence.students[i] == name)
       return i + 1;
   return -1;

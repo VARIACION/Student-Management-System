@@ -27,7 +27,7 @@ void editScheduleMenu(ListSchedules* & listSchedules) {
       continue;
     } else {
 			bool checkExist = false;
-			for (int i = 0; i < listSchedules->list.size(); ++i)
+			for (size_t i = 0; i < listSchedules->list.size(); ++i)
 				if (listSchedules->list[i].getClassName() == schedule) {
 					listSchedules->list.erase(listSchedules->list.begin() + i);
 					checkExist = true;

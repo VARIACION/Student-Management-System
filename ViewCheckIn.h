@@ -12,8 +12,13 @@
 #include "User.h"
 #include "Courses.h"
 #include "Presence.h"
+#include "AddClass.h"
 using namespace std;
 
-void drawFieldViewCheckIn(const int &current_week);
+void DrawFieldInputCourseToCheckIn();
+void drawFieldViewCheckIn(const int &current_week, const string &courseName);
+void DisplayDetailCheckIn(Presence &presence, User &student, const int &pointPresence, const int &getNoOfStudent);
+void ViewCheckInMenu(Presence &presence, User &student, const int &current_week);
+void CheckViewCheckIn(ListPresence* &listPresence, User &student, const int &current_week);
 
 #endif // !VIEW_CHECK_IN_H

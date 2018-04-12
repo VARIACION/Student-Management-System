@@ -147,7 +147,9 @@ void studentRoleMenu(ListCourses* &listCourses, ListSchedules* &listSchedule, Li
       Sleep(1000);
     }
     else if (getChoose == 2)
-      drawFieldViewCheckIn(current_week);
+      CheckViewCheckIn(listPresence, student, current_week);
+    else if (getChoose == 3)
+      ViewScoreStudentMenu(listScoreboard, student);
     else if (getChoose == 4)
       viewSchedulesMenu(listSchedule);
 	}

@@ -102,8 +102,7 @@ void viewSchedulesMenu(ListSchedules* & listSchedules)
 				else if (scroll == 9)
 				{
 					string getClass = getFileName(57, 36, 40, 38, "id");
-					int getCourseInt;
-					for (int i = 0; i < listSchedules->list.size(); ++i)
+					for (size_t i = 0; i < listSchedules->list.size(); ++i)
 						if (listSchedules->list[i].getClassName() == getClass)
 						{
 							displaySchedule(listSchedules->list[i]);

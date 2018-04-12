@@ -78,6 +78,7 @@ bool InputNewGrade(double new_grade[3]) {
     new_grade[1] = stod(lab);
     new_grade[2] = stod(_final);
   } catch (const exception &error) {
+    cerr << error.what();
     gotoXY(60, 10); cout << "Invalid score input. Please try again in 1 second.";
     Sleep(1000);
     return false;

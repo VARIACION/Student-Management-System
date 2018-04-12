@@ -38,6 +38,7 @@ bool Schedule::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	this->year = yearInput;
@@ -66,6 +67,7 @@ bool Schedule::setStartDate(Date & startDate)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	this->start = startDate;
@@ -84,6 +86,7 @@ bool Schedule::setStartDate(string & startDate)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	return this->setStartDate(checkDate);
@@ -104,6 +107,7 @@ bool Schedule::setEndDate(Date & endDate)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	this->end = endDate;
@@ -122,6 +126,7 @@ bool Schedule::setEndDate(string & endDate)
 	}
 	catch (const exception &error)
 	{
+    cerr << error.what();
 		return false;
 	}
 	return this->setEndDate(checkDate);

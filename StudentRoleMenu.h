@@ -11,6 +11,7 @@
 #include "SearchViewAttendanceList.h"
 #include "CheckIn.h"
 #include "ViewCheckIn.h"
+#include "ViewScoreStudent.h"
 using namespace std;
 
 void drawFieldStudentRoleMenu();

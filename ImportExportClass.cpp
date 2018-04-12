@@ -92,6 +92,7 @@ string getFileName(const int &x, const int &y, const string &tooLongInputWarning
 		}
 		while (_kbhit()) _getch();
 	}
+  return "";
 }
 
 string getFileName(const int &x, const int &y, const int &length, const int &errorLine, const string &tooLongInputWarning)
@@ -133,6 +134,7 @@ string getFileName(const int &x, const int &y, const int &length, const int &err
 		}
 		while (_kbhit()) _getch();
 	}
+  return "";
 }
 
 Student * allocateNewStudent(string & input)
@@ -286,4 +288,5 @@ int exportStudentToFile(Faculty & faculty, const string & path, const string &mo
 		return 3;
 	}
 	fileOutput.close();
+  return 0;
 }

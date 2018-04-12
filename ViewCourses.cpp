@@ -78,6 +78,7 @@ void viewCourseMenu(ListCourses* & listCourses)
 					}
 					catch (const exception &error)
 					{
+            cerr << error.what();
 						gotoXY(60, 36);
 						cout << "Invalid number";
 						break;
