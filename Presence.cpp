@@ -34,7 +34,9 @@ bool Presence::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->year = yearInput;
@@ -66,7 +68,9 @@ bool Presence::setPresence(const int & no, const bool & isPresence, const int & 
   try {
     this->presence.list[no - 1][week - 1] = isPresence;
   } catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what();
+    error_message.close();
     return false;
   }
   return true;

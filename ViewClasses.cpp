@@ -6,7 +6,7 @@ void drawFieldViewClasses()
 	gotoXY(68, 3);
 	cout << "VIEW LIST OF CLASSES";
 	drawLabel(70, 20, 14, 40, "");
-	gotoXY(60, 5);
+	gotoXY(58, 5);
 	cout << "Press ENTER to go back to STUDENT menu";
 }
 

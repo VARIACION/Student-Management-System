@@ -68,30 +68,30 @@ void EditGradeMenu(User &lecturer, ListScoreboard* & listScoreboard) {
   }
 }
 
-bool InputNewGrade(double new_grade[3]) {
-  string error_too_long_score = "Score";
-  string midterm = getFileName(56, 16, 3, 10, error_too_long_score);
-  string lab = getFileName(76, 16, 3, 10, error_too_long_score);
-  string _final = getFileName(96, 16, 3, 10, error_too_long_score);
+bool InputNewGrade(double new_grade[3], const bool &validInput) {
+  string midterm = getFileName(56, 16, 3, 60, 10, validInput, "Enter midterm score");
+  string lab = getFileName(76, 16, 3, 60, 10, validInput, "Enter lab score");
+  string _final = getFileName(96, 16, 3, 60, 10, validInput, "Enter final score");
   try {
     new_grade[0] = stod(midterm);
     new_grade[1] = stod(lab);
     new_grade[2] = stod(_final);
   } catch (const exception &error) {
-    cerr << error.what();
-    gotoXY(60, 10); cout << "Invalid score input. Please try again in 1 second.";
-    Sleep(1000);
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
+    gotoXY(60, 10); cout << "Invalid score input. Check your data and try again.";
     return false;
   }
   if (new_grade[0] < 0 || new_grade[0] > 10 || new_grade[1] < 0 || new_grade[1] > 10 || new_grade[2] < 0 || new_grade[2] > 10) {
-    gotoXY(50, 10); cout << "Score can not bigger than 10 or smaller than 0. Try again in 1 second";
-    Sleep(1000);
+    gotoXY(45, 10); cout << "Score can not bigger than 10 or smaller than 0. Check your data and try again";
     return false;
   }
   return true;
 }
 
 int EditGrade(User &lecturer, ListScoreboard* & listScoreboard, const string & studentName, const string & className) {
+  bool invalidInput = false;
   double new_grade[3] = { 0 };
   for (auto& i : listScoreboard->list) {
     if (i.getClassName() == className && i.getLecturerName() == lecturer.getUsername()) {
@@ -99,12 +99,13 @@ int EditGrade(User &lecturer, ListScoreboard* & listScoreboard, const string & s
         if (i.getStudent(j) == studentName) {
           while (true) {
             DrawFieldInputNewGrade();
-            if (InputNewGrade(new_grade)) {
+            if (InputNewGrade(new_grade, invalidInput)) {
               i.setScore(j, new_grade[0], 0);
               i.setScore(j, new_grade[1], 1);
               i.setScore(j, new_grade[2], 2);
               return 1;
             } else {
+              invalidInput = true;
               continue;
             }
           }

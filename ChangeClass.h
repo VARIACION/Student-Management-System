@@ -13,6 +13,6 @@ using namespace std;
 
 void drawFieldChangeClass();
 void changeClassMenu(Faculty &faculty);
-bool changeClass(Faculty &faculty, const string &id, const string &newClass);
+int changeClass(Faculty &faculty, const string &id, const string &newClass);
 
 #endif // !CHANGE_CLASS_H

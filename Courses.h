@@ -90,6 +90,9 @@ public:
 	bool setDateOfWeek(const string &dayStart);
 	Week getDateOfWeek();
 	string getDateOfWeek_str();
+
+  bool compareStartEndDate();
+  bool compareStartEndTime();
 };
 
 struct ListCourses

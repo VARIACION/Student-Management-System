@@ -13,6 +13,6 @@ using namespace std;
 
 void drawFieldAddStudent();
 void addStudentMenu(Faculty &faculty);
-bool addNewStudent(Faculty &faculty, const string &className, const string &ID, const string &name);
+int addNewStudent(Faculty &faculty, const string &className, const string &ID, const string &name);
 
 #endif // !ADD_STUDENT_H

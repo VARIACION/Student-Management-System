@@ -12,8 +12,8 @@ using namespace std;
 
 void drawFieldBasicInfo();
 void drawFieldDateTime();
-int basicInfoMenu(string basicInfo[]);
-void dateTimeMenu(string dateInfo[]);
+int basicInfoMenu(string basicInfo[], bool &validInformation);
+int dateTimeMenu(string dateInfo[], bool &validInformation);
 void addCourseMenu(ListCourses* &listCourses);
 
 #endif // !ADD_COURSE_H

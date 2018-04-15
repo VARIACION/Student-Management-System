@@ -23,41 +23,6 @@ void drawFieldDisplayStudents()
 	cout << "Press ENTER to go back to STUDENT menu";
 }
 
-int controlViewStudentsMenu()
-{
-	ShowConsoleCursor(false);
-	drawLabel(60, 28, 2, 17, "");
-	int getButton = 0;
-	while (true)
-	{
-		if (_kbhit())
-		{
-			char getSwitchKey = _getch();
-			switch (getSwitchKey)
-			{
-			case 13:
-				return getButton;
-			case 75: case 77: case 9:
-				if (getButton == 0)
-				{
-					getButton = 1;
-					eraseLabel(60, 28, 2, 17);
-					drawLabel(85, 28, 2, 17, "");
-				}
-				else
-				{
-					getButton = 0;
-					eraseLabel(85, 28, 2, 17);
-					drawLabel(60, 28, 2, 17, "");
-				}
-				break;
-			case 72:
-				return 2;
-			}
-		}
-	}
-}
-
 void displayStudent(Student* &copyStudents, const int &pointStudent, const int &numberOfStudents)
 {
 	int posY[] = { 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32 };
@@ -119,6 +84,7 @@ bool callScreenDisplayMenu(Faculty &faculty, const string &className)
 			{
 			case 13:
 				delete[] copyStudents;
+        drawFieldViewStudents();
 				return true;
 			case 72:
 				if (markStudentByNo > 0)
@@ -142,25 +108,27 @@ bool callScreenDisplayMenu(Faculty &faculty, const string &className)
 
 void viewStudentsMenu(Faculty &faculty)
 {
+  bool messageStatus = false;
+  drawFieldViewStudents();
 	while (true)
 	{
-		drawFieldViewStudents();
-		gotoXY(50, 15);	cout << "                                                                        ";
-		gotoXY(60, 15);	cout << "Enter the name of the class you want to view";
-		string classToView = getFileName(65, 20, "class");
-		gotoXY(50, 15);	cout << "                                                                        ";
-		int getChoose = controlViewStudentsMenu();
+    clearText(65, 20, 45);
+		string classToView = getFileName(65, 20, 45, 60, 15, messageStatus, "Enter the name of the class you want to view");
+    clearText(50, 15, 100);
+		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
 			break;
-		else if (getChoose == 2)
-			continue;
+    else if (getChoose == 2) {
+      messageStatus = false;
+      continue;
+    }
 		else
 		{
 			if (!callScreenDisplayMenu(faculty, classToView))
 			{
 				gotoXY(55, 15);
-				cout << "Failed to view students. Try again in 3 seconds.";
-				Sleep(3000);
+				cout << "Failed to view students. Found no class name " << classToView << "\a";
+        messageStatus = true;
 			}
 		}
 	}

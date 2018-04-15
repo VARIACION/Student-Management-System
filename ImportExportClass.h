@@ -14,7 +14,7 @@ using namespace std;
 void drawFieldInputFileName();
 int controlFileImportExport();
 string getFileName(const int &x, const int &y, const string &tooLongInputWarning);
-string getFileName(const int &x, const int &y, const int &length, const int &errorLine, const string &tooLongInputWarning);
+string getFileName(const int &x, const int &y, const int &length, const int &errorColumn, const int &errorLine, const bool &firstShowMessage, const string &previousMessage);
 
 Student *allocateNewStudent(string &input);
 

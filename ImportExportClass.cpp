@@ -44,8 +44,10 @@ int controlFileImportExport()
 				if (chooseButtonLoginMenu > 0) --chooseButtonLoginMenu;
 				else chooseButtonLoginMenu = 2;
 				break;
-			case 72:
+      case 72:
 				return 3;
+      case 27:
+        return 2;
 			}
 			drawLabel(loginMenuButton[chooseButtonLoginMenu].x, loginMenuButton[chooseButtonLoginMenu].y, 2, 17, "");
 			gotoXY(loginMenuButton[chooseButtonLoginMenu].x, loginMenuButton[chooseButtonLoginMenu].y);
@@ -55,6 +57,7 @@ int controlFileImportExport()
 
 string getFileName(const int &x, const int &y, const string &tooLongInputWarning)
 {
+  bool showPreviousMessage = false;
 	ShowConsoleCursor(true);
 	string importFile = "";
 	while (_kbhit()) _getch();
@@ -62,48 +65,63 @@ string getFileName(const int &x, const int &y, const string &tooLongInputWarning
 	while (!_kbhit())
 	{
 		char getimportFile = _getch();
-		if (getimportFile == 13 || getimportFile == 9)
-			return importFile;
-		else if (getimportFile >= 32 && getimportFile < 127)
-		{
-			if (importFile.length() < 45)
-			{
-				gotoXY(x + importFile.length(), y);
-				importFile.push_back(getimportFile);
-				cout << getimportFile;
-			}
-			else
-			{
-				gotoXY(45, 10);
-				cout << "The number of characters in " << tooLongInputWarning << "'s name must be shorter than 45 characters.";
-			}
-		}
-		else if (getimportFile == 8 && importFile.length() > 0)
-		{
-			if (importFile.length() >= 45)
-			{
-				gotoXY(45, 10);
-				cout << "                                                                                             ";
-			}
-			importFile.pop_back();
-			gotoXY(x + importFile.length(), y);
-			cout << " ";
-			gotoXY(x + importFile.length(), y);
-		}
+    if (getimportFile == 13 || getimportFile == 9)
+      return importFile;
+    else if (getimportFile >= 32 && getimportFile < 127)
+    {
+      if (importFile.length() < 45)
+      {
+        gotoXY(x + importFile.length(), y);
+        importFile.push_back(getimportFile);
+        cout << getimportFile;
+      }
+      else
+      {
+        gotoXY(45, 10);
+        cout << "Your input is too long. This field must be input shorter than 45 characters.";
+      }
+    }
+    else if (getimportFile == 8 && importFile.length() > 0)
+    {
+      if (importFile.length() >= 45)
+      {
+        gotoXY(45, 10);
+        cout << "                                                                                             ";
+      }
+      importFile.pop_back();
+      gotoXY(x + importFile.length(), y);
+      cout << " ";
+      gotoXY(x + importFile.length(), y);
+    }
+    else if (getimportFile == 27)
+      continue;
 		while (_kbhit()) _getch();
 	}
   return "";
 }
 
-string getFileName(const int &x, const int &y, const int &length, const int &errorLine, const string &tooLongInputWarning)
+string getFileName(const int &x, const int &y, const int &length, const int &errorColumn, const int &errorLine, const bool &firstShowMessage, const string &previousMessage)
 {
+  bool showPreviousMessage = true;
 	ShowConsoleCursor(true);
 	string importFile = "";
 	while (_kbhit()) _getch();
+  if (!firstShowMessage) {
+    clearText(30, errorLine, 100);
+    gotoXY(errorColumn, errorLine);
+    cout << previousMessage;
+    showPreviousMessage = false;
+  }
 	gotoXY(x, y);
 	while (!_kbhit())
 	{
 		char getimportFile = _getch();
+    if (showPreviousMessage) {
+      clearText(30, errorLine, 100);
+      gotoXY(errorColumn, errorLine);
+      cout << previousMessage;
+      showPreviousMessage = false;
+    }
 		if (getimportFile == 13 || getimportFile == 9)
 			return importFile;
 		else if (getimportFile >= 32 && getimportFile < 127)
@@ -117,7 +135,8 @@ string getFileName(const int &x, const int &y, const int &length, const int &err
 			else
 			{
 				gotoXY(45, errorLine);
-				cout << "The number of characters in " << tooLongInputWarning << "'s name must be shorter than 45 characters.";
+				cout << "Your input is too long. This field must be input shorter than " << length << " characters.";
+        cout << "\a";
 			}
 		}
 		else if (getimportFile == 8 && importFile.length() > 0)
@@ -161,81 +180,69 @@ Student * allocateNewStudent(string & input)
 
 void importExportStudentFromFile(Faculty &faculty)
 {
+  bool errorMessage = false;
+  drawFieldInputFileName();
 	while (true)
 	{
-		drawFieldInputFileName();
-		gotoXY(40, 10);	cout << "                                                                           ";
-		gotoXY(57, 10);	cout << "Enter the path to the file you want to import data";
-		string fileImport = getFileName(65, 14, "file");
-		gotoXY(40, 10);	cout << "                                                                           ";
-		gotoXY(57, 10);	cout << "Enter the path to the file you want to export data";
-		string fileExport = getFileName(65, 18, "file");
-		gotoXY(45, 10);	cout << "                                                                           ";
-		gotoXY(45, 10);	cout << "Enter the name of the class you want to export or type all to export all";
-		string classExport = getFileName(65, 22, "class");
+    clearText(65, 14, 45);
+    clearText(65, 18, 45);
+    clearText(65, 22, 45);
+
+		string fileImport = getFileName(65, 14, 45, 57, 10, errorMessage, "Enter the path to the file you want to import data");
+		string fileExport = getFileName(65, 18, 45, 57, 10, errorMessage, "Enter the path to the file you want to export data");
+		string classExport = getFileName(65, 22, 45, 45, 10, errorMessage, "Enter the name of the class you want to export or type all to export all");
+
 		gotoXY(45, 10);	cout << "                                                                           ";
 		int getChoose = controlFileImportExport();
 		if (getChoose == 0)
 		{
+      gotoXY(40, 10);
 			if (!importStudentFromFile(faculty, fileImport))
-			{
-				gotoXY(30, 10);
-				cout << "Failed to open database file. Please check your file's name and path to file and try again in 3 seconds.";
-				Sleep(1000);
-			}
+        cout << "          Failed to open database file. Please check your file's name." << "\a";
 			else
-			{
-				gotoXY(40, 10);
-				cout << "Succeed to import data from file. You will be back to STUDENT menu in 3 seconds.";
-				Sleep(1000);
-				return;
-			}
+				cout << "                          Succeed to import data from file.                                     ";
+      errorMessage = true;
 		}
 		else if (getChoose == 1)
 		{
 			int getResultAfterExport = exportStudentToFile(faculty, fileExport, classExport);
+      gotoXY(33, 10);
 			if (getResultAfterExport == 1)
-			{
-				gotoXY(33, 10);
-				cout << "Failed to save data to file. Please check again if you have permission or broken hard drive";
-			}
+				cout << "Failed to save data to file. Please check again if you have permission or broken hard drive" << "\a";
 			else if (getResultAfterExport == 2)
-			{
-				gotoXY(40, 10);
-				cout << "          Failed to save data to file. There is no exist data to save.          ";
-			}
+				cout << "                 Failed to save data to file. There is no exist data to save.          " << "\a";
 			else if (getResultAfterExport == 3)
-			{
-				gotoXY(40, 10);
-				cout << "          Failed to save data to file. Found no class has name: " << classExport << "         ";
-			}
+				cout << "                 Failed to save data to file. Found no class has name: " << classExport << "         " << "\a";
 			else
-			{
-				gotoXY(40, 10);
-				cout << "Succeed to save data to file. You will be back to STUDENT menu in 3 seconds" << "             ";
-				Sleep(1000);
-				return;
-			}
-			Sleep(1000);
+				cout << "                                  Succeed to save data to file                          ";
+      errorMessage = true;
 		}
 		else if (getChoose == 2)
 			return;
+    else if (getChoose == 3) {
+      errorMessage = false;
+      continue;
+    }
 	}
 }
 
 bool importStudentFromFile(Faculty & faculty, const string & path)
 {
-	
 	string getLine;
 	ifstream fileInput(path);
 	if (fileInput.fail())
 		return false;
 	getline(fileInput, getLine);
+  getLine.pop_back();
+  for (auto& i : faculty.classMember)
+    if (i.name == getLine.substr(6, getLine.length() - 6)) {
+      fileInput.close();
+      return true;
+    }
 	Class newClass;
 	newClass.student = new Student;
 	newClass.student->setName("NULL");
-	Student *currentStudent = newClass.student;
-	getLine.pop_back();
+  Student *currentStudent = newClass.student;
 	newClass.name = getLine.substr(6, getLine.length() - 6);
 	getline(fileInput, getLine);
 	while (!fileInput.eof())

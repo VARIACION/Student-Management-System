@@ -9,11 +9,11 @@
 #include <string>
 #include "ImportExportClass.h"
 #include "ViewClasses.h"
+#include "AddClass.h"
 using namespace std;
 
 void drawFieldViewStudents();
 void drawFieldDisplayStudents();
-int controlViewStudentsMenu();
 void displayStudent(Student* &copyStudents, const int &pointStudent, const int &numberOfStudents);
 void copyStudentsFromListToArray(Class &className, Student* &copyStudents);
 bool callScreenDisplayMenu(Faculty &faculty, const string &className);

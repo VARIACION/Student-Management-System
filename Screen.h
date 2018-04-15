@@ -26,5 +26,6 @@ void eraseLabel(const int &x, const int &y, const int &height, const int &width)
 void changeFontSize(const int &fontSize);
 void ShowConsoleCursor(const bool &showFlag);
 char * fromStrCppToStrC(const string &stringCpp);
+void clearText(const int &x, const int &y, const int &length);
 
 #endif //STUDENT_MANAGEMENT_SYSTEM_SCREEN_H

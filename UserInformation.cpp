@@ -61,6 +61,8 @@ int chooseMenuInInfoMenu()
 					drawLabel(50, 34, 2, 22, "");
 				}
 				break;
+      case 27:
+        return 1;
 			}
 		}
 	}

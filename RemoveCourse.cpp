@@ -16,31 +16,28 @@ void drawFieldRemoveCourse()
 void removeCourseMenu(ListCourses* & listCourses)
 {
 	int checkIfRemoveSuccess = 0;
+  bool messageStatus = false;
+  drawFieldRemoveCourse();
 	while (true)
 	{
-		drawFieldRemoveCourse();
-		gotoXY(60, 15);	cout << "                                                                        ";
-		gotoXY(60, 15);	cout << "Enter the code of the course you want to remove";
-		string courseCode = getFileName(65, 20, "code");
-		gotoXY(60, 15);	cout << "                                                                        ";
+    clearText(65, 20, 45);
+		string courseCode = getFileName(65, 20, 45, 60, 15, messageStatus, "Enter the code of the course you want to remove");
+    clearText(65, 20, 45);
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
 			break;
-		else if (getChoose == 2)
-			continue;
+    else if (getChoose == 2) {
+      messageStatus = false;
+      continue;
+    }
 		else
 		{
+      gotoXY(50, 15);
 			if (removeCourse(listCourses, courseCode))
-			{
-				gotoXY(50, 15); cout << "Succeed to remove course. You will be back to COURSE menu in 3 seconds.";
-				Sleep(1000);
-				return;
-			}
+				cout << "                        Succeed to remove course.                     ";
 			else
-			{
-				gotoXY(60, 15); cout << "Failed to remove course. Try again in 3 seconds.";
-				Sleep(1000);
-			}
+				cout << "\a          Failed to remove course. Found no course name " << courseCode << "              ";
+      messageStatus = true;
 		}
 	}
 }

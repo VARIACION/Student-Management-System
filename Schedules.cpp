@@ -38,7 +38,9 @@ bool Schedule::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->year = yearInput;
@@ -67,7 +69,9 @@ bool Schedule::setStartDate(Date & startDate)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->start = startDate;
@@ -86,7 +90,9 @@ bool Schedule::setStartDate(string & startDate)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return this->setStartDate(checkDate);
@@ -107,7 +113,9 @@ bool Schedule::setEndDate(Date & endDate)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->end = endDate;
@@ -126,7 +134,9 @@ bool Schedule::setEndDate(string & endDate)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return this->setEndDate(checkDate);
@@ -148,4 +158,11 @@ string Schedule::getSchedule(const Week & day, const int & hour)
 {
 	if (hour < 0 || hour > 3) return "";
 	return this->schedule[day][hour];
+}
+
+bool Schedule::compareStartEndDate() {
+  if (this->start > this->end)
+    return true;
+  else
+    return false;
 }

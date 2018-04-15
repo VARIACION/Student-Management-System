@@ -169,12 +169,15 @@ bool Courses::setYear(const string & yearInput) {
 	struct tm newtime;
 	time_t now = time(0);
 	localtime_s(&newtime, &now);
-	try {
-		if (stoi(yearInput.substr(0, 4)) < 2000 || stoi(yearInput.substr(5, 4)) > 1900 + newtime.tm_year)
+  try {
+    if (yearInput.substr(0, 4) == yearInput.substr(5, 4) || 
+      stoi(yearInput.substr(0, 4)) < 2000 || stoi(yearInput.substr(5, 4)) > 1900 + newtime.tm_year)
 			return false;
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->year = yearInput;
@@ -202,7 +205,9 @@ bool Courses::setStartDate(Date & startDateInput) {
 			return false;
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->start = startDateInput;
@@ -219,7 +224,9 @@ bool Courses::setEndDate(Date & endDateInput) {
 			return false;
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->end = endDateInput;
@@ -235,7 +242,9 @@ bool Courses::setStartTime(string & startTimeInput) {
 		minute = stoi(startTimeInput);
 	}
 	catch (exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return (this->from.setHour(hour) && this->from.setMinute(minute));
@@ -258,7 +267,9 @@ bool Courses::setEndTime(string & endTimeInput) {
 		minute = stoi(endTimeInput);
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return (this->to.setHour(hour) && this->to.setMinute(minute));
@@ -327,7 +338,9 @@ bool Courses::setStartDate_str(string & startDataInput) {
 		checkDate.setDate(stoi(day));
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return this->setStartDate(checkDate);
@@ -343,8 +356,25 @@ bool Courses::setEndDate_str(string & endDataInput) {
 		checkDate.setDate(stoi(day));
 	}
 	catch (const exception &error) {
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	return this->setEndDate(checkDate);
+}
+
+bool Courses::compareStartEndDate() {
+  if (this->start > this->end)
+    return true;
+  else
+    return false;
+}
+
+bool Courses::compareStartEndTime()
+{
+  if (this->from > this->to)
+    return true;
+  else
+    return false;
 }

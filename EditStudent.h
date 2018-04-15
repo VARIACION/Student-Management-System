@@ -14,6 +14,6 @@ using namespace std;
 
 void drawFieldEditStudent();
 void editStudentMenu(Faculty &faculty);
-bool editStudent(Faculty &faculty, const string &currentID, const string &newId, const string &newName);
+int editStudent(Faculty &faculty, const string &currentID, const string &newId, const string &newName);
 
 #endif // !EDIT_STUDENT_H

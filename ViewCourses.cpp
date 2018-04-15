@@ -70,17 +70,18 @@ void viewCourseMenu(ListCourses* & listCourses)
 					return;
 				else if (scroll == 9)
 				{
-					string getCourse = getFileName(57, 36, 40, 38, "id");
+					string getCourse = getFileName(57, 36, "Enter ID");
 					int getCourseInt;
 					try
 					{
 						getCourseInt = stoi(getCourse);
-					}
-					catch (const exception &error)
-					{
-            cerr << error.what();
+					} catch (const exception &error) {
+            ofstream error_message("errors_messages.log", ios::app);
+            error_message << error.what() << endl;
+            error_message.close();
 						gotoXY(60, 36);
 						cout << "Invalid number";
+            Sleep(500);
 						break;
 					}
 					if (getCourseInt < listCourses->list.size())

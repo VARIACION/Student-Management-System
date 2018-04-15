@@ -21,54 +21,56 @@ void drawFieldEditStudent()
 
 void editStudentMenu(Faculty &faculty)
 {
+  drawFieldEditStudent();
+  int editStudentResult = -1;
+  bool messageResult = false;
 	while (true)
 	{
-		drawFieldEditStudent();
-		gotoXY(45, 10);	cout << "                                                                           ";
-		gotoXY(70, 10);	cout << "Enter the ID of student";
-		string currentID = getFileName(65, 14, "ID");
-		gotoXY(40, 10);	cout << "                                                                           ";
-		gotoXY(45, 10);	cout << "Enter the new ID of student. Leave blank if you don't want to change";
-		string newID = getFileName(65, 18, "ID");
-		gotoXY(45, 10);	cout << "                                                                           ";
-		gotoXY(45, 10);	cout << "Enter the new name of student. Leave blank if you don't want to change";
-		string newName = getFileName(65, 22, "student");
-		gotoXY(45, 10);	cout << "                                                                           ";
+    clearText(65, 14, 45);
+    clearText(65, 18, 45);
+    clearText(65, 22, 45);
+
+		string currentID = getFileName(65, 14, 45, 70, 10, messageResult, "Enter the ID of student");
+		string newID = getFileName(65, 18, 45, 45, 10, messageResult, "Enter the new ID of student. Leave blank if you don't want to change");
+		string newName = getFileName(65, 22, 45, 45, 10, messageResult, "Enter the new name of student. Leave blank if you don't want to change");
+
+    clearText(40, 10, 100);
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
 			break;
-		else if (getChoose == 2)
-			continue;
-		else
-		{
-			if (editStudent(faculty, currentID, newID, newName))
-			{
-				gotoXY(43, 10);
-				cout << "Succeed to edit student's info. You will be back to STUDENT menu in 3 seconds.";
-				Sleep(3000);
-				return;
-			}
-			else
-			{
-				gotoXY(47, 10);
-				cout << "Failed to edit student's info. Check the data and try again in 3 seconds";
-				Sleep(3000);
-			}
+    else if (getChoose == 2) {
+      messageResult = false;
+      continue;
+    }
+		else {
+      editStudentResult = editStudent(faculty, currentID, newID, newName);
+      gotoXY(43, 10);
+      if (editStudentResult == 0) {
+        cout << "Succeed to edit student's info. You will be back to STUDENT menu in 1 seconds.";
+      } else if (editStudentResult == -1)
+        cout << "     Failed to edit student's info. Found no student has ID " << currentID << "\a";
+      else if (editStudentResult == -2)
+        cout << "         Failed to edit student's info. Your new ID is invalid." << "\a";
+      messageResult = true;
 		}
 	}
 }
 
-bool editStudent(Faculty &faculty, const string &currentID, const string &newId, const string &newName)
+int editStudent(Faculty &faculty, const string &currentID, const string &newId, const string &newName)
 {
 	for (auto i : faculty.classMember)
 		for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
 			if (to_string(j->getId()) == currentID)
 			{
-				if (newId.length() > 0)
-					j->setId(newId);
-				if (newName.length() > 0)
-					j->setName(newName);
-				return true;
+        Student checkInfoStudent;
+        if (newId.length() > 0)
+          if (!checkInfoStudent.setId(newId))
+            return -2;
+          else
+            j->setId(newId);
+        if (newName.length() > 0)
+          j->setName(newName);
+				return 0;
 			}
-	return false;
+	return -1;
 }

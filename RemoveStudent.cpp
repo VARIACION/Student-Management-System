@@ -18,53 +18,56 @@ void drawFieldRemoveStudent()
 
 void removeStudentMenu(Faculty &faculty)
 {
-	int checkIfRemoveSuccess = 0;
+	bool messageStatus = false;
+  drawFieldRemoveStudent();
 	while (true)
 	{
-		drawFieldRemoveStudent();
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(60, 10);	cout << "Enter the ID of the student you want to remove";
-		string idStudentRemoved = getFileName(65, 16, "ID");
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(50, 10);	cout << "Optional: enter the class of the student you want to remove";
-		string classStudentRemoved = getFileName(65, 20, "class");
-		gotoXY(50, 10);	cout << "                                                                        ";
+    clearText(65, 16, 45);
+    clearText(65, 20, 45);
+		string idStudentRemoved = getFileName(65, 16, 45, 45, 12, messageStatus, "             Enter the ID of the student you want to remove             ");
+		string classStudentRemoved = getFileName(65, 20, 45, 45, 12, messageStatus, "          Enter the class of the student you want to remove          ");
+    clearText(30, 12, 100);
 		int getChoose = controlAddClassMenu();
 		if (getChoose == 1)
 			break;
-		else if (getChoose == 2)
-			continue;
+    else if (getChoose == 2) {
+      messageStatus = false;
+      continue;
+    }
 		else
 		{
-			if (removeStudent(faculty, idStudentRemoved, classStudentRemoved))
+      int checkIfRemoveSuccess = removeStudent(faculty, idStudentRemoved, classStudentRemoved);
+			if (checkIfRemoveSuccess == 0)
 			{
-				gotoXY(45, 10);
-				cout << "Succeed to remove student. You will be back to STUDENT menu in 3 seconds.";
-				Sleep(3000);
-				return;
-			}
-			else
-			{
-				gotoXY(50, 10);
-				cout << "Failed to remove student. Check the data and try again in 3 seconds";
-				Sleep(3000);
-			}
+				gotoXY(50, 12);
+				cout << "                         Succeed to remove student.                          ";
+			} else if (checkIfRemoveSuccess == -1) {
+				gotoXY(55, 12);
+				cout << "Failed to remove student. Found no class name " << classStudentRemoved << "\a";
+      } else {
+        gotoXY(55, 12);
+        cout << "Failed to remove student. Found no student has ID " << idStudentRemoved << "\a";
+      }
+      messageStatus = true;
 		}
 	}
 }
 
-bool removeStudent(Faculty &faculty, const string &idStudentRemoved, const string &classStudentRemoved)
+int removeStudent(Faculty &faculty, const string &idStudentRemoved, const string &classStudentRemoved)
 {
-	for (auto i : faculty.classMember)
-		for (Student *j = i.student; j; j = j->nextStudent)
-			if (j->nextStudent->getId() == stoi(idStudentRemoved))
-			{
-				Student *deleteStudent = j->nextStudent;
-				j->nextStudent = j->nextStudent->nextStudent;
-				delete deleteStudent;
-				for (Student *k = j->nextStudent; k; k = k->nextStudent)
-					k->setNo(k->getNo() - 1);
-				return true;
-			}
-	return false;
+	for (auto& i : faculty.classMember)
+    if (i.name == classStudentRemoved) {
+      for (Student *j = i.student; j; j = j->nextStudent)
+        if (j->nextStudent && j->nextStudent->getId() == stoi(idStudentRemoved))
+        {
+          Student *deleteStudent = j->nextStudent;
+          j->nextStudent = j->nextStudent->nextStudent;
+          delete deleteStudent;
+          for (Student *k = j->nextStudent; k; k = k->nextStudent)
+            k->setNo(k->getNo() - 1);
+          return 0;
+        }
+      return -2;
+    }
+	return -1;
 }

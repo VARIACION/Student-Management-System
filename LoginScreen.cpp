@@ -62,7 +62,7 @@ int controlLoginMenu()
 	}
 }
 
-void checkPasswordInput(const int &x, const int &y, string & password)
+bool checkPasswordInput(const int &x, const int &y, string & password)
 {
 	password = "";
 	while (_kbhit()) _getch();
@@ -71,7 +71,7 @@ void checkPasswordInput(const int &x, const int &y, string & password)
 	{
 		char getPassword = _getch();
 		if (getPassword == 13 || getPassword == 9)
-			return;
+			return true;
 		else if (getPassword > 32 && getPassword < 127)
 		{
 			if (password.length() < 45)
@@ -97,6 +97,8 @@ void checkPasswordInput(const int &x, const int &y, string & password)
 			cout << " ";	
 			gotoXY(x + password.length(), y);
 		}
+    else if (getPassword == 27)
+      return false;
 		while (_kbhit()) _getch();
 	}
 }
@@ -168,7 +170,8 @@ User loginMenu(bool &exit_signal)
 		string username = " ", password = " ";
 		int chooseButton;
 		checkUsernameInput(username);
-		checkPasswordInput(65, 22, password);
+		if (!checkPasswordInput(65, 22, password))
+      continue;
 		chooseButton = controlLoginMenu();
     if (chooseButton == 2)
       if (prompExit()) {
@@ -185,8 +188,8 @@ User loginMenu(bool &exit_signal)
 			else
 			{
 				gotoXY(60, 14);
-				cout << "Failed to login. Please try again in 3 seconds.";
-				Sleep(3000);
+				cout << "Failed to login. Please try again in 1 seconds.";
+				Sleep(1000);
 			}
 		}
 		else if (chooseButton == 1)
@@ -235,32 +238,34 @@ User checkLogin(const string &username, const string & password, bool &checkVali
 		token = strtok(nullptr, ",");	userLogin.setType(stoi(token));
 		token = strtok(nullptr, ",");	passwordFromFile = token;
 		token = strtok(nullptr, ",");	userLogin.setClass(token);
-		if (passwordFromFile == passwordToMD5)
-		{
-			delete[] splitColumnInRow;
-			checkValidLogin = true;
-			if (userLogin.checkInputPassword(password))
-			{
-				userLogin.setPassword(passwordToMD5);
-				fileInput.close();
-				return userLogin;
-			}
-			else
-			{
-				fileInput.close();
-				userLogin.setPassword(passwordToMD5);
-				gotoXY(40, 14);
-				cout << "You will be switch to CHANGE PASSWORD menu in 3 seconds due to security reason.";
-				Sleep(3000);
-				while (!changePassword(userLogin))
-				{
-					gotoXY(50, 12);
-					cout << "You must change your password due to security reason.";
-					Sleep(3000);
-				}
-				return userLogin;
-			}
-		}
+    if (passwordFromFile == passwordToMD5)
+    {
+      delete[] splitColumnInRow;
+      checkValidLogin = true;
+      if (userLogin.checkInputPassword(password))
+      {
+        userLogin.setPassword(passwordToMD5);
+        fileInput.close();
+        return userLogin;
+      }
+      else
+      {
+        fileInput.close();
+        userLogin.setPassword(passwordToMD5);
+        gotoXY(40, 14);
+        cout << "You will be switch to CHANGE PASSWORD menu in 1 seconds due to security reason.";
+        Sleep(1000);
+        while (!changePassword(userLogin))
+        {
+          gotoXY(50, 12);
+          cout << "You must change your password due to security reason.";
+          Sleep(1000);
+        }
+        return userLogin;
+      }
+    }
+    else
+      delete[] splitColumnInRow;
 	}
 	fileInput.close();
 	checkValidLogin = false;
@@ -270,11 +275,11 @@ User checkLogin(const string &username, const string & password, bool &checkVali
 void aboutProject()
 {
 	system("cls");
-	gotoXY(55, 8);
+	gotoXY(60, 8);
 	cout << "PROJECT: STUDENT MANAGEMENT SYSTEM";
 	drawLabel(30, 22, 12, 120, "");
 	gotoXY(20, 11);	cout << "About this project";
-	gotoXY(20, 12);	cout << "Version: alpha 1.3.";
+	gotoXY(20, 12);	cout << "Version: beta 0.1.";
 	gotoXY(20, 13);	cout << "This project is open source, you can freely download, use, and modify it with no cost.";
 	gotoXY(20, 14);	cout << "This project is a part of my course Programming Techniques at school.";
 	gotoXY(20, 15);	cout << "Any information about bugs or feature, contact me at huaanhminh0412@gmail.com.";
@@ -285,7 +290,7 @@ void aboutProject()
 	gotoXY(20, 21);	cout << "*	Minh Khoa";
 	gotoXY(20, 23);	cout << "System requirements";
 	gotoXY(20, 24);	cout << "Operating system: Microsoft Windows 7 or higher.";
-	gotoXY(20, 25);	cout << "RAM: at least 20MB free of RAM.";
+	gotoXY(20, 25);	cout << "RAM: at least 100MB free of RAM.";
 	gotoXY(20, 26);	cout << "Package: Microsoft Visual C++ 2015 or higher.";
 	_getch();
 }

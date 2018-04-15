@@ -51,6 +51,8 @@ public:
 	bool setSchedule(const Week &day, const int &hour, const string &course);
 
 	string getSchedule(const Week &day, const int &hour);
+
+  bool compareStartEndDate();
 };
 
 struct ListSchedules

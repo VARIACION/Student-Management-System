@@ -69,6 +69,8 @@ int controlStudentMenu()
 				else
 					chooseControlStudentMenu += 3;
 				break;
+      case 27:
+        return 6;
 			}
 			drawLabel(academicStaffMenuPoint[chooseControlStudentMenu].x,
 				academicStaffMenuPoint[chooseControlStudentMenu].y, 3, 22, "");

@@ -64,6 +64,8 @@ int controlAcademicStaffMenu() {
 				else if (chooseControlAcademicStaffMenu == 6 || chooseControlAcademicStaffMenu == 7)
 					chooseControlAcademicStaffMenu -= 5;
 				break;
+      case 27:
+        return 6;
 			}
 			drawLabel(academicStaffMenuPoint[chooseControlAcademicStaffMenu].x,
 				academicStaffMenuPoint[chooseControlAcademicStaffMenu].y, 3, 22, "");

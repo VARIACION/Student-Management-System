@@ -16,53 +16,54 @@ void drawFieldChangeClass() {
 }
 
 void changeClassMenu(Faculty &faculty) {
+  drawFieldChangeClass();
+  int changeClassResult = -1;
+  bool messageStatus = false;
 	while (true) {
-		drawFieldChangeClass();
-		gotoXY(50, 12);	cout << "                                                                        ";
-		gotoXY(54, 12);	cout << "Enter the ID of the student you want to change class";
-		string idStudentChange = getFileName(65, 16, "ID");
-		gotoXY(50, 12);	cout << "                                                                        ";
-		gotoXY(67, 12);	cout << "Enter the name of the class";
-		string classStudentChange = getFileName(65, 20, "class");
-		gotoXY(50, 12);	cout << "                                                                        ";
+    clearText(65, 16, 45);
+    clearText(65, 20, 45);
+		string idStudentChange = getFileName(65, 16, 45, 50, 12, messageStatus, "    Enter the ID of the student you want to change class                ");
+		string classStudentChange = getFileName(65, 20, 45, 40, 12, messageStatus, "                          Enter the name of the class                                      ");
 		int getChoose = controlAddClassMenu();
     if (getChoose == 1) {
       break;
     } else if (getChoose == 2) {
+      messageStatus = false;
       continue;
     } else {
-			if (changeClass(faculty, idStudentChange, classStudentChange)) {
-				gotoXY(45, 12);
-				cout << "Succeed to change class. You will be back to STUDENT menu in 3 seconds.";
-				Sleep(3000);
-				return;
-			} else {
-				gotoXY(50, 12);
-				cout << "Failed to change class. Check the data and try again in 3 seconds";
-				Sleep(3000);
-			}
+      clearText(30, 12, 100);
+      changeClassResult = changeClass(faculty, idStudentChange, classStudentChange);
+      gotoXY(35, 12);
+      if (changeClassResult == 0)
+        cout << "          Succeed to change class. You will be back to STUDENT menu in 1 seconds.             ";
+      else if (changeClassResult == -1)
+        cout << "                  Failed to change class. Found no class name " << classStudentChange << "\a        ";
+      else if (changeClassResult == -2)
+        cout << "  Failed to change class. The class you want to change is the same with current student's class\a";
+      messageStatus = true;
 		}
 	}
 }
 
-bool changeClass(Faculty &faculty, const string &id, const string &newClass) {
+int changeClass(Faculty &faculty, const string &id, const string &newClass) {
 	bool checkExistedClass = false;
 	string currentClassHaveStudent = "";
 
 	for (auto i : faculty.classMember)
 		if (newClass == i.name)
 			checkExistedClass = true;
+  if (!checkExistedClass)
+    return -1;
 
 	for (auto i : faculty.classMember) {
-		for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
-			if (to_string(j->getId()) == id)
-				if (checkExistedClass) {
-					addNewStudent(faculty, newClass, id, j->getName());
-					removeStudent(faculty, id, i.name);
-					return true;
-				}
-				else
-					return false;
+    for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
+        if (to_string(j->getId()) == id) {
+          if (i.name == newClass)
+            return -2;
+          addNewStudent(faculty, newClass, id, j->getName());
+          removeStudent(faculty, id, i.name);
+          return 0;
+        }
 	}
 	return false;
 }

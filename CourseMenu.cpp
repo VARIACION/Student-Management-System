@@ -3,7 +3,7 @@
 void drawCoursesMenu() {
 	system("cls");
 	gotoXY(67, 6);
-	cout << "EDIT COURSES";
+	cout << "COURSES MENU";
 	drawLabel(23, 20, 8, 120, "");
 	drawLabel(25, 16, 2, 20, "Import/Export");
 	drawLabel(65, 16, 2, 20, "Add courses");
@@ -51,6 +51,8 @@ int controlCoursesMenu() {
 				if (chooseControlCourseMenu > 2) chooseControlCourseMenu -= 3;
 				else chooseControlCourseMenu += 3;
 				break;
+      case 27:
+        return 5;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);

@@ -34,7 +34,9 @@ bool ScoreBoard::setYear(const string & yearInput)
 	}
 	catch (const exception &error)
 	{
-    cerr << error.what();
+    ofstream error_message("errors_messages.log", ios::app);
+    error_message << error.what() << endl;
+    error_message.close();
 		return false;
 	}
 	this->year = yearInput;

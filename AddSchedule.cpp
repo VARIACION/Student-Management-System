@@ -41,24 +41,27 @@ void drawFieldAddSchedule() {
 }
 
 void inputBasicInfoSchedule(string basicInfo[]) {
+  bool invalidInformation = false;
 	while (true) {
 		Schedule newSchedule;
 		ShowConsoleCursor(false);
 		drawFieldBasicInfoSchedule();
-		basicInfo[0] = getFileName(45, 12, 15, 7, "class");
+		basicInfo[0] = getFileName(45, 12, 15, 65, 7, invalidInformation, "Enter class");
 
-		basicInfo[1] = getFileName(74, 12, 15, 7, "year");
+		basicInfo[1] = getFileName(74, 12, 15, 65, 7, invalidInformation, "Enter year");
 		if (!newSchedule.setYear(basicInfo[1])) continue;
+    else invalidInformation = true;
 
-		basicInfo[2] = getFileName(105, 12, 15, 7, "semester");
+		basicInfo[2] = getFileName(105, 12, 15, 65, 7, invalidInformation, "Enter semester");
 		if (!newSchedule.setSemester(basicInfo[2][0] - '0')) continue;
+    else invalidInformation = true;
 
-		basicInfo[3] = getFileName(50, 16, 25, 7, "start date");
+		basicInfo[3] = getFileName(50, 16, 25, 55, 7, invalidInformation, "Enter the start date of schedule");
 		string temp = basicInfo[3];
 		if (!newSchedule.setStartDate(basicInfo[3])) continue;
 		basicInfo[3] = temp;
 		
-		basicInfo[4] = getFileName(95, 16, 25, 7, "end date");
+		basicInfo[4] = getFileName(95, 16, 25, 55, 7, invalidInformation, "Enter the end date of schedule");
 		temp = basicInfo[4];
 		if (!newSchedule.setEndDate(basicInfo[4])) continue;
 		basicInfo[4] = temp;
@@ -77,7 +80,7 @@ void inputSchedule(Schedule & schedule) {
 
 	for (int i = 0; i < 4; ++i) {
 		for (Week j = (Week)0; j != SUNDAY; j = (Week)(j + 1)) {
-			string courseInput = getFileName(setX[j], setY[i], 12, 7, "course");
+			string courseInput = getFileName(setX[j], setY[i], 12, 65, 7, false, "Enter course");
 			schedule.setSchedule(j, i, courseInput);
 		}
 	}

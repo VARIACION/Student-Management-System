@@ -26,7 +26,7 @@ bool prompExit()
   drawLabel(63, 24, 1, 5, "Yes");
   drawLabel(75, 24, 1, 5, "No");
 
-  Point exitButtonMenu[2] = { { 63, 24 },{ 75, 24 } };
+  Point exitButtonMenu[2] = { { 63, 24 }, { 75, 24 } };
   drawLabel(63, 24, 2, 7, "");
   int choose = 0;
   while (true)
@@ -197,4 +197,10 @@ char * fromStrCppToStrC(const string & stringCpp)
 		stringC[i] = stringCpp[i];
 	stringC[stringCpp.length()] = '\0';
 	return stringC;
+}
+
+void clearText(const int & x, const int & y, const int & length) {
+  gotoXY(x, y);
+  string overrideField(length, ' ');
+  cout << overrideField;
 }

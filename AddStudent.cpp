@@ -19,48 +19,57 @@ void drawFieldAddStudent() {
 }
 
 void addStudentMenu(Faculty & faculty) {
-	int checkIfAddSuccess = 0;
+  int resultAddStudent = -1;
+  bool messageStatus = false;
+  drawFieldAddStudent();
 	while (true) {
-		drawFieldAddStudent();
-		gotoXY(55, 10);	cout << "                                                                  ";
-		gotoXY(57, 10);	cout << "Enter the name of the class you want to add student";
-		string classToAdd = getFileName(65, 14, "class");
-		gotoXY(57, 10);	cout << "                                                                  ";
-		gotoXY(60, 10);	cout << "Enter the ID of the new student you want to add";
-		string idNewStudent = getFileName(65, 18, "id");
-		gotoXY(57, 10);	cout << "                                                                  ";
-		gotoXY(57, 10);	cout << "Enter the name of the new student you want to add";
-		string nameNewStudent = getFileName(65, 22, "student");
-		gotoXY(57, 10);	cout << "                                                                  ";
+    clearText(65, 14, 45);
+    clearText(65, 18, 45);
+    clearText(65, 22, 45);
+
+		string classToAdd = getFileName(65, 14, 45, 57, 10, messageStatus, "Enter the name of the class you want to add student");
+		string idNewStudent = getFileName(65, 18, 45, 60, 10, messageStatus, "Enter the ID of the new student you want to add");
+		string nameNewStudent = getFileName(65, 22, 45, 57, 10, messageStatus, "Enter the name of the new student you want to add");
+    clearText(40, 10, 100);
 		int getChoose = controlAddClassMenu();
     if (getChoose == 1) {
       break;
     } else if (getChoose == 2) {
+      messageStatus = false;
       continue;
     } else {
-			if (!addNewStudent(faculty, classToAdd, idNewStudent, nameNewStudent)) {
-				gotoXY(50, 10);
-				cout << "Failed to add new student. Check your data and try again in 3 seconds";
-				Sleep(3000);
-			} else {
-				gotoXY(45, 10);
-				cout << "Succeed to add new student. You will be back to STUDENT menu in 3 seconds";
-				Sleep(3000);
-				return;
+      resultAddStudent = addNewStudent(faculty, classToAdd, idNewStudent, nameNewStudent);
+      gotoXY(45, 10);
+      if (resultAddStudent == -1)
+        cout << "                   Class " << classToAdd << " already has this student.            " << "\a";
+      else if (resultAddStudent == -2)
+        cout << "                          Your ID is invalid.                             " << "\a";
+      else if (resultAddStudent == -3)
+        cout << "              Found no class name " << classToAdd << " in your database.        " << "\a";
+      else if (resultAddStudent == -4)
+        cout << "                    Student's name can not be empty.                     " << "\a";
+			else {
+				cout << "                    Succeed to add new student.                           ";
 			}
+      messageStatus = true;
 		}
 	}
 }
 
-bool addNewStudent(Faculty &faculty, const string & className, const string & ID, const string & name) {
+int addNewStudent(Faculty &faculty, const string & className, const string & ID, const string & name) {
+  if (name == "")
+    return -4;
+  Student checkStudentData;
+  if (!checkStudentData.setId(ID))
+    return -2;
 	for (auto i : faculty.classMember)
 		if (i.name == className) {
+      for (Student *j = i.student->nextStudent; j; j = j->nextStudent)
+        if (j->getId() == stoi(ID) && j->getName() == name)
+          return -1; // exist student
 			Student *newStudent = new Student;
 			newStudent->setName(name);
-			if (!newStudent->setId(ID)) {
-				delete newStudent;
-				return false;
-			}
+      newStudent->setId(ID);
 			if (!i.student->nextStudent || ID <= to_string(i.student->nextStudent->getId())) {
 				newStudent->setNo(1);
 				newStudent->nextStudent = i.student->nextStudent;
@@ -81,7 +90,7 @@ bool addNewStudent(Faculty &faculty, const string & className, const string & ID
       }
 			for (Student *j = newStudent->nextStudent; j; j = j->nextStudent)
 				j->setNo(j->getNo() + 1);
-			return true;
+			return 0;
 		}
-	return false;
+  return -3; // found no class to add student
 }

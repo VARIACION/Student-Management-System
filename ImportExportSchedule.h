@@ -13,7 +13,7 @@ using namespace std;
 
 void drawFiledImportExportSchedules();
 void importExportSchedulesMenu(ListSchedules* &listSchedules);
-bool importScheduleFromFile(ListSchedules* &listSchedules, const string &path);
-bool exportScheduleToFile(ListSchedules* &listSchedules, const string &path, const string &className);
+int importScheduleFromFile(ListSchedules* &listSchedules, const string &path);
+int exportScheduleToFile(ListSchedules* &listSchedules, const string &path, const string &className, const string &semesterExport);
 
 #endif // !IMPORT_EXPORT_SCHEDULE_H

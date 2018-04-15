@@ -15,7 +15,7 @@ using namespace std;
 
 void DrawFieldEditGrade();
 void DrawFieldInputNewGrade();
-bool InputNewGrade(double new_grade[3]);
+bool InputNewGrade(double new_grade[3], const bool &validInput);
 void EditGradeMenu(User &lecturer, ListScoreboard* &listScoreboard);
 int EditGrade(User &lecturer, ListScoreboard* &listScoreboard, const string &studentName, const string &className);
 

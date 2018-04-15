@@ -15,6 +15,6 @@ using namespace std;
 
 void drawFieldRemoveStudent();
 void removeStudentMenu(Faculty &faculty);
-bool removeStudent(Faculty &faculty, const string &idStudentRemoved, const string &classStudentRemoved);
+int removeStudent(Faculty &faculty, const string &idStudentRemoved, const string &classStudentRemoved);
 
 #endif // !REMOVE_STUDENT_H
