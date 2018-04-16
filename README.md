@@ -2,8 +2,8 @@
 
 ## About project
 * This is our final project for course Programming Techniques at University.
-* Version: beta 0.2.
-* Some features in this version may not work correctly. I won't advise running this program until the beta 1.0 version is released.
+* Version: beta 1.0.
+* You can freely test on this version and report bugs to me.
 * Every information about bugs please contact me at huaanhminh0412@gmail.com
 
 ## About my team
