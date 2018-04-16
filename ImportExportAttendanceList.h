@@ -11,7 +11,7 @@
 
 void drawFieldImportExportAttendanceList();
 void importExportAttendanceListFromFile(ListPresence* &listPresence);
-bool importAttendanceListFromFile(ListPresence* &listPresence, const string &path);
-int exportAttendanceListToFile(ListPresence* &listPresence, const string &path, const string &className);
+int importAttendanceListFromFile(ListPresence* &listPresence, const string &path);
+int exportAttendanceListToFile(ListPresence* &listPresence, const string &path, const string &className, const string &course);
 
 #endif // !IMPORT_EXPORT_ATTENDACE_LIST_H

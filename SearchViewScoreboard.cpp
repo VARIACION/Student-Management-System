@@ -41,26 +41,28 @@ void viewBasicInfoScoreboard(ScoreBoard &scoreboard) {
 }
 
 void searchViewScoreboardMenu(ListScoreboard* &listScoreboard) {
+  drawFieldSearchViewScoreboard();
+  bool messageStatus = false;
 	while (true) {
-		drawFieldSearchViewScoreboard();
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(60, 10);	cout << "Enter the course's name you want to view data";
-		string courseName = getFileName(65, 16, "ID");
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(60, 10);	cout << "Enter the class's name you want to view data";
-		string className = getFileName(65, 20, "class");
-		gotoXY(50, 10);	cout << "                                                                        ";
+    clearText(65, 16, 45);
+    clearText(65, 20, 45);
+		string courseName = getFileName(65, 16, 45, 60, 10, messageStatus, "Enter the course's name you want to view data");
+		string className = getFileName(65, 20, 45, 60, 10, messageStatus, "Enter the class's name you want to view data");
+    clearText(50, 10, 60);
 		int getChoose = controlAddClassMenu();
     if (getChoose == 1) {
-      break;
+      return;
     }
     else if (getChoose == 2) {
+      messageStatus = false;
       continue;
     }
-		else if (!checkViewScoreboard(listScoreboard, courseName, className)) {
-			gotoXY(45, 10); cout << "Failed to view list scoreboard. Check your data and try again in 1 second.";
-			Sleep(1000);
-		}
+    else if (!checkViewScoreboard(listScoreboard, courseName, className)) {
+      gotoXY(45, 10); cout << "          Failed to view list scoreboard. Check your data and try again.  \a";
+      messageStatus = true;
+    }
+    else
+      drawFieldSearchViewScoreboard();
 	}
 }
 

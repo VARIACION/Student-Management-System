@@ -31,6 +31,8 @@ void GetCurrentDay(Time &current_time, Week &current_day) {
 }
 
 bool CheckIn(ListCourses* &listCourses, ListPresence* &listPresence, User &student, const int &current_week) {
+  if (current_week < 1 || current_week > 11)
+    return false;
   bool checkAvailable = false;
   for (auto& i : listPresence->list)
     if (i.getClassName() == student.getClass())
@@ -40,6 +42,9 @@ bool CheckIn(ListCourses* &listCourses, ListPresence* &listPresence, User &stude
 
   Time current_time;
   Week current_day;
+  
+  if (listCourses->list.size() == 0)
+    return false;
 
   GetCurrentDay(current_time, current_day);
   for (auto& i : listCourses->list)

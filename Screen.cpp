@@ -22,6 +22,7 @@ bool prompExit()
 {
   ShowConsoleCursor(false);
   system("cls");
+  cout << "\a";
   drawLabel(55, 18, 2, 35, "Are you sure you want to quit?");
   drawLabel(63, 24, 1, 5, "Yes");
   drawLabel(75, 24, 1, 5, "No");
@@ -87,6 +88,13 @@ void setScreenAttribute()
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0 | BACKGROUND_BLUE |
 		BACKGROUND_GREEN | BACKGROUND_RED);
 	changeFontSize(20);
+  HWND x = GetConsoleWindow();
+  ShowScrollBar(x, SB_BOTH, FALSE);
+  string title = "Student Management System";
+  SetConsoleTitle(title.c_str());
+  HMENU hmenu = GetSystemMenu(x, FALSE);
+  EnableMenuItem(hmenu, SC_CLOSE, MF_GRAYED);
+  
 }
 
 void getCursorPosition(int &x, int &y)

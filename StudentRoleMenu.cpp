@@ -56,6 +56,8 @@ int controlStudentRoleMenu()
 				if (chooseControlCourseMenu > 2) chooseControlCourseMenu -= 3;
 				else chooseControlCourseMenu += 3;
 				break;
+      case 27:
+        return 5;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);
@@ -110,13 +112,16 @@ int controlLogoutExitMenu()
 void studentRoleMenu(ListCourses* &listCourses, ListSchedules* &listSchedule, ListPresence* &listPresence, ListScoreboard* &listScoreboard, User & student)
 {
   int current_week;
-  ifstream file_input("Resources/current_week.txt");
-  file_input >> current_week;
+  ifstream file_input("Resources/current_week.txt", ios::binary);
+  if (file_input.fail())
+    current_week = 0;
+  file_input.read((char*)&current_week, sizeof(current_week));
   file_input.close();
+
 	while (true)
 	{
+    drawFieldStudentRoleMenu();
 		ShowConsoleCursor(false);
-		drawFieldStudentRoleMenu();
 		int getChoose = controlStudentRoleMenu();
     if (getChoose == 0)
       accessInfo(student);
@@ -139,12 +144,17 @@ void studentRoleMenu(ListCourses* &listCourses, ListSchedules* &listSchedule, Li
         }
     }
     else if (getChoose == 1) {
-      gotoXY(47, 10);
-      if (CheckIn(listCourses, listPresence, student, current_week))
+      if (CheckIn(listCourses, listPresence, student, current_week)) {
+        drawFieldStudentRoleMenu();
+        gotoXY(47, 10);
         cout << "                Succeed to check-in           ";
-      else
+        Sleep(500);
+      } else {
+        drawFieldStudentRoleMenu();
+        gotoXY(47, 10);
         cout << "                Failed to check-in            ";
-      Sleep(1000);
+        Sleep(500);
+      }
     }
     else if (getChoose == 2)
       CheckViewCheckIn(listPresence, student, current_week);

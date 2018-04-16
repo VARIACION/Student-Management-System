@@ -17,6 +17,7 @@
 #include "AttendanceList.h"
 #include "ScoreboardStaff.h"
 #include "ScoreBoard.h"
+#include "SetCurrentWeek.h"
 using namespace std;
 
 void drawAcademicStaffMenu();

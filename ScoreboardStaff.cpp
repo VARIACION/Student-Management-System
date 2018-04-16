@@ -42,6 +42,8 @@ int controlScoreboardStaffMenu()
 				if (chooseControlCourseMenu > 0) --chooseControlCourseMenu;
 				else chooseControlCourseMenu = 2;
 				break;
+      case 27:
+        return 2;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);

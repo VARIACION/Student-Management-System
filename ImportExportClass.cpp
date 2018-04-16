@@ -102,7 +102,7 @@ string getFileName(const int &x, const int &y, const string &tooLongInputWarning
 
 string getFileName(const int &x, const int &y, const int &length, const int &errorColumn, const int &errorLine, const bool &firstShowMessage, const string &previousMessage)
 {
-  bool showPreviousMessage = true;
+  bool showPreviousMessage = true, firstType = true;
 	ShowConsoleCursor(true);
 	string importFile = "";
 	while (_kbhit()) _getch();
@@ -126,6 +126,10 @@ string getFileName(const int &x, const int &y, const int &length, const int &err
 			return importFile;
 		else if (getimportFile >= 32 && getimportFile < 127)
 		{
+      if (firstType) {
+        clearText(x, y, length);
+        firstType = false;
+      }
 			if (importFile.length() < length)
 			{
 				gotoXY(x + importFile.length(), y);

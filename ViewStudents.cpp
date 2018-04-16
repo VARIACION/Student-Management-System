@@ -20,7 +20,7 @@ void drawFieldDisplayStudents()
 	cout << "VIEW LIST OF CLASSES";
 	drawLabel(55, 20, 14, 80, "");
 	gotoXY(60, 5);
-	cout << "Press ENTER to go back to STUDENT menu";
+	cout << "Press ESC to go back to STUDENT menu";
 }
 
 void displayStudent(Student* &copyStudents, const int &pointStudent, const int &numberOfStudents)
@@ -82,7 +82,7 @@ bool callScreenDisplayMenu(Faculty &faculty, const string &className)
 			char scroll = _getch();
 			switch (scroll)
 			{
-			case 13:
+      case 13: case 27:
 				delete[] copyStudents;
         drawFieldViewStudents();
 				return true;

@@ -7,7 +7,7 @@ void drawFieldViewClasses()
 	cout << "VIEW LIST OF CLASSES";
 	drawLabel(70, 20, 14, 40, "");
 	gotoXY(58, 5);
-	cout << "Press ENTER to go back to STUDENT menu";
+	cout << "Press ESC to go back to STUDENT menu";
 }
 
 int countNumberOfStudentsInClass(Class &className)
@@ -46,7 +46,7 @@ void viewClassesMenu(Faculty &faculty)
 				char scroll = _getch();
 				switch (scroll)
 				{
-				case 13:
+        case 13: case 27:
 					return;
 				case 80:
 					if (faculty.classMember.size() > 13 && startClassToDisplay < faculty.classMember.size() - 13)

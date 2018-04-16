@@ -56,6 +56,8 @@ int controlLecturerMenu()
 				if (chooseControlCourseMenu > 2) chooseControlCourseMenu -= 3;
 				else chooseControlCourseMenu += 3;
 				break;
+      case 27:
+        return 5;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);

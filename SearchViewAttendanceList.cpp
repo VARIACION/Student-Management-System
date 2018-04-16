@@ -26,27 +26,29 @@ void drawFieldViewDetailInfoAttendanceList()
 
 void searchViewAttendanceListMenu(ListPresence* & listPresence)
 {
+  bool messageStatus = false;
+  drawSearchAndViewAttendanceList();
 	while (true)
 	{
-		drawSearchAndViewAttendanceList();
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(60, 10);	cout << "Enter the course's name you want to view data";
-		string courseName = getFileName(65, 16, "ID");
-		gotoXY(50, 10);	cout << "                                                                        ";
-		gotoXY(60, 10);	cout << "Enter the class's name you want to view data";
-		string className = getFileName(65, 20, "class");
+    clearText(65, 16, 45);
+    clearText(65, 20, 45);
+
+    string courseName = getFileName(65, 16, 45, 60, 10, messageStatus, "Enter the course's name you want to view data");
+		string className = getFileName(65, 20, 45, 60, 10, messageStatus, "Enter the class's name you want to view data");
 		gotoXY(50, 10);	cout << "                                                                        ";
 		int getChoose = controlAddClassMenu();
-		if (getChoose == 1)
-			break;
-		else if (getChoose == 2)
-			continue;
-		else if (!checkViewAtendanceList(listPresence, courseName, className))
-		{
-			gotoXY(45, 10); cout << "Failed to view attendance list. Check your data and try again in 1 second.";
-			Sleep(1000);
-		}
-		else break;
+    if (getChoose == 1)
+      return;
+    else if (getChoose == 2) {
+      messageStatus = false;
+      continue;
+    }
+    else if (!checkViewAtendanceList(listPresence, courseName, className)) {
+      gotoXY(45, 10); cout << "                    Failed to view attendance list.                   \a";
+      messageStatus = true;
+    }
+    else
+      drawSearchAndViewAttendanceList();
 	}
 }
 

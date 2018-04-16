@@ -12,6 +12,7 @@
 #include "CheckIn.h"
 #include "ViewCheckIn.h"
 #include "ViewScoreStudent.h"
+#include "MD5Generate.h"
 using namespace std;
 
 void drawFieldStudentRoleMenu();

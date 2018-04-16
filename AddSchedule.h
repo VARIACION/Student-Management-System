@@ -11,7 +11,7 @@ using namespace std;
 
 void drawFieldBasicInfoSchedule();
 void drawFieldAddSchedule();
-void inputBasicInfoSchedule(string basicInfo[]);
+void inputBasicInfoSchedule(string basicInfo[], bool &invalidInformation);
 void inputSchedule(Schedule &schedule);
 void addScheduleMenu(ListSchedules* &listSchedules);
 

@@ -53,26 +53,31 @@ void DrawFieldPrintScore(ScoreBoard &scoreboard, User &student) {
 
 void ViewScoreStudentMenu(ListScoreboard *& listScoreboard, User & student) {
   bool checkIfViewSuccess = false;
+  DrawFieldViewMyScore();
   while (true) {
-    DrawFieldViewMyScore();
-    gotoXY(60, 15);	cout << "                                                                        ";
-    gotoXY(60, 15);	cout << "Enter the code of the course you want to view";
-    string courseCode = getFileName(65, 20, "code");
-    gotoXY(60, 15);	cout << "                                                                        ";
+    clearText(65, 20, 45);
+    string courseCode = getFileName(65, 20, 45, 60, 15, checkIfViewSuccess,  "Enter the code of the course you want to view");
+    clearText(60, 15, 60);
     int getChoose = controlAddClassMenu();
     if (getChoose == 1)
       break;
-    else if (getChoose == 2)
+    else if (getChoose == 2) {
+      checkIfViewSuccess = false;
       continue;
+    }
     else {
+      checkIfViewSuccess = true;
       for (auto& i : listScoreboard->list)
         if (i.getClassName() == student.getClass() && i.getCourse() == courseCode) {
           checkIfViewSuccess = true;
           DrawFieldPrintScore(i, student);
+          checkIfViewSuccess = false;
+          DrawFieldViewMyScore();
+          break;
         }
-      if (!checkIfViewSuccess) {
-        gotoXY(50, 15); cout << "Failed to view your score. Check your data and try again in 1 second.";
-        Sleep(1000);
+      if (checkIfViewSuccess) {
+        gotoXY(50, 15); 
+        cout << "    Failed to view your score. Check your data and try again.\a";
       }
     }
   }

@@ -40,34 +40,26 @@ void drawFieldAddSchedule() {
 	drawLabel(85, 28, 1, 15, "Cancel");
 }
 
-void inputBasicInfoSchedule(string basicInfo[]) {
-  bool invalidInformation = false;
-	while (true) {
-		Schedule newSchedule;
-		ShowConsoleCursor(false);
-		drawFieldBasicInfoSchedule();
-		basicInfo[0] = getFileName(45, 12, 15, 65, 7, invalidInformation, "Enter class");
+void inputBasicInfoSchedule(string basicInfo[], bool &invalidInformation) {
+	ShowConsoleCursor(false);
 
-		basicInfo[1] = getFileName(74, 12, 15, 65, 7, invalidInformation, "Enter year");
-		if (!newSchedule.setYear(basicInfo[1])) continue;
-    else invalidInformation = true;
-
-		basicInfo[2] = getFileName(105, 12, 15, 65, 7, invalidInformation, "Enter semester");
-		if (!newSchedule.setSemester(basicInfo[2][0] - '0')) continue;
-    else invalidInformation = true;
-
-		basicInfo[3] = getFileName(50, 16, 25, 55, 7, invalidInformation, "Enter the start date of schedule");
-		string temp = basicInfo[3];
-		if (!newSchedule.setStartDate(basicInfo[3])) continue;
-		basicInfo[3] = temp;
+   clearText(45, 12, 15);
+   clearText(74, 12, 15);
+   clearText(105, 12, 15);
+   clearText(50, 16, 25);
+   clearText(95, 16, 25);
 		
-		basicInfo[4] = getFileName(95, 16, 25, 55, 7, invalidInformation, "Enter the end date of schedule");
-		temp = basicInfo[4];
-		if (!newSchedule.setEndDate(basicInfo[4])) continue;
-		basicInfo[4] = temp;
+	basicInfo[0] = getFileName(45, 12, 15, 70, 7, invalidInformation, "Enter class");
+  invalidInformation = false;
+
+	basicInfo[1] = getFileName(74, 12, 15, 70, 7, invalidInformation, "Enter year");
+
+	basicInfo[2] = getFileName(105, 12, 15, 69, 7, invalidInformation, "Enter semester");
+
+	basicInfo[3] = getFileName(50, 16, 25, 61, 7, invalidInformation, "Enter the start date of schedule");
 		
-		break;
-	}
+	basicInfo[4] = getFileName(95, 16, 25, 61, 7, invalidInformation, "Enter the end date of schedule");
+		
 }
 
 void inputSchedule(Schedule & schedule) {
@@ -80,30 +72,104 @@ void inputSchedule(Schedule & schedule) {
 
 	for (int i = 0; i < 4; ++i) {
 		for (Week j = (Week)0; j != SUNDAY; j = (Week)(j + 1)) {
-			string courseInput = getFileName(setX[j], setY[i], 12, 65, 7, false, "Enter course");
+			string courseInput = getFileName(setX[j], setY[i], 12, 70, 3, false, "Enter course");
 			schedule.setSchedule(j, i, courseInput);
 		}
 	}
 }
 
 void addScheduleMenu(ListSchedules* & listSchedules) {
+  int getChoose;
+  bool messageStatus = false;
 	while (true) {
-		Schedule newSchedule;
-		string basicInfo[5];
-		inputBasicInfoSchedule(basicInfo);
-		int getChoose = controlAddClassMenu();
-		if (getChoose == 1) return;
-		else if (getChoose == 2) continue;
+    Schedule newSchedule;
+    string basicInfo[5];
+    drawFieldBasicInfoSchedule();
+    if (messageStatus) {
+      gotoXY(50, 7);
+      cout << "                 Found a same schedule in system.      \a";
+    }
+    messageStatus = false;
+    while (true) {
+      inputBasicInfoSchedule(basicInfo, messageStatus);
+      int getChoose = controlAddClassMenu();
+      if (getChoose == 1) return;
+      else if (getChoose == 2) continue;
+
+      if (basicInfo[0].length() == 0) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "               Name of class can not be empty.\a      ";
+        continue;
+      }
+
+      if (!newSchedule.setYear(basicInfo[1])) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "                   Invalid year format.\a               ";
+        continue;
+      }
+
+      if (!newSchedule.setSemester(basicInfo[2][0] - '0')) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "                 Invalid semester format.\a              ";
+        continue;
+      }
+
+      string temp = basicInfo[3];
+      if (!newSchedule.setStartDate(basicInfo[3])) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "                   Invalid date format.              \a";
+        continue;
+      }
+      basicInfo[3] = temp;
+
+      temp = basicInfo[4];
+      if (!newSchedule.setEndDate(basicInfo[4])) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "                   Invalid date format.              \a";
+        continue;
+      }
+      basicInfo[4] = temp;
+
+      if (newSchedule.compareStartEndDate()) {
+        messageStatus = true;
+        gotoXY(50, 7);
+        cout << "          Start date can not be after End date.       \a";
+        continue;
+      }
+      break;
+    }
+
+    inputSchedule(newSchedule);
+    getChoose = controlAddClassMenu();
+    if (getChoose == 1) return;
+    else if (getChoose == 2) continue;
+    newSchedule.setClassName(basicInfo[0]);
+    newSchedule.setYear(basicInfo[1]);
+    newSchedule.setSemester(basicInfo[2][0] - '0');
+    newSchedule.setStartDate(basicInfo[3]);
+    newSchedule.setEndDate(basicInfo[4]);
+    listSchedules->list.push_back(newSchedule);
 		inputSchedule(newSchedule);
 		getChoose = controlAddClassMenu();
 		if (getChoose == 1) return;
 		else if (getChoose == 2) continue;
-		newSchedule.setClassName(basicInfo[0]);
-		newSchedule.setYear(basicInfo[1]);
-		newSchedule.setSemester(basicInfo[2][0] - '0');
-		newSchedule.setStartDate(basicInfo[3]);
-		newSchedule.setEndDate(basicInfo[4]);
-		listSchedules->list.push_back(newSchedule);
-		break;
+
+    for (auto& i : listSchedules->list)
+      if (i.getClassName() == newSchedule.getClassName() && i.getStartDate() == newSchedule.getStartDate()
+          && i.getEndDate() == newSchedule.getEndDate() && i.getYear() == newSchedule.getYear() && i.getSemester() == newSchedule.getSemester()) {
+        messageStatus = true;
+        break;
+      }
+
+    if (!messageStatus) {
+      gotoXY(50, 7);
+      cout << "                  Succeed to add a new schedule.                ";
+      listSchedules->list.push_back(newSchedule);
+    }
 	}
 }

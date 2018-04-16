@@ -83,28 +83,31 @@ void ViewCheckInMenu(Presence & presence, User & student, const int &current_wee
 
 void CheckViewCheckIn(ListPresence *& listPresence, User & student, const int & current_week)
 {
-  bool checkIfViewSuccess = false;
+  bool messageStatus = false;
+  DrawFieldInputCourseToCheckIn();
   while (true) {
-    DrawFieldInputCourseToCheckIn();
-    gotoXY(60, 15);	cout << "                                                                        ";
-    gotoXY(56, 15);	cout << "Enter the code of the course you want to view check in";
-    string courseCode = getFileName(65, 20, "code");
-    gotoXY(55, 15);	cout << "                                                                        ";
+    clearText(65, 20, 45);
+    string courseCode = getFileName(65, 20, 45, 56, 15, messageStatus, "Enter the code of the course you want to view check in");
+    clearText(55, 15, 100);
     int getChoose = controlAddClassMenu();
     if (getChoose == 1)
       break;
-    else if (getChoose == 2)
+    else if (getChoose == 2) {
+      messageStatus = false;
       continue;
+    }
     else {
+      messageStatus = true;
       for (auto &i : listPresence->list)
         if (i.getClassName() == student.getClass() && i.getCourse() == courseCode) {
-          checkIfViewSuccess = true;
+          messageStatus = false;
           ViewCheckInMenu(i, student, current_week);
+          DrawFieldInputCourseToCheckIn();
           break;
         }
-      if (!checkIfViewSuccess) {
-        gotoXY(50, 15); cout << "Failed to view your course's attendance. Try again in 1 second.";
-        Sleep(1000);
+      if (messageStatus) {
+        gotoXY(50, 15); 
+        cout << "              Failed to view your course's attendance.\a";
       }
     }
   }

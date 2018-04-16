@@ -8,7 +8,7 @@ void drawFieldViewCourses()
 	drawLabel(70, 20, 14, 40, "");
 	drawLabel(57, 36, 1, 40, "");
 	gotoXY(40, 5);
-	cout << "Press ENTER to go back to COURSE menu or TAB to choose course for detail";
+	cout << "Press ESC to go back to COURSE menu or TAB to choose course for detail";
 }
 
 void displayCourses(ListCourses* & listCourses, const int &pointCourse)
@@ -66,7 +66,7 @@ void viewCourseMenu(ListCourses* & listCourses)
 			if (_kbhit())
 			{
 				char scroll = _getch();
-				if (scroll == 13)
+				if (scroll == 13 || scroll == 27)
 					return;
 				else if (scroll == 9)
 				{

@@ -101,6 +101,7 @@ bool checkPasswordInput(const int &x, const int &y, string & password)
       return false;
 		while (_kbhit()) _getch();
 	}
+  return false;
 }
 
 void checkUsernameInput(string &username)

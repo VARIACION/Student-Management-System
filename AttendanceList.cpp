@@ -3,7 +3,7 @@
 void drawFieldAttendanceList() {
 	system("cls");
 	gotoXY(67, 6);
-	cout << "EDIT COURSES";
+	cout << "ATTENDANCE MENU";
 	drawLabel(21, 16, 4, 110, "");
 	drawLabel(25, 16, 2, 20, "Search/View");
 	drawLabel(65, 16, 2, 20, "Import/Export");
@@ -37,6 +37,8 @@ int controlAttendanceListMenu() {
 				if (chooseControlCourseMenu > 0) --chooseControlCourseMenu;
 				else chooseControlCourseMenu = 2;
 				break;
+      case 27:
+        return 2;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);

@@ -14,8 +14,8 @@ void drawFieldImportExportScoreboard();
 
 void importExportScoreboardMenu(ListScoreboard* &listScoreboard);
 
-bool importScoreboardFromFile(ListScoreboard* &listScoreboard, const string &path);
+int importScoreboardFromFile(ListScoreboard* &listScoreboard, const string &path);
 
-int exportScoreboardToFile(ListScoreboard* &listScoreboard, const string &path, const string &className);
+int exportScoreboardToFile(ListScoreboard* &listScoreboard, const string &path, const string &className, const string &course);
 
 #endif // !IMPORT_EXPORT_SCOREBOARD_H

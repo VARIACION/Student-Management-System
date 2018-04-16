@@ -22,7 +22,7 @@ int controlCourseSchedulesMenu() {
 		{ "               Edit an existing schedule        " },
 		{ "                   Remove a schedule            " },
 		{ "                 View list of schedules         " },
-		{ "              Back to ACADEMIC STAFF menu     "}
+		{ "              Back to ACADEMIC STAFF menu       "}
 	};
 	Point courseMenuPoint[9] = { { 25, 16 },{ 65, 16 },{ 105, 16 },{ 25, 24 },{ 65, 24 }, { 105, 24 } };
 	int chooseControlCourseMenu = 0;
@@ -51,6 +51,8 @@ int controlCourseSchedulesMenu() {
 				if (chooseControlCourseMenu > 2) chooseControlCourseMenu -= 3;
 				else chooseControlCourseMenu += 3;
 				break;
+      case 27:
+        return 5;
 			}
 			drawLabel(courseMenuPoint[chooseControlCourseMenu].x, courseMenuPoint[chooseControlCourseMenu].y, 3, 22, "");
 			gotoXY(47, 10);

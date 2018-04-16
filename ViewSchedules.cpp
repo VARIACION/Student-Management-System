@@ -8,7 +8,7 @@ void drawFieldViewSchedules()
 	drawLabel(70, 20, 14, 40, "");
 	drawLabel(57, 36, 1, 40, "");
 	gotoXY(40, 5);
-	cout << "Press ENTER to go back to SCHEDULE menu or TAB to choose schedule for detail";
+	cout << "Press ESC to go back to SCHEDULE menu or TAB to choose schedule for detail";
 }
 
 void displayBasicSchedule(Schedule &schedule)
@@ -94,14 +94,16 @@ void viewSchedulesMenu(ListSchedules* & listSchedules)
 		displayListSchedules(listSchedules, startScheduleToDisplay);
 		while (true)
 		{
+      gotoXY(57, 36);
+      cout << "Enter class's name";
 			if (_kbhit())
 			{
 				char scroll = _getch();
-				if (scroll == 13)
+				if (scroll == 13 || scroll == 27)
 					return;
 				else if (scroll == 9)
 				{
-					string getClass = getFileName(57, 36, 40, 65, 38, false, "Enter ID");
+					string getClass = getFileName(57, 36, 40, 65, 38, false, "");
 					for (size_t i = 0; i < listSchedules->list.size(); ++i)
 						if (listSchedules->list[i].getClassName() == getClass)
 						{
