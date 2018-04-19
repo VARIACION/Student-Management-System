@@ -13,7 +13,6 @@
 #include <iterator>
 using namespace std;
 
-void drawFrameInput();
 void drawLoginMenu();
 int controlLoginMenu();
 bool checkPasswordInput(const int &x, const int &y, string &password);

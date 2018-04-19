@@ -1,10 +1,5 @@
 ﻿#include "LoginScreen.h"
 
-void drawFrameInput()
-{
-	drawLabel(50, 20, 5, 70, "");
-}
-
 void drawLoginMenu()
 {
 	if (!checkInputDatabase())
@@ -17,7 +12,7 @@ void drawLoginMenu()
 	system("cls");
 	gotoXY(67, 12);
 	cout << "STUDENT MANAGEMENT SYSTEM";
-	drawFrameInput();
+  drawLabel(50, 20, 5, 70, "");
 	gotoXY(50, 18);
 	cout << "Username";
 	gotoXY(50, 22);
