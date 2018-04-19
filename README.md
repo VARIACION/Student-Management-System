@@ -2,7 +2,7 @@
 
 ## About project
 * This is our final project for course Programming Techniques at University.
-* Version: beta 1.0.
+* Version: beta 1.1.
 * You can freely test on this version and report bugs to me.
 * Every information about bugs please contact me at huaanhminh0412@gmail.com
 
